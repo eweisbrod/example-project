@@ -9,6 +9,11 @@ In order to "clone" (copy) this repository to your machine and follow along with
 
 Follow the steps at this link: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
+it will 
+
+<img src="etc/git1.jpg" alt="shields" width="200" height="400&quot;/">
+
+
 ```
 yarn start
 ```
