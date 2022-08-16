@@ -15,17 +15,24 @@ I think it is a good idea to allow this option to install git into your PATH so 
 
 It is also helpful to allow git to install the credential manager to help with storing your github credentials. 
 
-<img src="/etc/git2.jpg" alt="git install 1" >
+<img src="/etc/git2.jpg" alt="git install 2" >
 
 
-<p>2. Launches the test runner in the interactive watch mode.</p>
+<p>2. Install R </p>
 
-```
-yarn test
-```
+Before you install RStudio, you should first install R from the following link: https://cran.rstudio.com/
 
-<p>3. Builds the app for production to the build folder.</p>
+If you already have R on your machine, I recommend at least R version 4.0 or better to follow along with the code in this repo. If you use an older version of R, you may see some warnings about R packages being built with a different version, but usually everything will still work.
 
-```
-yarn build
-```
+
+<p>3. Install RStudio </p>
+
+Install RStudio Desktop from the following link: https://www.rstudio.com/products/rstudio/download/#download
+
+<img src="/etc/rstudio1.jpg" alt="git install 2" >
+
+As shown in the screenshot, R should be installed first, as we did in the previous step. 
+
+
+
+
