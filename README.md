@@ -1,4 +1,4 @@
-![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&language=0&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
+![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
 # Example R / Github Project
 This repository (repo) provides a template for an Accounting / Finance research project using R. This repo will contain the files needed to follow along with the live coding workshop.
