@@ -3,9 +3,11 @@ This repository (repo) provides a template for an Accounting / Finance research 
 
 <h2>🛠️ Getting Started / Installation Guide </h2>
 
-In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
+In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine. I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux. 
 
-<p>1. Runs the app in the development mode.</p>
+<p>1. Install Git.</p>
+
+Follow the steps at this link: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 ```
 yarn start
