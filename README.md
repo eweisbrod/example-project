@@ -29,7 +29,7 @@ If you already have R on your machine, I recommend at least R version 4.0 or bet
 
 * Install RStudio Desktop from the following link: https://www.rstudio.com/products/rstudio/download/#download
 
-<img src="/etc/rstudio1.jpg" alt="git install 2" >
+<img src="/etc/rstudio1.jpg" alt="rstudio install 2" >
 
 As shown in the screenshot, R should be installed first, as we did in the previous step. 
 
@@ -41,9 +41,22 @@ As shown in the screenshot, R should be installed first, as we did in the previo
 
 * Below, I recommend that you use the same primary email address that you use for github when you set your user.email in git. You can use a personal email as your primary email on Github and also link your Github account to your (secondary) school email as well, if desired.
 
+<p><b> 5. Open RStudio and set your Git credentials </b></p>
 
+* To work with Git, you need to set your user name and email. 
+* There are many ways to do this, but an easy way is using RStudio's built-in terminal. 
 
+<img src="/etc/terminal1.jpg" alt="rstudio terminal" >
 
+* Click on the "terminal" tab that should be next to console.
+* Type the following commands
+
+```
+git config --global user.email "your@email.com"
+```
+```
+git config --global user.name "Your Name"
+```
 
 
 
