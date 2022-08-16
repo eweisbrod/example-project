@@ -9,14 +9,14 @@ In order to "clone" (copy) this repository to your machine and follow along with
 
 Follow the steps at this link: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-it will 
+I think it is a good idea to allow this option to install git into your PATH so that RStudio can find it. 
 
-<img src="/etc/git1.jpg" alt="shields" width="200" height="400&quot;/">
+<img src="/etc/git1.jpg" alt="git install 1" >
 
+It is also helpful to allow git to install the credential manager to help with storing your github credentials. 
 
-```
-yarn start
-```
+<img src="/etc/git2.jpg" alt="git install 1" >
+
 
 <p>2. Launches the test runner in the interactive watch mode.</p>
 
