@@ -19,6 +19,8 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
+
 
 # produced vignettes
 vignettes/*.html
@@ -37,3 +39,22 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+
+#custom additions
+
+#types of output
+*.html
+*.pdf
+*.aux
+**.rda
+*.rda
+
+# knitr and R markdown default file directories
+/*_files/
+/files/
+/R/*_files/
+/src/*_files/
+
+# the output folder
+/out/*
