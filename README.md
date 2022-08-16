@@ -11,7 +11,7 @@ Follow the steps at this link: https://git-scm.com/book/en/v2/Getting-Started-In
 
 it will 
 
-<img src="etc/git1.jpg" alt="shields" width="200" height="400&quot;/">
+<img src="/etc/git1.jpg" alt="shields" width="200" height="400&quot;/">
 
 
 ```
