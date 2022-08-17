@@ -68,4 +68,12 @@ git config --global user.name "Your Name"
 
 <img src="/etc/clone1.jpg" alt="clone repo" >
 
+* In RStudio, click File -> New Project. On the next menu, click "Version Control"
 
+* Paste the URL into the box, as follows:
+
+<img src="/etc/clone2.jpg" alt="clone repo2" >
+
+* Click "Create Project" 
+
+<p><b> 7. Open the "1-install-and-test-packages" script in the "src" folder in RStudio </b></p>
