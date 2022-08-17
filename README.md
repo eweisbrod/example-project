@@ -76,4 +76,4 @@ git config --global user.name "Your Name"
 
 * Click "Create Project" 
 
-<p><b> 7. Open the "1-install-and-test-packages" script in the "src" folder in RStudio </b></p>
+<p><b> 7. Open the "1-install-and-test-packages.R" script in the "src" folder in RStudio </b></p>
