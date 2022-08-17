@@ -299,19 +299,19 @@ standardize <- function(x){
 
 
 # general function to winsorize a variable in a mutate statement.
-winsorize_x = function(x, cut = 0.01){
-  cut_point_top <- quantile(x, 1 - cut, na.rm = T)
-  cut_point_bottom <- quantile(x, cut, na.rm = T)
+winsorize_x = function(x, cuts = c(0.01,0.01)) {
+  cut_point_top <- quantile(x, 1 - cuts[2], na.rm = T)
+  cut_point_bottom <- quantile(x, cuts[1], na.rm = T)
   i = which(x >= cut_point_top)
   x[i] = cut_point_top
   j = which(x <= cut_point_bottom)
   x[j] = cut_point_bottom
   return(x)
 }
-
-truncate_x = function(x, cut = 0.01){
-  cut_point_top <- quantile(x, 1 - cut, na.rm = T)
-  cut_point_bottom <- quantile(x, cut, na.rm = T)
+# general function to truncate a variable in a mutate statement.
+truncate_x = function(x, cuts = c(0.01,0.01)) {
+  cut_point_top <- quantile(x, 1 - cuts[2], na.rm = T)
+  cut_point_bottom <- quantile(x, cuts[1], na.rm = T)
   i = which(x >= cut_point_top)
   x[i] = NA_real_
   j = which(x <= cut_point_bottom)
