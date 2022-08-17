@@ -60,6 +60,12 @@ git config --global user.email "your@email.com"
 git config --global user.name "Your Name"
 ```
 
+<p><b> 6. Clone this repo as a project in RStudio </b></p>
 
+* <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer. DO NOT put this directory inside Dropbox. Dropbox and Git do not play well together unless you are an advanced user. I recommend to use a simple directory on your main drive that is easy to find.  </b></ins>
+
+* At the top of this page, click the green code button and copy the https link to this repo.
+
+<img src="/etc/clone1.jpg" alt="clone repo" >
 
 
