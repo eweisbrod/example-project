@@ -129,7 +129,7 @@ data3 <- data2 |>
 quantile(data2$roa, probs = c(0,.025,.975,1))
 quantile(data3$roa, probs = c(0,.025,.975,1))
 
-# Save the winsorized data  --------------------------------------------------------
+# Save the winsorized data  ----------------------------------------------------
 
 # just saving to Stata format this time for brevity
 write_dta(raw_funda,glue("{data_path}/example-data2.dta")) 
