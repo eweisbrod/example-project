@@ -1,16 +1,9 @@
 # Setup -------------------------------------------------------------------
-library(tidyverse)
+
 library(dbplyr)
-library(dplyr)
 library(RPostgres)
 library(DBI)
-write_parquet <- arrow::write_parquet
-write_parquet <- function(x, p) {
-  arrow::write_parquet(x, p, compression='gzip', compression_level=5)
-}
-
-crsp_begin_date <- "1950-01-01"
-crsp_end_date   <- "2020-12-31"
+library(tidyverse)
 
 
 
