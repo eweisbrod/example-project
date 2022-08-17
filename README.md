@@ -68,7 +68,7 @@ git config --global user.name "Your Name"
 
 <img src="/etc/clone1.jpg" alt="clone repo" >
 
-* In RStudio, click File -> New Project. On the next menu, click "Version Control"
+* In RStudio, click File -> New Project. On the next menu, click "Version Control" and choose Git.
 
 * Paste the URL into the box, as follows:
 
