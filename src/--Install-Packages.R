@@ -7,6 +7,7 @@ if (!require("pacman")) install.packages("pacman")
 #this line uses pacman to install all of the other packages in the project. 
 #not all of the packages are crucial but I have put them all here anyways.
 #for now.
+#You may see a lot of warnings as the packages install but that is ok.
 pacman::p_load(tidyverse, 
                 dbplyr,
                 RPostgres,
