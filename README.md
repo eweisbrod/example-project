@@ -79,3 +79,4 @@ git config --global user.name "Your Name"
 <p><b> 7. Open the "--Install-Packages.R" script in the "src" folder in RStudio </b></p>
 
 * Run the commands in this file by highlighting them and pushing "ctrl+Enter" or by highlighting them and clicking "run."
+* If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along for the coding workshop.
