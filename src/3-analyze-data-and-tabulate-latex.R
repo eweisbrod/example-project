@@ -3,9 +3,11 @@
 # Load Libraries [i.e., packages]
 library(modelsummary)
 library(kableExtra)
+library(formattable)
 library(lubridate)
 library(glue)
 library(haven)
+library(fixest)
 library(tictoc) #very optional, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
@@ -65,51 +67,85 @@ table1 <- bind_rows(table1, totalrow)
 
 table1
 
-
-table1tex<- kbl(table1,
-                    format = "latex",
-                    booktabs = T,
-                    linesep = "")
-
-table1_latex
-
-#Word document using flextable and Officer
-
-library(flextable)
-library(officer)
-
-#make a word document
-read_docx() |> 
-  body_add_par("Sample Frequency", style = "heading 1") |> 
-  body_add_par("") |> 
-  body_add_flextable(value=flextable(table1) %>% autofit()) |> 
-  print(target = glue("{data_path}/output/table1.docx"))
-
-cm <- c("rd" = "R&D", "roa" = "ROA")
+kbl(table1,
+     format = "latex",
+    booktabs = T,
+    linesep = "") |> 
+  save_kable(glue("{data_path}/output/table1.tex"))
 
 
-var_label(regdata)
+# Table 2 Descriptive Stats ----------------------------------------------------
 
-regdata <- regdata |> 
-  set_variable_labels(rd = "R&D")
+#other intersting packages
+# gtsummary
+# skimr
+# psych
+# arsenal
 
-table2 <- regdata |> 
-  datasummary(formula = (`ROA_{t+1}` = roa_lead_1) + (`ROA_t` = roa) + loss + (`R\\&D` = rd) + at + mve ~
-                N + Mean + SD + Min + P25 + Median + P75 + max, 
+my_f <- function(x) formattable::comma(x, digits=3)
+
+regdata |> 
+  datasummary(formula = (`$ROA_{t+1}$` = roa_lead_1) + (`$ROA_t$` = roa) + 
+                (`$LOSS$` = loss) + (`$R\\&D$` = rd) + (`$TA$` = at) + (`$SIZE$` = mve) ~
+                N + Mean + SD + Min + P25 + Median + P75 + Max, 
               escape = F,
-              fmt = NULL,
-              output = "flextable") |> 
-  colformat_double(j = 3:9, big.mark = ",", digits = 3) |> 
-  compose(
-    j = 1,
-    value = as_paragraph(as_equation(` `))) |> 
-  fit_to_width(max_width = 6.5)
+              fmt = my_f,
+              output = 'latex') |> 
+  save_kable(glue("{data_path}/output/table2.tex"))
 
 
-read_docx(glue("{data_path}/output/table1.docx")) |> 
-  body_add_par("Descriptive Statistics", style = "heading 1") |> 
-  body_add_par("") |> 
-  body_add_flextable(value=table2 ) |> 
-  print(target = glue("{data_path}/output/table2.docx"))
+# Table 3: Correlation Matrix --------------------------------------------------
+
+corrdata <- regdata |> 
+  select(`$ROA_{t+1}$` = roa_lead_1,
+         `$ROA_t$` = roa, 
+         `$LOSS$` = loss,
+         `$R\\&D$` = rd,
+         `$TA$` = at,
+         `$SIZE$` = mve)
+
+corrdata
+
+# preview
+datasummary_correlation(corrdata, method = "pearspear")
+
+#To latex
+datasummary_correlation(corrdata, 
+                        method = "pearspear",
+                        output = "latex",
+                        escape = F) |> 
+  save_kable(glue("{data_path}/output/table3.tex"))
 
 
+
+# Table 4: Regression Table ----------------------------------------------------
+
+models <- list(
+  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa, regdata, fixef.rm = "both"),
+  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss, regdata, fixef.rm = "both"),
+  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss | calyear, regdata, fixef.rm = "both"),
+  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss | calyear + gvkey, regdata, fixef.rm = "both")
+)
+
+coef_labels <- c(
+  "roa_lead_1" = "$ROA_{t+1}$",
+  "roa:loss" = "$ROA_{t} \\times LOSS$",
+  "roa" = "$ROA_{t}$",
+  "loss" = "$LOSS$"
+)
+
+modelsummary(models, 
+             vcov = ~ gvkey + calyear,
+             statistic = "statistic",
+             stars = c('*' = .1, '**' = .05, '***' = .01) ,
+             coef_rename = coef_labels,
+             gof_map = c("nobs", "adj.r.squared", "r2.within.adjusted", "FE: calyear" , "FE: gvkey"),
+             output = "latex", 
+             escape = F,
+             booktabs = T
+             ) |> 
+  kable_styling(latex_options = c("scale_down")) |> 
+  save_kable(glue("{data_path}/output/table4.tex"))
+
+             
+r2(m4)
