@@ -27,6 +27,58 @@ regdata <- read_dta(glue("{data_path}/example-data2.dta")) |>
   filter(calyear >= 1970)
 
 
+# Losses by Industry -----------------------------------------------------------
+
+
+fig <- regdata |> 
+  group_by(FF12) |> 
+  summarize(pct_loss = sum(loss, na.rm = T)/n()) |> 
+  ggplot(aes(x = FF12, y= pct_loss)) + 
+  geom_col(fill = "#0051ba") +
+  # Fill color Kansas Blue from : https://brand.ku.edu/guidelines/design/color
+  scale_y_continuous(name = "Freq. of Losses", labels = scales::percent) +
+  scale_x_discrete(name = "Fama-French Industry") +
+  coord_flip() +
+  theme_bw(base_family = "serif") 
+
+#Look at it in R  
+fig
+
+#For Latex
+ggsave(glue("{data_path}/output/ff12_fig.pdf"), fig, width = 7, height = 6)
+
+#For Word
+ggsave(glue("{data_path}/output/ff12_fig.png"), fig, width = 7, height = 6)
+
+
+# Losses by Size Quintile Over Time --------------------------------------------
+
+
+fig <- regdata |> 
+  #2022 looks ugly here as a partial year |> 
+  filter(calyear <  2022) |> 
+  group_by(calyear) |> 
+  mutate(size_qnt = factor(ntile(mve,5))) |> 
+  group_by(calyear, size_qnt) |> 
+  summarize(pct_loss = sum(loss, na.rm = T)/n()) |> 
+  ggplot(aes(x = calyear, y= pct_loss, color = size_qnt, linetype = size_qnt)) + 
+  geom_line() + geom_point() + 
+  scale_y_continuous(name = "Freq. of Losses", labels = scales::percent) +
+  scale_x_continuous(name = "Year", breaks = seq(1970,2020,5)) +
+  scale_color_discrete(name = "Size Quintile") +
+  scale_linetype_discrete(name = "Size Quintile") +
+  theme_bw(base_family = "serif") 
+
+#Look at it in R  
+fig
+
+#For Latex
+ggsave(glue("{data_path}/output/size_year.pdf"), fig, width = 7, height = 6)
+
+#For Word
+ggsave(glue("{data_path}/output/size_year.png"), fig, width = 7, height = 6)
+
+
 # Correlation Matrix Plot ------------------------------------------------------
 
 library(corrplot)

@@ -11,7 +11,6 @@ library(fixest)
 library(tictoc) #very optional, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
-library(modelsummary)
 
 #load helper scripts
 source("src/-Global-Parameters.R")

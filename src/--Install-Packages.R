@@ -1,0 +1,42 @@
+# This script uses an R package called pacman to check if the other packages
+# used in this example are installed on your machine. If not, it installs them.
+
+#this line checks for the pacman package, and installs it if needed.
+if (!require("pacman")) install.packages("pacman")
+
+#this line uses pacman to install all of the other packages in the project. 
+#not all of the packages are crucial but I have put them all here anyways.
+#for now.
+pacman::p_load(tidyverse, 
+                dbplyr,
+                RPostgres,
+                DBI,
+                glue,
+                arrow,
+                haven,
+                tictoc, 
+                lubridate,
+                modelsummary,
+                kableExtra,
+                formattable,
+                fixest,
+                flextable,
+                officer,
+                corrplot
+               )
+
+
+# Log into wrds -----------------------------------------------------------
+
+if(exists("wrds")){
+  dbDisconnect(wrds)  # because otherwise WRDS might time out
+}
+
+wrds <- dbConnect(Postgres(),
+                  host='wrds-pgdata.wharton.upenn.edu',
+                  port=9737,
+                  user=rstudioapi::askForSecret("WRDS user"),
+                  password=rstudioapi::askForSecret("WRDS pw"),
+                  sslmode='require',
+                  dbname='wrds')
+wrds  # checking if connection exists
