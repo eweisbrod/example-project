@@ -26,12 +26,14 @@ pacman::p_load(tidyverse,
                )
 
 
-# Log into wrds -----------------------------------------------------------
+# Log into wrds to check if you have connectivity ------------------------------
 
+# just in case, check to make sure there is not already a connection open
 if(exists("wrds")){
-  dbDisconnect(wrds)  # because otherwise WRDS might time out
+  dbDisconnect(wrds)  
 }
 
+#now log on, it will prompt for your WRDS username and password
 wrds <- dbConnect(Postgres(),
                   host='wrds-pgdata.wharton.upenn.edu',
                   port=9737,
@@ -39,4 +41,16 @@ wrds <- dbConnect(Postgres(),
                   password=rstudioapi::askForSecret("WRDS pw"),
                   sslmode='require',
                   dbname='wrds')
-wrds  # checking if connection exists
+
+# Run the below line. If you are connected you should something like the below:
+# <PqConnection> wrds@wrds-pgdata.wharton.upenn.edu:9737
+wrds  
+
+#if the above two commands time out, you may be stuck behind a firewall etc.
+
+
+# close the connection after testing
+if(exists("wrds")){
+  dbDisconnect(wrds)  
+}
+
