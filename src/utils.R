@@ -1,6 +1,17 @@
+
+# R Options --------------------------------------------------------------------
+
+# I like to always get rid of scientific notation
 options(scipen=999)
+# print blanks for NAs in Kable documents 
 options(knitr.kable.NA = '')
 
+message("set R formatting options")
+
+# Parquet functions ------------------------------------------------------------
+
+# allows for use of reading and writing parquet without library(arrow)
+# also sets default compression method for writing
 read_parquet <- arrow::read_parquet
 write_parquet <- function(x, p) {
   arrow::write_parquet(x, p, compression = "gzip", compression_level = 5)
@@ -8,6 +19,10 @@ write_parquet <- function(x, p) {
 
 message("imported parquet functions")
 
+
+# Industry functions -----------------------------------------------------------
+
+# Assign FF12 industry name, given sic code
 assign_FF12 <- function(sic) {
   dplyr::case_when(
     sic >= 0100 & sic <= 0999 ~ "Consumer Nondurables",
@@ -74,6 +89,7 @@ assign_FF12 <- function(sic) {
   )
 }
 
+# Assign FF12 industry number, given sic code
 assign_FF12_num <- function(sic) {
   dplyr::case_when(
     sic >= 0100 & sic <= 0999 ~ 1,
@@ -141,7 +157,8 @@ assign_FF12_num <- function(sic) {
 }
 
 
-
+# Assign FF49 industry name, given sic code
+# Note that FF49 is just FF48 plus "Other"
 assign_FF49 <- function(sic) {
   dplyr::case_when(
     sic >= 0100 & sic <= 0199 ~ "Agriculture",
@@ -214,7 +231,7 @@ assign_FF49 <- function(sic) {
 
 
 
-
+# Assign FF49 industry number, given sic code
 assign_FF49_num <- function(sic) {
   dplyr::case_when(
     sic >= 0100 & sic <= 0199 ~ 1,
@@ -285,14 +302,12 @@ assign_FF49_num <- function(sic) {
   )
 }
 
-
-
 message("imported industry functions")
 
 
+# Variable transformation functions --------------------------------------------
 
-
-
+# general function to standardize a variable to mean zero, sd of one
 standardize <- function(x){
   (x - mean(x, na.rm=TRUE)) / sd(x, na.rm=TRUE)
 }
@@ -308,6 +323,7 @@ winsorize_x = function(x, cuts = c(0.01,0.01)) {
   x[j] = cut_point_bottom
   return(x)
 }
+
 # general function to truncate a variable in a mutate statement.
 truncate_x = function(x, cuts = c(0.01,0.01)) {
   cut_point_top <- quantile(x, 1 - cuts[2], na.rm = T)
@@ -318,14 +334,6 @@ truncate_x = function(x, cuts = c(0.01,0.01)) {
   x[j] = NA_real_
   return(x)
 }
-
-truncate_top_x = function(x, cut = 0.01){
-  cut_point_top <- quantile(x, 1 - cut, na.rm = T)
-  i = which(x >= cut_point_top)
-  x[i] = NA_real_
-  return(x)
-}
-
 
 message("imported transformation functions")
 

@@ -52,8 +52,8 @@ data2 <- data1 |>
     #use the FF utility functions to assign fama french industries
     FF12 = assign_FF12(sic4),
     ff12num = assign_FF12_num(sic4),
-    ff49num = assign_FF49(sic4),
-    FF49 = assign_FF49_num(sic4),
+    FF49 = assign_FF49(sic4),
+    ff49num = assign_FF49_num(sic4),
     # code a loss dummy, I like 1/0 but true/false is also fine
     loss = if_else(e < 0 , 1, 0),
     # scale e by total assets
@@ -78,7 +78,7 @@ data2 <- data1 |>
   #not a bad idea to ungroup once you are finished
   ungroup() |> 
   #as an example of filtering on multiple vars, filter to non-missing
-  filter(if_all(starts_with("roa"), ~ !is.na(.x)))
+  filter(if_all(c(mve,rd,ff12num,starts_with("roa")), ~ !is.na(.x)))
 
 
 # Play around ------------------------------------------------------------------
@@ -132,4 +132,4 @@ quantile(data3$roa, probs = c(0,.025,.975,1))
 # Save the winsorized data  ----------------------------------------------------
 
 # just saving to Stata format this time for brevity
-write_dta(raw_funda,glue("{data_path}/example-data2.dta")) 
+write_dta(data3,glue("{data_path}/example-data2.dta")) 
