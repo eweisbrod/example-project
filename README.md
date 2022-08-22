@@ -19,6 +19,8 @@ It is also helpful to allow git to install the credential manager to help with s
 
 <img src="/etc/git2.jpg" alt="git install 2" >
 
+* Finally, I also recommend to install / allow Git bash during the installation. 
+
 
 <p><b> 2. Install R </b></p>
 
@@ -59,6 +61,8 @@ git config --global user.email "your@email.com"
 ```
 git config --global user.name "Your Name"
 ```
+
+* NOTE: If this step doesn't work, don't worry. Just keep going. This might not work if you did not install Git bash, but you should still be able to keep going.
 
 <p><b> 6. Clone this repo as a project in RStudio </b></p>
 
