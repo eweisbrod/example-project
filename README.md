@@ -87,6 +87,6 @@ git config --global user.name "Your Name"
 * If you are able to successfully connect to WRDS you should see a line like this output in your console:
 
 
-<img src="/etc/postgres.png" alt="postgres" >
+<img src="/etc/postgres.PNG" alt="postgres" >
 
 * If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along for the coding workshop.
