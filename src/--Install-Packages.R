@@ -43,7 +43,8 @@ wrds <- dbConnect(Postgres(),
                   sslmode='require',
                   dbname='wrds')
 
-# Run the below line. If you are connected you should something like the below:
+# Run the below line. If you are connected you should see something 
+# like the below output in your console:
 # <PqConnection> wrds@wrds-pgdata.wharton.upenn.edu:9737
 wrds  
 
