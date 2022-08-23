@@ -22,8 +22,7 @@ source("src/utils.R")
 #read in the winsorized data
 #I found there are not many firms in the 60s so I am just going to start at 1970
 regdata <- read_dta(glue("{data_path}/example-data2.dta")) |> 
-  select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) |> 
-  filter(calyear >= 1970)
+  select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) 
 
 
 

@@ -46,6 +46,8 @@ summary(data1)
 # teaching purposes
 
 data2 <- data1 |>
+  filter(calyear >= beg_year,
+         calyear <= end_year) |> 
   #I am going to scale by total assets (at) so I am going to set a minimum
   filter(at >= 10) |> 
   mutate(
