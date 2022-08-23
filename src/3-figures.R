@@ -115,3 +115,43 @@ corrplot(correlation, method = 'square',
 dev.off()
 
 
+# Annual Regressions with confidence bands -------------------------------------
+
+# bonus example just for fun
+
+figdata <- regdata |>
+  #nest the regressions by year and loss
+  nest_by(calyear,loss) |> 
+  # fit the regressions
+  mutate(
+    fit = list(lm(roa_lead_1 ~ roa, data = data))
+  ) |> 
+  # use the broom package to tidy the regressions
+  #option conf.int outputs the confidence intervals so we can plot them
+  summarise(broom::tidy(fit, conf.int = TRUE)) |> 
+  #I don't plan to plot the intercept so i will drop it from the data
+  filter(term !="(Intercept)") 
+
+#can also use this setup to do Fama-Macbeth regressions, etc. 
+#can also use pmg package for Fama-Macbeth
+
+#now make a ggplot object from the data
+fig <- figdata |> 
+  mutate(loss = factor(loss)) |> 
+  ggplot(aes(x=calyear,y=estimate))  +
+  geom_ribbon(aes(ymin = conf.low, ymax=conf.high, 
+                  group = loss),
+                  fill = "grey80") + 
+  geom_line(aes(color=loss)) +
+  geom_point(aes(color=loss)) +
+  theme_bw(base_family = "serif") 
+
+#Look at it in R  
+fig
+
+#For Latex
+ggsave(glue("{data_path}/output/coef_year.pdf"), fig, width = 7, height = 6)
+
+#For Word
+ggsave(glue("{data_path}/output/coef_year.png"), fig, width = 7, height = 6)
+

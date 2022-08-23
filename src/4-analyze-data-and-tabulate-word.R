@@ -31,10 +31,8 @@ regdata <- read_dta(glue("{data_path}/example-data2.dta")) |>
 
 # Observations by Decade -------------------------------------------------------
 
-#Goal is to show how to export a basic manual table or data frame into 
-# a paper
-#At first I did this simply by year but it was too long
-#So, I am going to manually group by decade
+## NOTE: see the latex version of this script for additional comments on 
+## each step
 
 #basic table
 t1 <- regdata |> 
@@ -94,8 +92,11 @@ ftable2 <- regdata |>
                 N + Mean + SD + Min + P25 + Median + P75 + Max, 
               escape = F,
               fmt = NULL,
+              #output flextable this time instead of latex
               output = "flextable") |> 
+  #format numbers using flextable
   colformat_double(j = 3:9, big.mark = ",", digits = 3) |> 
+  #format the coefficient names as equations
   compose(
     j = 1,
     value = as_paragraph(as_equation(` `))) |> 

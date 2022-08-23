@@ -24,7 +24,8 @@ pacman::p_load(tidyverse,
                 flextable,
                 officer,
                 corrplot,
-                equatags
+                equatags,
+                broom
                )
 
 
