@@ -48,7 +48,7 @@ fig
 ggsave(glue("{data_path}/output/ff12_fig.pdf"), fig, width = 7, height = 6)
 
 #For Word
-ggsave(glue("{data_path}/output/ff12_fig.png"), fig, width = 7, height = 6)
+ggsave(glue("{data_path}/output/ff12_fig.png"), fig, width = 4.2, height = 3.6)
 
 
 # Losses by Size Quintile Over Time --------------------------------------------

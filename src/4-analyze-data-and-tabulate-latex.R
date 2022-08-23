@@ -74,7 +74,7 @@ kbl(table1,
 
 # Table 2 Descriptive Stats ----------------------------------------------------
 
-#other intersting packages
+#other interesting data summary packages
 # gtsummary
 # skimr
 # psych
@@ -83,7 +83,7 @@ kbl(table1,
 my_f <- function(x) formattable::comma(x, digits=3)
 
 regdata |> 
-  datasummary(formula = (`$ROA_{t+1}$` = roa_lead_1) + (`$ROA_t$` = roa) + 
+  modelsummary::datasummary(formula = (`$ROA_{t+1}$` = roa_lead_1) + (`$ROA_t$` = roa) + 
                 (`$LOSS$` = loss) + (`$R\\&D$` = rd) + (`$TA$` = at) + (`$SIZE$` = mve) ~
                 N + Mean + SD + Min + P25 + Median + P75 + Max, 
               escape = F,

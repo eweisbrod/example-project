@@ -23,7 +23,8 @@ pacman::p_load(tidyverse,
                 fixest,
                 flextable,
                 officer,
-                corrplot
+                corrplot,
+                equatags
                )
 
 
