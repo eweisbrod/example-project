@@ -3,12 +3,12 @@
 #run this to set your dropbox path in your .Renviron
 #usethis::edit_r_environ('project')
 #example for .Renviron below
-
+#DATA_PATH = "E:/Dropbox/CODE EXAMPLES/R/example-project-data"
 # Notice the slashes go the other way from Windows! 
 
 #load the data path from the project environment
 #each person can point to the dropbox folder on their computer
-data_path <- "E:/Dropbox/CODE EXAMPLES/R/example-project-data"
+data_path <- Sys.getenv('DATA_PATH')
 
 #example parameters
 # beg_year and end_year to define the sample period
