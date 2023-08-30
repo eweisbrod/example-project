@@ -1,6 +1,6 @@
 /******************************************************************************/
 *SETUP*
-//change to the directory this do file lives in
+//change to the directory where the data is stored.
 //you have to manually change to this directory, it won't do it automatically.
 
 //If we do this once up here then everything below can just be using dots
@@ -8,14 +8,23 @@
 //coauthors (each person puts their directory here).
 
 //Eric Desktop
-cd  "D:\Dropbox\CODE EXAMPLES\R\example-project-data"
+cd  "D:\Dropbox\example-project"
 
 //Eric Laptop
-cd "C:\Users\e679w418\Dropbox\CODE EXAMPLES\R\example-project-data"
+cd "C:\Users\e679w418\Dropbox\example-project"
+
+//I plan to save the output tables to a subfolder called output
+//you need to create this directory if you would like to follow my example.
+//You can do it manually or you can uncomment and run the below line
+//mkdir output
+//You only need to do this once the first time you run the code.
+//If you try to make a directory that already exists you will get an error.
+
+
 
 /******************************************************************************/
 *LOAD DATA*
-use "example-data2.dta" , clear
+use "regdata-sas.dta" , clear
 
 
 // sidenote: once you change to a root directory, you can also use relative
@@ -25,7 +34,7 @@ use "example-data2.dta" , clear
 // Then, a relative path to the data folder from the code folder would be
 // use "..\Data\example-data2.dta" , clear
 //this will always be the same relative path for each computer/coauthor 
-// provided they have changed directories as above, to the root project folder.
+// provided they have changed directories as above, to the relevant folder.
 
 
 /******************************************************************************/
