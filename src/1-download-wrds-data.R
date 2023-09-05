@@ -7,12 +7,13 @@ library(DBI)
 library(glue)
 library(arrow)
 library(haven)
-library(tictoc) #very optional, mostly as a teaching example
+library(tictoc) #very optional timer, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
 
 #load helper scripts
+#similar to "include" statement in SAS.
 source("src/-Global-Parameters.R")
 source("src/utils.R")
 
@@ -34,14 +35,17 @@ wrds  # checking if connection exists
 
 
 # See a list of tables in a schema ---------------------------------------------
+# Just an example to play with the Postgres server
 
 # List all of the tables in Compustat (comp)
 wrds %>%
-  DBI::dbListObjects(DBI::Id(schema = 'comp')) |> 
+  DBI::dbListObjects(DBI::Id(schema = 'ibes')) |> 
   dplyr::pull(table) |> 
   purrr::map(~slot(.x, 'name'))  |> 
   dplyr::bind_rows()  |>  
   View()
+# can replace "comp" with any schema such as "crsp" "ibes" etc.
+# schemas on the Postgres server are similar to WRDS SAS libraries
 
 # Load table references and download data --------------------------------------
 
@@ -49,8 +53,10 @@ wrds %>%
 comp.funda <- tbl(wrds,in_schema("comp", "funda"))
 comp.company <- tbl(wrds,in_schema("comp", "company"))
 
-# Optional line if you want to see how long a block of code takes you can start
-# a timer using tictoc
+# Optional line:
+#if you want to see how long a block of code takes you can start a tictoc timer
+#it will tell you how long it takes between when you run tic() and when you run 
+# toc()
 tictoc::tic()
 
 # Get some raw Compustat data from funda
@@ -59,11 +65,9 @@ raw_funda <-
   #Apply standard Compustat filters
   filter(indfmt=='INDL', datafmt=='STD', popsrc=='D' ,consol=='C') %>%
   #Select the variables we want to dowload
-  select(gvkey, datadate, conm, fyear, fyr, cstat_cusip=cusip, #inline renaming
-         cik, cstat_ticker= tic, sich, ib, ibc, spi, at, dvc, act, che, 
-         lct, dlc, txp, xrd, dp, ceq, sale,csho, prcc_f, ajex, ni,
-         epsfi, epsfx, epspi, epspx, opeps, cshfd, cshpri,
-         oancf, ivncf, fincf
+  select(conm, gvkey, datadate, fyear, fyr, cstat_cusip=cusip, #inline renaming
+         cik, cstat_ticker= tic, sich, ib, spi, at, xrd, ceq, sale,
+         csho, prcc_f
   ) |> 
   #Merge with the Compustat Company file for header SIC code and GICs code
   inner_join(select(comp.company, gvkey, sic, fic, gind), by="gvkey") |> 
@@ -71,8 +75,13 @@ raw_funda <-
   mutate(sic4 = case_when( is.null(sich) ~ as.numeric(sic), TRUE ~ sich)) |> 
   #Calculate two digit sic code
   mutate(sic2 = floor(sic4/100)) |> 
+  #Delete financial and utility industries
+  #For some research projects this is common to remove highly regulated firms
+  #with unique accounting practices
+  filter(!between(sic2,60,69),
+         sic2 != 49) |> 
   # replace missings with 0 for defined vars
-  mutate(across(c(spi, dvc, che, lct, dlc, txp, dp, xrd),
+  mutate(across(c(spi, xrd),
             ~ coalesce(., 0))) |> 
   # create a few additional variables
   mutate(
@@ -90,7 +99,7 @@ raw_funda <-
     e= ib-spi,
   ) %>%
   # filter to fiscal years after 1955, not much in Compustat before that 
-  filter(1955 < fyear) |> 
+  filter(1967 < fyear) |> 
   # filter to US companies
   filter(fic=="USA") |> 
   # everything above manupulates the data inside the WRDS postgres server
@@ -109,7 +118,7 @@ tictoc::toc()
 # saving to Stata is convenient for working with coauthors
 # glue package allows for dynamic file paths 
 # then each coauthor can specify their own local data folder
-write_dta(raw_funda,glue("{data_path}/example-data1.dta")) 
+write_dta(raw_funda,glue("{data_path}/raw-data-R.dta")) 
 #looks like about 162 MB on my machine
 
 # if the data will stay in R or another advanced/modern language like Python
@@ -120,7 +129,7 @@ write_dta(raw_funda,glue("{data_path}/example-data1.dta"))
 # default to a high level of gzip compression to save space
 # therefore, the write_parquet function is using the function defined in the 
 # utils script
-write_parquet(raw_funda,glue("{data_path}/example-data1.parquet"))
+write_parquet(raw_funda,glue("{data_path}/raw-data-R.parquet"))
 # the parquet operations are faster and the file is only 32MB on my machine
 
 

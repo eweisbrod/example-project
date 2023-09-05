@@ -23,7 +23,7 @@ source("src/utils.R")
 
 #read in the winsorized data
 #I found there are not many firms in the 60s so I am just going to start at 1970
-regdata <- read_dta(glue("{data_path}/example-data2.dta")) |> 
+regdata <- read_dta(glue("{data_path}/regdata-R.dta")) |> 
   select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) 
 
 
@@ -145,21 +145,22 @@ models <- list(
   "ROA_{t+1}" = feols(roa_lead_1 ~ roa, regdata, fixef.rm = "both"),
   "ROA_{t+1}" = feols(roa_lead_1 ~ roa*loss, regdata, fixef.rm = "both"),
   "ROA_{t+1}" = feols(roa_lead_1 ~ roa*loss | calyear, regdata, fixef.rm = "both"),
-  "ROA_{t+1}" = feols(roa_lead_1 ~ roa*loss | calyear + gvkey, regdata, fixef.rm = "both")
+  "ROA_{t+1}" = feols(roa_lead_1 ~ roa*loss | calyear + gvkey, regdata, fixef.rm = "both"),
+  "ROA_{t+1}" = feols(roa_lead_1 ~ roa*loss + at + rd + mve | calyear + gvkey, regdata, fixef.rm = "both")
 )
 
 coef_labels <- c(
   "roa_lead_1" = "ROA_{t+1}",
-  "roa:loss" = "ROA_{t} \\times LOSS",
   "roa" = "ROA_{t}",
-  "loss" = "LOSS"
+  "loss" = "LOSS",
+  "roa:loss" = "ROA_{t} \\times LOSS"
 )
 
 ftable4 <- modelsummary(models, 
              vcov = ~ gvkey + calyear,
              statistic = "statistic",
              stars = c('*' = .1, '**' = .05, '***' = .01) ,
-             coef_rename = coef_labels,
+             coef_map = coef_labels,
              gof_map = c("nobs", "adj.r.squared", "r2.within.adjusted", "FE: calyear" , "FE: gvkey"),
              output = "flextable"
              ) |> 

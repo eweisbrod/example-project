@@ -111,13 +111,13 @@ estpost tabulate subperiod loss
 
 
 //preview the output
-esttab, cell(b(fmt(%9.0fc)) colpct(fmt(2) par)) ///
+esttab, cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))                     
 	 
 //output the table to Word
 esttab using "output\freq-stata.rtf", replace ///
-	 cell(b(fmt(%9.0fc)) colpct(fmt(2) par)) ///
+	 cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))                    
 
@@ -125,7 +125,7 @@ esttab using "output\freq-stata.rtf", replace ///
 // don't use comma-format numbers in the excel file unless you research special
 // options, because the excel is a csv file and it will break at the commas
 esttab using "output\freq-stata.csv", replace ///
-	 cell(b(fmt(%9.0f)) colpct(fmt(2) par)) /// f format instead of fc
+	 cell(b(fmt(%9.0f)) rowpct(fmt(2) par)) /// f format instead of fc
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))
 

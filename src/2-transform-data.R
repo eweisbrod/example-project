@@ -1,14 +1,10 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
-library(dbplyr)
-library(RPostgres)
-library(DBI)
 library(lubridate)
 library(glue)
 library(arrow)
 library(haven)
-library(tictoc) #very optional, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
@@ -21,7 +17,7 @@ source("src/utils.R")
 # read in the data from the previous step --------------------------------------
 
 #let's work with the parquet version
-data1 <- read_parquet(glue("{data_path}/example-data1.parquet"))
+data1 <- read_parquet(glue("{data_path}/raw-data-R.parquet"))
 
 #note: if you choose to collect your raw data in SAS or Stata
 # these could easily be read in using haven::read_dta() or haven::read_sas()
@@ -42,13 +38,17 @@ summary(data1)
 
 # Manipulate a few variables ---------------------------------------------------
 
-#many of the below steps could be combined into one. I just separate them for 
-# teaching purposes
+#many of the below steps could be combined into one. They also could have been
+#done on the WRDS server
+#I just separate them for teaching purposes
 
 data2 <- data1 |>
+  #filter based on the global parameters for the sample period that we set in
+  # the global-parameters script.
   filter(calyear >= beg_year,
          calyear <= end_year) |> 
-  #I am going to scale by total assets (at) so I am going to set a minimum
+  #I am going to scale by total assets (at) so I am going to set a minimum at
+  # to avoid small denominators
   filter(at >= 10) |> 
   mutate(
     #use the FF utility functions to assign fama french industries
@@ -58,10 +58,10 @@ data2 <- data1 |>
     ff49num = assign_FF49_num(sic4),
     # code a loss dummy, I like 1/0 but true/false is also fine
     loss = if_else(e < 0 , 1, 0),
-    # scale e by total assets
+    # scale e by ending total assets
     # FSA purists would probably use average total assets, but just an example
     roa = e / at ,
-    # scale r&d by total assets
+    # scale r&d by ending total assets
     rd = xrd / at
   ) |> 
   # let's do an earnings persistence regression with lead earnings as y
@@ -79,8 +79,8 @@ data2 <- data1 |>
          year(datadate_lead_1) == year(datadate) + 1) |> 
   #not a bad idea to ungroup once you are finished
   ungroup() |> 
-  #as an example of filtering on multiple vars, filter to non-missing
-  filter(if_all(c(mve,rd,ff12num,starts_with("roa")), ~ !is.na(.x)))
+  #Filter multiple variables to require non-missing values
+  filter(if_all(c(at, mve,rd,ff12num,starts_with("roa")), ~ !is.na(.x)))
 
 
 # Play around ------------------------------------------------------------------
@@ -113,7 +113,7 @@ quantile(data2$roa, probs = c(0,.01,.99,1))
 #default winsorization
 data3 <- data2 |> 
   #default is 1% / 99 % , this winsorizes rd and all roa vars at that cut
-  mutate(across(c(rd,starts_with("roa")), winsorize_x))
+  mutate(across(c(mve,at,rd,starts_with("roa")), winsorize_x))
 
 
 #check the winsorized tail values
@@ -121,7 +121,7 @@ quantile(data3$roa, probs = c(0,.01,.99,1))
 
 
 #alternate version, if we want to change the tails
-data3 <- data2 |> 
+data3b <- data2 |> 
   #winsorize 2.5% / 97.5 % 
   mutate(
     across(c(rd,starts_with("roa")), ~ winsorize_x(.x,cuts = c(0.025,0.025)))
@@ -129,9 +129,9 @@ data3 <- data2 |>
 
 #check
 quantile(data2$roa, probs = c(0,.025,.975,1))
-quantile(data3$roa, probs = c(0,.025,.975,1))
+quantile(data3b$roa, probs = c(0,.025,.975,1))
 
 # Save the winsorized data  ----------------------------------------------------
 
 # just saving to Stata format this time for brevity
-write_dta(data3,glue("{data_path}/example-data2.dta")) 
+write_dta(data3,glue("{data_path}/regdata-R.dta")) 

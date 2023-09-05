@@ -25,7 +25,10 @@ pacman::p_load(tidyverse,
                 officer,
                 corrplot,
                 equatags,
-                broom
+                broom,
+                usethis,
+                scales,
+                forcats
                )
 
 

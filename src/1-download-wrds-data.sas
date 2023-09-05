@@ -262,7 +262,7 @@ vars mve at rd roa roa_lead_1;
 run;
 
 *winsorize the regression data;
-%winsor(dsetin=comp4, dsetout=comp5, byvar=none, vars= mve at rd roa roa_lead_1, type=winsor, pctl=1 99)
+%winsor(dsetin=comp4, dsetout=comp5, byvar=none, vars= mve at rd roa roa_lead_1, type=W, pctl=1 99)
 
 *check the distribution after winsorizing;
 proc means data=comp5 n mean min p1 p5 p10 p25 median p75 p90 p95 p99 max;
