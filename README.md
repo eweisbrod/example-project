@@ -1,7 +1,19 @@
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
-# Example R / Github Project
-This repository (repo) provides a template for an Accounting / Finance research project using R. This repo will contain the files needed to follow along with the live coding workshop.
+# Example Research Project
+This repository (repo) provides a template for an Accounting / Finance research project. The goal of the example is to help researchers learn the basics of:
+* Installing RStudio and Git.
+* Downloading data from WRDS using either SAS or R (using the WRDS postgresql server in R).
+* Some data manipulation in SAS or R, including basic SAS macros and R functions for winsorizing data, etc.
+* Moving datasets between SAS, Stata, and R.
+* Producing publication-ready tables generated in Stata or R, and output in MS Word, MS Excel, or Latex.
+* Miscellaneous tips and tricks that assist with coauthor collaboration, formatting, etc.
+
+This project began as an example of a basic research project coded entirely in R. Along those lines, I have provided some instructions to attempt to help users get set up with their R installation. 
+
+I have now expanded the scope of the project to provide equivalent code to execute the project entirely in SAS and Stata instead of R. 
+
+Personally, my current workflow relies on both SAS and R, and I have moved away from Stata where possible. The project includes an attached slide deck listing some pros and cons of the various software packages.
 
 <h2>🛠️ Getting Started / Installation Guide </h2>
 
