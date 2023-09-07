@@ -71,12 +71,12 @@ label values subperiod subperiod_label
 /******************************************************************************/
 *LABEL VARIABLES*
 
-label var roa_lead_1 "ROA_{t+1}"
-label var roa "ROA_t"
-label var loss "LOSS"
-label var rd "R\&D"
-label var at "TA"
-label var mve "SIZE"
+label var roa_lead_1 "\$ROA_{t+1}\$"
+label var roa "\$ROA_t\$"
+label var loss "\$LOSS\$"
+label var rd "\$R\&D\$"
+label var at "\$TA\$"
+label var mve "\$SIZE\$"
 
 label define loss_label 0 "Profit" 1 "Loss" 
 label values loss loss_label
@@ -114,7 +114,15 @@ estpost tabulate subperiod loss
 esttab, cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))                     
-	 
+
+//output the table to Latex
+esttab using "output\freq-stata.tex", replace compress booktabs ///
+	 cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
+     collabels("(\%)") unstack noobs nonumber nomtitle    ///
+     eqlabels(, lhs("Sub-Period")) ///
+	 substitute(\_ _)
+
+
 //output the table to Word
 esttab using "output\freq-stata.rtf", replace ///
 	 cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
@@ -164,6 +172,14 @@ estpost summarize roa_lead_1 roa loss $controls ///
 //preview the output
 esttab . , replace noobs nonumbers label ///
 cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25(fmt(%9.3fc)) p75(fmt(%9.3fc))") compress
+
+//output the table to LaTeX
+esttab using "output\descrip-stata.tex", replace compress booktabs ///
+cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25(fmt(%9.3fc)) p75(fmt(%9.3fc))") ///
+ title("Descriptive Statistics") ///
+ nomtitles nonumbers noobs label ///
+ substitute(\_ _)
+ 
 
 //output the table to Word
 esttab using "output\descrip-stata.rtf", replace ///
