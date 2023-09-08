@@ -115,18 +115,7 @@ NN <- function(x) {
   return(out)
 }
 
-#for regression N observations
-nobs_fmt <- function(x) {
-  out <- formattable::comma(x, digits=0)
-  out <- paste0("\\multicolumn{1}{c}{",out,"}")
-}
 
-#for regression output
-gm <- list(
-  list("raw" = "nobs", "clean" = "N", "fmt" = nobs_fmt),
-  list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 3),
-  list("raw" = "r2.within", "clean" = "$R^2$ Within", "fmt" = 3)
-)
 
 
 #If you make a subset of the data 
@@ -163,25 +152,13 @@ datasummary( All(descripdata) ~ (N = NN) + Mean * Arguments(fmt = my_fmt) +
 
 # Table 3: Correlation Matrix --------------------------------------------------
 
-#For the correlation matrix, just select the subset of variables we want to 
-#include, we can also rename them
-corrdata <- regdata |> 
-  select(`$ROA_{t+1}$` = roa_lead_1,
-         `$ROA_t$` = roa, 
-         `$LOSS$` = loss,
-         `$R\\&D$` = rd,
-         `$TA$` = at,
-         `$SIZE$` = mve)
-
-#check how it looks 
-corrdata
 
 # preview how datasummary will make the correlation matrix
 # pearspear will do pearson above diagonal and spearman below
-datasummary_correlation(corrdata, method = "pearspear")
+datasummary_correlation(descripdata, method = "pearspear")
 
 #This time, save it to latex
-datasummary_correlation(corrdata, 
+datasummary_correlation(descripdata, 
                         method = "pearspear",
                         output = "latex",
                         escape = F) |> 
@@ -194,11 +171,13 @@ datasummary_correlation(corrdata,
 #make a list of regressions to put in the table
 #there are lots of options for this in the fixest package as well
 #fixef.rm removes singletons for comparability with reghdfe in Stata
+#The labels you give each model will be in the column headings
 models <- list(
-  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa, regdata, fixef.rm = "both"),
-  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss, regdata, fixef.rm = "both"),
-  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss | calyear, regdata, fixef.rm = "both"),
-  "$ROA_{t+1}$" = feols(roa_lead_1 ~ roa*loss | calyear + gvkey, regdata, fixef.rm = "both")
+  "Base" = feols(roa_lead_1 ~ roa, regdata, fixef.rm = "both"),
+  "No FE" = feols(roa_lead_1 ~ roa*loss, regdata, fixef.rm = "both"),
+  "Year FE" = feols(roa_lead_1 ~ roa*loss | calyear, regdata, fixef.rm = "both"),
+  "Two-Way FE" = feols(roa_lead_1 ~ roa*loss | calyear + gvkey, regdata, fixef.rm = "both"),
+  "With Controls" = feols(roa_lead_1 ~ roa*loss + at + rd + mve | calyear + gvkey, regdata, fixef.rm = "both")
 )
 
 
@@ -207,67 +186,87 @@ models <- list(
 #leave out coefficients, simply don't list them in the map
 #there may be ways to experiment with doing this with less work/code, but this
 #method gives a lot of control over the output.
-
+#Note how this allows for labelling interaction terms as well. 
 cm <- c(
-  `ln_rev_tweets` = "$Ln(Rev\\ Tweets)$",
-  `ln_total_tweets` = "$Ln(Total\\ Tweets)$",
-  `ln_total_stories` = "$Ln(Total\\ Stories)$",
-  # `factor(TD_HR)4` = "$Trade\\ Hour:4$",
-  # `factor(TD_HR)8` = "$Trade\\ Hour:8$",
-  # `factor(TD_HR)12` = "$Trade\\ Hour:12$",
-  `ln_rev_tweets:factor(TD_HR)4` = "$Ln(Rev\\ Tweets) x [4,7]\ Window$",
-  `ln_rev_tweets:factor(TD_HR)8` = "$Ln(Rev\\ Tweets) x [8,11]\ Window$",
-  `ln_rev_tweets:factor(TD_HR)12` = "$Ln(Rev\\ Tweets) x [12,15]\ Window$"
+  "roa_lead_1" = "$ROA_{t+1}$",
+  "roa" = "$ROA_{t}$",
+  "loss" = "$LOSS$",
+  "roa:loss" = "$ROA_{t} \\times LOSS$"
 )
 
 
-#Add Rows for Headings and Fixed Effects
-FE_Row <- tribble(~term,~"[0,+3] Only",~"All Windows", ~"All Windows",~"All Windows",
-                  "Revision Fixed Effects","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
-                  "Ann. Hr. Fixed Effects","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
-                  "Event Window Fixed Effects","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}")
-attr(FE_Row,"position") <- c(13,14,15)
+#Optional custom formula to format the regression N observations in the output
+nobs_fmt <- function(x) {
+  out <- formattable::comma(x, digits=0)
+  out <- paste0("\\multicolumn{1}{c}{",out,"}")
+}
 
+#Optional custom format for the mapping of what to display in the goodness of
+#fit statistics below the regression output. See the documentation for 
+#modelsummary and the estimation commands you are using, there will be many 
+#different possible choices of what to output.
+gm <- list(
+  list("raw" = "nobs", "clean" = "N", "fmt" = nobs_fmt),
+  list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 3),
+  list("raw" = "r2.within", "clean" = "$R^2$ Within", "fmt" = 3)
+)
 
-
-#latex
+#Preview the output without adding extra rows.
 panel <- modelsummary(models, 
-                      vcov = ~ PERMNO + ANNDATS,
+                      #cluster standard errors by gvkey and calyear
+                      vcov = ~ gvkey + calyear,
+                      #t-stats in parenthesis under coefficients
                       statistic = "statistic",
-                      stars = c('\\sym{*}' = .1, '\\sym{**}' = .05, '\\sym{***}' = .01) ,
+                      #add significance stars
+                      stars = c('*' = .1, '**' = .05, '***' = .01) ,
+                      estimate="{estimate}{stars}",
+                      #apply the coefficient map for coef labels
                       coef_map = cm,
-                      gof_map = c("nobs", "r.squared", "r2.within"),
-                      output = "latex", 
+                      gof_map = gm,
+                      #output = "latex", 
                       escape = F,
                       booktabs = T,
-                      add_rows = FE_Row
+                      #add_rows = my_rows
 ) 
-
-
-#if the table is too wide then tell latex to scale it down
-#kable_styling(latex_options = c("scale_down")) |> 
-#save_kable(glue("{dropbox_path}/table.tex"))
 
 panel
 
+#In this LaTeX example, I will show how to manually add heading and FE rows.
+#However, in the R code to output to Word, I have provided the code to use the 
+#built in ability of fixest to create the FE Rows. 
+#This defines the rows we wish to add.
+#The terms should match what you used as the model/column names in the model list.
+my_rows <- tribble(~term,~"Base",~"No FE", ~"Year FE",~"Two-Way FE",~"With Controls",
+                  "Year FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
+                  "Firm FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
+                  "Controls","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}")
+#count the rows in the preview output to see where to insert these extra rows
+attr(my_rows,"position") <- c(7,8,9)
 
-#run the modelsummary function with the list of models
-modelsummary(models, 
-             #cluster standard errors by gvkey and calyear
-             vcov = ~ gvkey + calyear,
-             #t-stats in parenthesis under coefficients
-             statistic = "statistic",
-             #add significance stars
-             stars = c('*' = .1, '**' = .05, '***' = .01) ,
-             #apply the coefficient labels
-             coef_rename = coef_labels,
-             #choose which summary statistics to output at bottom
-             #there is also a way to rename these in the output if needed
-             gof_map = c("nobs", "adj.r.squared", "r2.within.adjusted", "FE: calyear" , "FE: gvkey"),
-             output = "latex", 
-             escape = F,
-             booktabs = T
-             ) |> 
+
+
+#Output to latex with the extra rows added
+panel <- modelsummary(models, 
+                      #cluster standard errors by gvkey and calyear
+                      vcov = ~ gvkey + calyear,
+                      #t-stats in parenthesis under coefficients
+                      statistic = "statistic",
+                      #add significance stars
+                      stars = c('\\sym{*}' = .1, '\\sym{**}' = .05, '\\sym{***}' = .01),
+                      estimate="{estimate}{stars}",
+                      #apply the coefficient map for coef labels
+                      coef_map = cm,
+                      gof_map = gm,
+                      output = "latex", 
+                      escape = F,
+                      booktabs = T,
+                      add_rows = my_rows,
+                      #if you want to decimal align the columns, use the number 
+                      #of d equal to the number of models
+                      #if I comment out the below line, modelsummary would dp 
+                      # "lccccc" on its own as the default.
+                      align = "lddddd") |> 
   #if the table is too wide then tell latex to scale it down
   kable_styling(latex_options = c("scale_down")) |> 
-  save_kable(glue("{data_path}/output/table4.tex"))
+  save_kable(glue("{data_path}/output/regression-r.tex"))
+

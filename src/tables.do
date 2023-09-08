@@ -99,6 +99,10 @@ mve ///
 // If you need to install the estout package then uncomment and run this line
 // ssc install estout
 
+//Other packages you need to fully run this example
+// ssc install reghdfe
+// ssc install erepost
+
 //estout reference material links
 // https://repec.sowi.unibe.ch/stata/estout/
 // http://repec.org/bocode/e/estout/advanced.html
@@ -233,7 +237,26 @@ drop(0* _cons) /// drops the baseline empty reference categories and constant
  star(* 0.10 ** 0.05 *** 0.01) ///
  stats(N r2_a r2_a_within, fmt (%20.0gc 3) labels("N" "Adj. R-Square" "Adj. R-Square (within)"))
 
+ 
+ 
 //seems like you have to rerun this before each esttab call
+	estfe . m* , labels(calyear "Year FE" firm_fe "Firm FE")
+	return list
+//Output to Latex
+esttab using "output\regression-stata.tex", replace compress booktabs ///
+ substitute(\_ _ _cons Constant) /// 
+drop(0* _cons) /// drops the baseline empty reference categories and constant 
+ mtitles label nolegend nonotes ///
+ title("Regression Table") ///
+ varlabels(1.loss "\$LOSS\$" 1.loss#c.roa "\$ LOSS \times ROA_{t}\$") ///
+ indicate( "Controls=$controls" `r(indicate_fe)') /// adds indicator rows
+  b(3) t(2) ///
+ star(* 0.10 ** 0.05 *** 0.01) ///
+ stats(N r2_a r2_a_within, fmt (%20.0gc 3) labels("N" "Adj. R-Square" "Adj. R-Square (within)"))
+
+ 
+ 
+ //seems like you have to rerun this before each esttab call
 	estfe . m* , labels(calyear "Year FE" firm_fe "Firm FE")
 	return list
 	
