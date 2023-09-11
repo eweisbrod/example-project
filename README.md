@@ -25,6 +25,8 @@ Personally, my current workflow relies on both SAS and R, and I have moved away 
 
 <h2>🛠️ How To Use This Material </h2>
 One way to use the material in this repository is to simply browse through the code in your web browser and either download or copy/paste any parts that are useful to you. If you are viewing this on GitHub, the folder structure probably appears above this ReadMe content. You can also click the "Code" tab at the top of the page if needed. Files are organized as follows:
+
+
 * The src folder contains the relevant SAS, R, and Stata code
 * The theme folder contains an optional RStudio theme and font
 * The etc folder contains the screenshots used on the site
