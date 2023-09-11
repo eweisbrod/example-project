@@ -32,7 +32,7 @@ One way to use the material in this repository is to simply browse through the c
 * The etc folder contains the screenshots used on the site
 * There is a powerpoint file in the main/root directory with some brief introductory slides that I use during live presentations for new R users.
 
-A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio. If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then close that. Instructions for getting set up with R and Git appear below. 
+A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio. If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then clone that. Instructions for getting set up with R and Git appear below. 
 
 Please feel free to use these materials in your work or share them with others. Please leave a link / attribution to this repository when sharing. I may come up with a better way to cite these materials, but for now if you are able to work in a citation to either one of my recent papers that developed some of the code here:
 
