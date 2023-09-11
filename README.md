@@ -34,15 +34,18 @@ One way to use the material in this repository is to simply browse through the c
 
 A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio. If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then clone that. Instructions for getting set up with R and Git appear below. 
 
-Please feel free to use these materials in your work or share them with others. Please leave a link / attribution to this repository when sharing. I may come up with a better way to cite these materials, but for now if you are able to work in a citation to either one of my recent papers that developed some of the code here:
+Please feel free to use these materials in your work or share them with others. Please leave a link / attribution to this repository when sharing. I may come up with a better way to cite these materials, but for now if you are able to work in a citation to one of my recent papers that developed some of the code here:
 
 BOCHKAY, K., MARKOV, S., SUBASI, M. and WEISBROD, E. (2022), The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings. Journal of Accounting Research, 60: 1695-1740. https://doi.org/10.1111/1475-679X.12457
+
 https://onlinelibrary.wiley.com/doi/full/10.1111/1475-679X.12457
+
 code appendix: https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60
 
 or my dissertation paper:
 
 WEISBROD, E. (2019), Stockholders’ Unrealized Returns and the Market Reaction to Financial Disclosures. The Journal of Finance, 74: 899-942. https://doi.org/10.1111/jofi.12743
+
 https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12743
 
 it would be much appreciated. 
