@@ -39,6 +39,7 @@ https://onlinelibrary.wiley.com/doi/full/10.1111/1475-679X.12457
 code appendix: https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60
 
 or my dissertation paper:
+
 WEISBROD, E. (2019), Stockholders’ Unrealized Returns and the Market Reaction to Financial Disclosures. The Journal of Finance, 74: 899-942. https://doi.org/10.1111/jofi.12743
 https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12743
 
