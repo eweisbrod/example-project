@@ -2,7 +2,7 @@
 
 This repository (repo) provides a template for an Accounting / Finance research project.
 
-[Link to install page]](install-R.md).
+[Link to install page](./install-R.md).
 
 
 The code in this repository can generate output for both LaTeX and MS Office.
