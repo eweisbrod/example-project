@@ -10,7 +10,6 @@ library(haven)
 library(tictoc) #very optional timer, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
-this is a test
 
 #load helper scripts
 #similar to "include" statement in SAS.
