@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
 # Example Research Project
@@ -84,7 +78,7 @@ I think it is a good idea to allow this option to install git into your PATH so 
 
 It is also helpful to allow git to install the credential manager to help with storing your github credentials.
 
-![git install 2](assets/images/git2.jpg){alt="git install 2"}
+![git install 2](assets/images/git2.jpg)
 
 -   Finally, I also recommend to install / allow Git bash during the installation.
 
@@ -101,7 +95,7 @@ Install RStudio </b></p>
 
 -   Install RStudio Desktop from the following link: <https://www.rstudio.com/products/rstudio/download/#download>
 
-![rstudio install](assets/images/rstudio1.jpg){alt="rstudio install 2"}
+![rstudio install](assets/images/rstudio1.jpg)
 
 As shown in the screenshot, R should be installed first, as we did in the previous step.
 
@@ -121,7 +115,7 @@ Open RStudio and set your Git credentials </b></p>
 -   To work with Git, you need to set your user name and email.
 -   There are many ways to do this, but an easy way is using RStudio's built-in terminal.
 
-![rstudio terminal](assets/images/terminal1.jpg){alt="rstudio terminal"}
+![rstudio terminal](assets/images/terminal1.jpg)
 
 -   Click on the "terminal" tab that should be next to console.
 -   Type the following commands
@@ -147,14 +141,14 @@ Clone this repo as a project in RStudio </b></p>
 
 -   At the top of this page, click the green code button and copy the https link to this repo.
 
-![clone repo](assets/images/clone1.jpg){alt="clone repo"}
+![clone repo](assets/images/clone1.jpg)
 
 -   In RStudio, click File -\> New Project.
     On the next menu, click "Version Control" and choose Git.
 
 -   Paste the URL into the box, as follows:
 
-![clone repo2](assets/images/clone2.jpg){alt="clone repo2"}
+![clone repo2](assets/images/clone2.jpg)
 
 -   Click "Create Project"
 
@@ -165,6 +159,6 @@ Open the "--Install-Packages.R" script in the "src" folder in RStudio </b></p>
 
 -   If you are able to successfully connect to WRDS you should see a line like this output in your console:
 
-![postgres](assets/images/postgres.PNG){alt="postgres"}
+![postgres](assets/images/postgres.PNG)
 
 -   If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along for the coding workshop.
