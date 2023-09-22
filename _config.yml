@@ -1,9 +1,8 @@
 title: Example Research Project
-logo: https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light
 description: An Example Accounting / Finance Research Project
 show_downloads: true
 google_analytics:
-theme: jekyll-theme-minimal
+theme: jekyll-theme-architect
 
 
 plugins:
