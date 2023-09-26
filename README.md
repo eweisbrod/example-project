@@ -64,7 +64,7 @@ Journal of Accounting Research, 60: 1695-1740. <https://doi.org/10.1111/1475-679
 In order to "clone" (copy) this repository to your machine and run the R code, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
 
-### 1. Install Git
+1. **Install Git**
 
 -   Follow the steps at this link: <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
 
@@ -78,14 +78,14 @@ It is also helpful to allow git to install the credential manager to help with s
 
 -   Finally, I also recommend to install / allow Git bash during the installation.
 
-### 2. Install R
+2. **Install R**
 
 -   Before you install RStudio, you should first install R from the following link: <https://cran.rstudio.com/>
 
 If you already have R on your machine, I recommend at least R version 4.0 or better to follow along with the code in this repo.
 If you use an older version of R, you may see some warnings about R packages being built with a different version, but usually everything will still work.
 
-### 3. Install RStudio
+3. **Install RStudio**
 
 -   Install RStudio Desktop from the following link: <https://www.rstudio.com/products/rstudio/download/#download>
 
@@ -93,7 +93,7 @@ If you use an older version of R, you may see some warnings about R packages bei
 
 As shown in the screenshot, R should be installed first, as we did in the previous step.
 
-### 4. Sign up for a Github account
+4. **Sign up for a Github account**
 
 -   If you have not done so already, register for an account at <https://github.com/>
 
@@ -101,7 +101,7 @@ As shown in the screenshot, R should be installed first, as we did in the previo
 
 -   Below, I recommend that you use the same primary email address that you use for github when you set your user.email in git.
 
-### 5. Open RStudio and set your Git credentials
+5. **Open RStudio and set your Git credentials**
 
 -   To work with Git, you need to set your user name and email.
 -   There are many ways to do this, but an easy way is using RStudio's built-in terminal.
