@@ -122,13 +122,23 @@ git config --global user.name "Your Name"
 -   NOTE: If this step doesn't work, don't worry. Just keep going. This might not work if you did not install Git bash, but you should still be able to keep going.
 
 ##  <a name="fork"></a>Forking this Repository 
- <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer. DO NOT put this directory inside Dropbox. Dropbox and Git do not play well together unless you are an advanced user. I recommend to use a simple directory on your main drive that is easy to find. </b></ins>
 
-* If you are reading this on the ".io" webpage, click [here](https://github.com/eweisbrod/example-project/#fork) or the button above to view this page on GitHub. At the top of the github page, click the "fork" button, as shown in the screenshot:
+The best way to work with this code and learn Git/Github is to fork your own version of this repo, and then clone it to your local machine in RStudio as a project with version control. A "fork" is basically your own version of this code repository that will live in your own GitHub account. You can read about the basics in the [Github Documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo). 
+ 
+ <b><ins> IMPORTANT: You will need to create a local directory to hold the local copy of this repository on your computer. DO NOT put this directory inside Dropbox. Dropbox and Git do not play well together unless you are an advanced user. I recommend to use a simple directory on your main drive that is easy to find. </b></ins>
+
+* If you are reading this on the ".io" webpage, click [here](https://github.com/eweisbrod/example-project/#fork) or the button above to view this page on GitHub.
+  
+* At the top of the github page, click the "fork" button, as shown in the screenshot (while signed into your GitHub account):
 
 ![fork repo](assets/images/fork1.png)
+
+Follow the prompts to create your own version of this repo. You can rename it and change its description as desired.
+
+![fork repo](assets/images/fork2.png)
+
  
--   At the top of this page, click the green code button and copy the https link to this repo.
+-   Now go to **YOUR** version repo on GitHub. It should be something like "github.com/your-username/example-project." At the top of **YOUR** page, click the green code button and copy the https link to this repo. **AGAIN: do NOT click the code button on MY page, do it on your own repo! Your screenshot should have your name instead of mine!**
 
 ![clone repo](assets/images/clone1.jpg)
 
@@ -141,14 +151,17 @@ git config --global user.name "Your Name"
 
 -   Click "Create Project"
 
-<p><b> 7.
-Open the "--Install-Packages.R" script in the "src" folder in RStudio </b></p>
 
--   Run the commands in this file by highlighting them and pushing "ctrl+Enter" or by highlighting them and clicking "run."
--   If you are able to successfully connect to WRDS you should see a line like this output in your console:
+
+If you have successfully cloned the project, you should be able to see the list of files in the project in RStudio. These files are also saved on your computer in whatever folder you chose when you created the project. 
+
+* To get started with running the code and connecting to WRDS, you should open the "--Install-Packages.R" script in the "src" folder in RStudio.
+   *  Run the commands in this file by highlighting them and pushing "ctrl+Enter" or by highlighting them and clicking "run."
+     
+*  If you are able to successfully connect to WRDS you should see a line like this output in your console:
 
 ![postgres](assets/images/postgres.PNG)
 
--   If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along for the coding workshop.
+If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along and run the remaining code.
 
-##  <a name="links"></a>Introduction 
+##  <a name="links"></a>Additional Resources
