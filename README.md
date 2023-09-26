@@ -13,7 +13,7 @@ This repository (repo) provides a template for an Accounting / Finance research 
     * Correlation Matrix
     * Regression (with dynamic FE indicators, etc)
 6. Outputing the tables to LaTeX OR MS Office
-   * LaTeX paper template included: <https://www.overleaf.com/read/ctmwnmdcypzh>
+   * Overleaf LaTeX template included: <https://www.overleaf.com/read/ctmwnmdcypzh>
    * [Example PDF for the LaTeX tables](./assets/Paper_Template.pdf)
 
 
@@ -27,19 +27,11 @@ This repository (repo) provides a template for an Accounting / Finance research 
 
 ##  <a name="intro"></a>Introduction 
 
-The goal of the example is to help researchers learn the basics of: \* Installing RStudio and Git.
-* Downloading data from WRDS using either SAS or R (using the WRDS postgresql server in R).
-* Some data manipulation in SAS or R, including basic SAS macros and R functions for winsorizing data, etc. \* Moving datasets between SAS, Stata, and R.
-* Producing publication-ready tables generated in Stata or R, and output in MS Word, MS Excel, or Latex.
-* Miscellaneous tips and tricks that assist with coauthor collaboration, formatting, etc.
+The goal of this example is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples to assist PhD students and junior colleages in preparing nice-looking tables for our research projects. This website began as an example of how to code a basic research project entirely in R, but has expanded to provide equivalent code for users that prefer SAS or Stata. I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial data. Therefore, users may want to take a look at these materials, go somewhere else to fill in the holes, and then come back to them when they are starting to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions.
 
-This project began as an example of a basic research project coded entirely in R.
-Along those lines, I have provided some instructions to attempt to help users get set up with their R installation.
 
-I have now expanded the scope of the project to provide equivalent code to execute the project entirely in SAS and Stata instead of R.
 
-Personally, my current workflow relies on both SAS and R, and I have moved away from Stata where possible.
-The project includes an attached slide deck listing some pros and cons of the various software packages.
+
 
 ## <a name="usethese"></a> How To Use These Materials 
 
