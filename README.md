@@ -165,3 +165,15 @@ If you have successfully cloned the project, you should be able to see the list 
 If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along and run the remaining code.
 
 ##  <a name="links"></a>Additional Resources
+
+There are so many good resources out there that I am sure I will leave out many great, resources, but here are some to get started:
+* https://wrds-www.wharton.upenn.edu/pages/support/sample-programs/ WRDS offers sample programs for working with various databases.
+* https://iangow.github.io/far_book/ "Empirical Research in Accounting: Tools and Methods" by Ian Gow and Tony Ding is a great open-source textbook for learning research methods as well as some R programming. They also offer some tips on using an SQL database to store your research data instead of storing it in flat files.
+* https://www.openassetpricing.com/ Very cool open-source asset pricing project with a lot of downloadable data and code.
+* https://www.accountingcodingcamp.com/ offers paid online courses for learning SAS, Stata, and Python.
+* https://happygitwithr.com/ reference material for learning to use Git in R.
+* https://mlr3.mlr-org.com/ If you are interested in machine learning, the mlr ecosystem is interesting to check out and has a book in-progress to go with it. I think this is somewhat similar to the scikit-learn ecosystem in Python.
+* https://www.tidymodels.org/ The "Tidyverse" also offers a machine learning ecosystem called tidmodels.
+* https://www.futureverse.org/ The futureverse offers powerful packages for parallel processing in R. I have used it before. Contact me if you get interested in this. It is pretty powerful. 
+* https://docs.ropensci.org/targets/ I have not tried this, but if you are a person that likes to stay organized, I hear the Targets package in R is pretty cool for organizing the pipeline of your research project in R. 
+* https://rstudio.github.io/reticulate/ I don't really use Python, but if you are a Python user, I hear this package for using Python INSIDE OF R is cool. 
