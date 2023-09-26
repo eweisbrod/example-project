@@ -23,17 +23,15 @@ This repository (repo) provides a template for an Accounting / Finance research 
 * [How to Use These Materials](#usethese)
 * [Getting Started with R and Git](#getstart)
 * [Forking This Repository](#fork)
-* [Additional Resources] (#links)
+* [Additional Resources](#links)
 
 ##  <a name="intro"></a>Introduction 
 
 The goal of this example is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples to assist PhD students and junior colleages in preparing nice-looking tables for our research projects. This website began as an example of how to code a basic research project entirely in R, but has expanded to provide equivalent code for users that prefer SAS or Stata. 
 
+My recommendation for managing your research project is to anchor your project in R, and manage your code on Github. Github offers private repositories for academic users if your code is proprietary. Github also offers great version control and search functionality. Your data can be stored and shared separately, perhaps using an online backup and file sharing service such as Dropbox or OneDrive. The example code in this repository gives examples for setting up references to a shared data directory with coauthors. R can easily read in both SAS and Stata files, and easily output to Stata if needed. Personally, I still do some of my initial data collection in SAS, and then move the data to R for analyses. I don't enjoy working in Stata, but I have included a Stata version of the code for reference. You may encounter coauthors that are only comfortable collaborating in Stata. If you do your analyses and table creation in Stata, I recommend to at least learn a little bit of R for creating figures. Making figures in R is more intuitive than in Stata and the figures look nicer. You can read your Stata dataset into R and make some nice figures that will really enhance your research project. 
+
 I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial data. Therefore, users may want to take a look at these materials, go somewhere else to fill in the holes, and then come back to them when they are starting to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions.
-
-
-
-
 
 ## <a name="usethese"></a> How To Use These Materials 
 
@@ -163,9 +161,10 @@ git config --global user.name "Your Name"
 Open the "--Install-Packages.R" script in the "src" folder in RStudio </b></p>
 
 -   Run the commands in this file by highlighting them and pushing "ctrl+Enter" or by highlighting them and clicking "run."
-
 -   If you are able to successfully connect to WRDS you should see a line like this output in your console:
 
 ![postgres](assets/images/postgres.PNG)
 
 -   If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along for the coding workshop.
+
+##  <a name="links"></a>Introduction 
