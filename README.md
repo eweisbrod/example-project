@@ -2,11 +2,15 @@
 
 This repository (repo) provides a template for an Accounting / Finance research project.
 
-Table of Contents
+## Table of Contents
 
+* [Introduction](#intro)
 * [How to Use These Materials](#usethese)
 * [Getting Started with R and Git](#getstart)
+* [Forking This Repository](#fork)
+* [Additional Resources] (#links)
 
+##  <a name="intro"></a>Introduction 
 The code in this repository can generate output for both LaTeX and MS Office.
 There is an associated LaTeX template that is publicly viewable on Overleaf at: <https://www.overleaf.com/read/ctmwnmdcypzh>
 
@@ -65,7 +69,7 @@ The Journal of Finance, 74: 899-942.
 
 it would be much appreciated.
 
-##  <a name="getstart"></a>🛠️ Getting Started with R and Git / Installation Guide 
+##  <a name="getstart"></a>🛠️ Getting Started with R and Git
 
 In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
