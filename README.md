@@ -27,7 +27,9 @@ This repository (repo) provides a template for an Accounting / Finance research 
 
 ##  <a name="intro"></a>Introduction 
 
-The goal of this example is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples to assist PhD students and junior colleages in preparing nice-looking tables for our research projects. This website began as an example of how to code a basic research project entirely in R, but has expanded to provide equivalent code for users that prefer SAS or Stata. I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial data. Therefore, users may want to take a look at these materials, go somewhere else to fill in the holes, and then come back to them when they are starting to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions.
+The goal of this example is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples to assist PhD students and junior colleages in preparing nice-looking tables for our research projects. This website began as an example of how to code a basic research project entirely in R, but has expanded to provide equivalent code for users that prefer SAS or Stata. 
+
+I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial data. Therefore, users may want to take a look at these materials, go somewhere else to fill in the holes, and then come back to them when they are starting to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions.
 
 
 
@@ -70,7 +72,7 @@ The Journal of Finance, 74: 899-942.
 
 it would be much appreciated.
 
-##  <a name="getstart"></a>🛠️ Getting Started with R and Git
+##  <a name="getstart"></a>Getting Started with R and Git
 
 In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
