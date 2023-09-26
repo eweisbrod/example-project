@@ -32,7 +32,7 @@ I have now expanded the scope of the project to provide equivalent code to execu
 Personally, my current workflow relies on both SAS and R, and I have moved away from Stata where possible.
 The project includes an attached slide deck listing some pros and cons of the various software packages.
 
-## <a name="usethese"></a>🛠️ How To Use These Materials 
+## <a name="usethese"></a> How To Use These Materials 
 
 One way to use the material in this repository is to simply browse through the code in your web browser and either download or copy/paste any parts that are useful to you.
 If you are viewing this on GitHub, the folder structure probably appears above this ReadMe content.
@@ -137,7 +137,9 @@ git config --global user.name "Your Name"
 
 -   NOTE: If this step doesn't work, don't worry. Just keep going. This might not work if you did not install Git bash, but you should still be able to keep going.
 
-<p><b> 6.
+##  <a name="fork"></a>Forking this Repository 
+
+
 Clone this repo as a project in RStudio </b></p>
 
 -   <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer.
