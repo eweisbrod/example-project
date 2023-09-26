@@ -74,8 +74,7 @@ it would be much appreciated.
 In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
 
-<p><b>1.
-Install Git </b></p>
+### 1. Install Git
 
 -   Follow the steps at this link: <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
 
@@ -89,16 +88,14 @@ It is also helpful to allow git to install the credential manager to help with s
 
 -   Finally, I also recommend to install / allow Git bash during the installation.
 
-<p><b> 2.
-Install R </b></p>
+### 2. Install R
 
 -   Before you install RStudio, you should first install R from the following link: <https://cran.rstudio.com/>
 
 If you already have R on your machine, I recommend at least R version 4.0 or better to follow along with the code in this repo.
 If you use an older version of R, you may see some warnings about R packages being built with a different version, but usually everything will still work.
 
-<p><b> 3.
-Install RStudio </b></p>
+### 3. Install RStudio
 
 -   Install RStudio Desktop from the following link: <https://www.rstudio.com/products/rstudio/download/#download>
 
@@ -106,8 +103,7 @@ Install RStudio </b></p>
 
 As shown in the screenshot, R should be installed first, as we did in the previous step.
 
-<p><b> 4.
-Sign up for a Github account </b></p>
+### 4. Sign up for a Github account
 
 -   If you have not done so already, register for an account at <https://github.com/>
 
@@ -116,8 +112,7 @@ Sign up for a Github account </b></p>
 -   Below, I recommend that you use the same primary email address that you use for github when you set your user.email in git.
     You can use a personal email as your primary email on Github and also link your Github account to your (secondary) school email as well, if desired.
 
-<p><b> 5.
-Open RStudio and set your Git credentials </b></p>
+### 5. Open RStudio and set your Git credentials
 
 -   To work with Git, you need to set your user name and email.
 -   There are many ways to do this, but an easy way is using RStudio's built-in terminal.
@@ -140,7 +135,7 @@ git config --global user.name "Your Name"
 ##  <a name="fork"></a>Forking this Repository 
 
 
-Clone this repo as a project in RStudio </b></p>
+
 
 -   <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer.
     DO NOT put this directory inside Dropbox.
