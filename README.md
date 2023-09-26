@@ -1,6 +1,19 @@
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
-This repository (repo) provides a template for an Accounting / Finance research project.
+This repository (repo) provides a template for an Accounting / Finance research project. It covers the following steps using a very basic earnings persistence regression as an example:
+
+1. Installing Git and R
+2. Downloading data from WRDS using R OR SAS
+3. Saving data to a Stata file using R OR SAS
+4. Creating Figures using R
+5. Creating a full set of VERY PRETTY tables using R OR Stata
+    * Manual tables
+    * Cross-tab
+    * Descriptive Statistics
+    * Correlation Matrix
+    * Regression (with dynamic FE indicators, etc)
+6. Outputing the tables to LaTex OR MS Office
+
 
 ## Table of Contents
 
