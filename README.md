@@ -2,8 +2,10 @@
 
 This repository (repo) provides a template for an Accounting / Finance research project.
 
-[Link to install page](./install-R.md).
+Table of Contents
 
+* [How to Use These Materials](#usethese)
+* [Getting Started with R and Git](#getstart)
 
 The code in this repository can generate output for both LaTeX and MS Office.
 There is an associated LaTeX template that is publicly viewable on Overleaf at: <https://www.overleaf.com/read/ctmwnmdcypzh>
@@ -13,10 +15,10 @@ The Overleaf page provides an example LaTeX template for writing a paper, as wel
 The LaTeX template will produce this example PDF which demonstrates the tables we will make in this project: [view pdf](./assets/Paper_Template.pdf).
 
 The goal of the example is to help researchers learn the basics of: \* Installing RStudio and Git.
-\* Downloading data from WRDS using either SAS or R (using the WRDS postgresql server in R).
-\* Some data manipulation in SAS or R, including basic SAS macros and R functions for winsorizing data, etc. \* Moving datasets between SAS, Stata, and R.
-\* Producing publication-ready tables generated in Stata or R, and output in MS Word, MS Excel, or Latex.
-\* Miscellaneous tips and tricks that assist with coauthor collaboration, formatting, etc.
+* Downloading data from WRDS using either SAS or R (using the WRDS postgresql server in R).
+* Some data manipulation in SAS or R, including basic SAS macros and R functions for winsorizing data, etc. \* Moving datasets between SAS, Stata, and R.
+* Producing publication-ready tables generated in Stata or R, and output in MS Word, MS Excel, or Latex.
+* Miscellaneous tips and tricks that assist with coauthor collaboration, formatting, etc.
 
 This project began as an example of a basic research project coded entirely in R.
 Along those lines, I have provided some instructions to attempt to help users get set up with their R installation.
@@ -26,7 +28,7 @@ I have now expanded the scope of the project to provide equivalent code to execu
 Personally, my current workflow relies on both SAS and R, and I have moved away from Stata where possible.
 The project includes an attached slide deck listing some pros and cons of the various software packages.
 
-<h2>🛠️ How To Use This Material</h2>
+## <a name="usethese"></a>🛠️ How To Use These Materials 
 
 One way to use the material in this repository is to simply browse through the code in your web browser and either download or copy/paste any parts that are useful to you.
 If you are viewing this on GitHub, the folder structure probably appears above this ReadMe content.
@@ -63,7 +65,7 @@ The Journal of Finance, 74: 899-942.
 
 it would be much appreciated.
 
-<h2>🛠️ Getting Started with R and Git / Installation Guide</h2>
+##  <a name="getstart"></a>🛠️ Getting Started with R and Git / Installation Guide 
 
 In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
