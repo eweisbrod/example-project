@@ -34,45 +34,34 @@ My recommendation for managing your research project is to anchor your project i
 I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial data. Therefore, users may want to take a look at these materials, go somewhere else to fill in the holes, and then come back to them when they are starting to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions.
 
 ## <a name="usethese"></a> How To Use These Materials 
-
-One way to use the material in this repository is to simply browse through the code in your web browser and either download or copy/paste any parts that are useful to you.
-If you are viewing this on GitHub, the folder structure probably appears above this ReadMe content.
-You can also click the "Code" tab at the top of the page if needed.
-Files are organized as follows:
-
--   The src folder contains the relevant SAS, R, and Stata code
--   The theme folder contains an optional RStudio theme and font
--   The etc folder contains the screenshots used on the site
--   There is a powerpoint file in the main/root directory with some brief introductory slides that I use during live presentations for new R users.
-
-A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio.
-If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then clone that.
-Instructions for getting set up with R and Git appear below.
-
 Please feel free to use these materials in your work or share them with others.
-Please leave a link / attribution to this repository when sharing.
-I may come up with a better way to cite these materials, but for now if you are able to work in a citation to one of my recent papers that developed some of the code here:
 
-BOCHKAY, K., MARKOV, S., SUBASI, M.
-and WEISBROD, E.
-(2022), The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings.
-Journal of Accounting Research, 60: 1695-1740.
-<https://doi.org/10.1111/1475-679X.12457>
+I recommend that you "fork" this repository to your own GitHub account and then "clone" the files down to a local folder on your computer [(see below)](#fork). This will help you understand Git, and you can customize the files as needed.  
 
-code appendix: <https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60>
+You can also download all of the files in the repo as a zip file by clicking [here](https://github.com/eweisbrod/example-project/zipball/main).
 
-or my dissertation paper:
+Of course, you can also simply browse through the code on GitHub in your web browser and either download or copy/paste any parts that are useful to you.
+If you are viewing this on the ".io" website, there is a "view in GitHub button above." If you are viewing this on GitHub, the folder structure appears above this ReadMe content.
+You can also click the "Code" tab at the top of the page if needed.
 
-WEISBROD, E.
-(2019), Stockholders' Unrealized Returns and the Market Reaction to Financial Disclosures.
-The Journal of Finance, 74: 899-942.
-<https://doi.org/10.1111/jofi.12743>
+Files are organized as follows:
+*   The src folder contains the relevant SAS, R, and Stata code
+*   The assets folder contains an optional RStudio theme and font, slide deck, website images, etc.
 
-it would be much appreciated.
+### Citing Me
+Please leave a link / attribution to this repository when sharing it with others. If you are able to work in a citation to one of my recent papers, that would help me out!
+
+* Some of the code in this repo was developed for Bochkay et al. (2022), so it would be appropriate to cite it as a source of the coding examples:
+   * BOCHKAY, K., MARKOV, S., SUBASI, M. and WEISBROD, E. (2022), The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings.
+Journal of Accounting Research, 60: 1695-1740. <https://doi.org/10.1111/1475-679X.12457>
+   * [Code Appendix](https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60)
+
+* Alternately, you could cite my dissertation paper:
+   * WEISBROD, E. (2019), Stockholders' Unrealized Returns and the Market Reaction to Financial Disclosures. The Journal of Finance, 74: 899-942. <https://doi.org/10.1111/jofi.12743>
 
 ##  <a name="getstart"></a>Getting Started with R and Git
 
-In order to "clone" (copy) this repository to your machine and follow along with the R workshop, you will need to install Git, R, RStudio, and several R packages to your machine.
+In order to "clone" (copy) this repository to your machine and run the R code, you will need to install Git, R, RStudio, and several R packages to your machine.
 I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
 
 ### 1. Install Git
