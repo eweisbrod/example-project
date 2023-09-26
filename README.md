@@ -100,7 +100,6 @@ As shown in the screenshot, R should be installed first, as we did in the previo
 -   There are some benefits to linking your Github account to your school email (<https://education.github.com/benefits>).
 
 -   Below, I recommend that you use the same primary email address that you use for github when you set your user.email in git.
-    You can use a personal email as your primary email on Github and also link your Github account to your (secondary) school email as well, if desired.
 
 ### 5. Open RStudio and set your Git credentials
 
@@ -123,16 +122,12 @@ git config --global user.name "Your Name"
 -   NOTE: If this step doesn't work, don't worry. Just keep going. This might not work if you did not install Git bash, but you should still be able to keep going.
 
 ##  <a name="fork"></a>Forking this Repository 
+ <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer. DO NOT put this directory inside Dropbox. Dropbox and Git do not play well together unless you are an advanced user. I recommend to use a simple directory on your main drive that is easy to find. </b></ins>
 
+* If you are reading this on the ".io" webpage, click [here](https://github.com/eweisbrod/example-project/#fork) or the button above to view this page on GitHub. At the top of the github page, click the "fork" button, as shown in the screenshot:
 
-
-
--   <b><ins> IMPORTANT: You need to create a local directory to hold the local copy of this repository on your computer.
-    DO NOT put this directory inside Dropbox.
-    Dropbox and Git do not play well together unless you are an advanced user.
-    I recommend to use a simple directory on your main drive that is easy to find.
-    </b></ins>
-
+![fork repo](assets/images/fork1.png)
+ 
 -   At the top of this page, click the green code button and copy the https link to this repo.
 
 ![clone repo](assets/images/clone1.jpg)
