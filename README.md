@@ -166,7 +166,7 @@ If you were able to successfully install the packages and connect to WRDS, you s
 
 ##  <a name="links"></a>Additional Resources
 
-There are so many good resources out there that I am sure I will leave out many great, resources, but here are some to get started:
+There are so many resources out there. I am sure I will leave out many great resources, but here are some to get started:
 * https://wrds-www.wharton.upenn.edu/pages/support/sample-programs/ WRDS offers sample programs for working with various databases.
 * https://iangow.github.io/far_book/ "Empirical Research in Accounting: Tools and Methods" by Ian Gow and Tony Ding is a great open-source textbook for learning research methods as well as some R programming. They also offer some tips on using an SQL database to store your research data instead of storing it in flat files.
 * https://www.openassetpricing.com/ Very cool open-source asset pricing project with a lot of downloadable data and code.
