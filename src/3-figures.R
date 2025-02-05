@@ -127,7 +127,7 @@ figdata <- regdata |>
   ) |> 
   # use the broom package to tidy the regressions
   #option conf.int outputs the confidence intervals so we can plot them
-  summarise(broom::tidy(fit, conf.int = TRUE)) |> 
+  reframe(broom::tidy(fit, conf.int = TRUE)) |> 
   #I don't plan to plot the intercept so i will drop it from the data
   filter(term !="(Intercept)") 
 
