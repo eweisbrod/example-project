@@ -337,11 +337,7 @@ truncate_x = function(x, cuts = c(0.01,0.01)) {
 
 message("imported transformation functions")
 
-
-
-# Duplicate checker -------------------------------------------------------
-
-# check for duplicates at a specified level
+# Check Duplicates -------------------------------------------------------------
 
 check_duplicates <- function(data, ...) {
   # Capture the variable names
@@ -401,3 +397,5 @@ check_duplicates <- function(data, ...) {
     }
   }
 }
+
+message("imported duplicate check function")

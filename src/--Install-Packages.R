@@ -28,7 +28,8 @@ pacman::p_load(tidyverse,
                 broom,
                 usethis,
                 scales,
-                forcats
+                forcats,
+                sjlabelled
                )
 
 
