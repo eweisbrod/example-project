@@ -92,7 +92,8 @@ kbl(table1,
 #tinytable version
 tt(table1) |> 
   format_tt(escape = TRUE) |> 
-  save_tt(glue("{data_path}/output/freqtable-tiny-r.tex"))
+  save_tt(glue("{data_path}/output/freqtable-tiny-r.tex"),
+          overwrite = TRUE)
 
 # Table 2 Descriptive Stats ----------------------------------------------------
 
