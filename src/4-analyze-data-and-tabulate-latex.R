@@ -4,6 +4,7 @@
 library(modelsummary)
 library(sjlabelled)
 library(kableExtra)
+library(tinytable)
 library(formattable)
 library(lubridate)
 library(glue)
@@ -88,6 +89,10 @@ kbl(table1,
     linesep = "") |> 
   save_kable(glue("{data_path}/output/freqtable-r.tex"))
 
+#tinytable version
+tt(table1) |> 
+  format_tt(escape = TRUE) |> 
+  save_tt(glue("{data_path}/output/freqtable-tiny-r.tex"))
 
 # Table 2 Descriptive Stats ----------------------------------------------------
 
@@ -118,8 +123,8 @@ NN <- function(x) {
 
 
 
-#If you make a subset of the data 
-#you can handle the variable labels with sjlabelled 
+#Here I select the variables I want to include in the table
+#then I use the label_to_colnames() function to apply the variable labels
 descripdata <- regdata |>
   select(
   roa_lead_1,
@@ -135,18 +140,15 @@ descripdata <- regdata |>
 # see the documentation for how the formulas work
 # basically put variables on one side of the ~ and stats on the other
 
-datasummary( All(descripdata) ~ (N = NN) + Mean * Arguments(fmt = my_fmt) + 
-               SD * Arguments(fmt = my_fmt) + 
-               Min * Arguments(fmt = my_fmt) + 
-               P25 * Arguments(fmt = my_fmt) + 
-               Median * Arguments(fmt = my_fmt) + 
-               P75 * Arguments(fmt = my_fmt) + 
-               Max * Arguments(fmt = my_fmt), 
+datasummary( All(descripdata) ~ (N = NN) + 
+               (Mean + SD + Min + P25 + 
+                  Median + P75 + Max) * Arguments(fmt = my_fmt), 
+             data = descripdata,
              # use escape = F to pass the latex formatting along  
              escape = F,
-             output = 'latex',
-             data = descripdata) |> 
-  save_kable(glue("{data_path}/output/descrip-r.tex"))
+             output = glue("{data_path}/output/descrip-r.tex")) 
+
+
 #Here I save the output to a tex file, but you could also just remove the last
 #line and cut and paste the output from the console into Overleaf.
 
@@ -160,9 +162,8 @@ datasummary_correlation(descripdata, method = "pearspear")
 #This time, save it to latex
 datasummary_correlation(descripdata, 
                         method = "pearspear",
-                        output = "latex",
-                        escape = F) |> 
-  save_kable(glue("{data_path}/output/corrtable-r.tex"))
+                        output = glue("{data_path}/output/corrtable-r.tex"),
+                        escape = F) 
 
 
 
@@ -201,11 +202,34 @@ nobs_fmt <- function(x) {
   out <- paste0("\\multicolumn{1}{c}{",out,"}")
 }
 
+#Optional formula to check if controls are in the model
+#note that you need to define at least one variable in the list of controls
+#this is adapted from the modelsummary help pages
+#https://modelsummary.com/vignettes/modelsummary.html#collapse-control-variables-into-an-indicator
+glance_custom.fixest <- function(x, ...) {
+  #modify this line with your control variables
+  controls <- c("at", "rd","mve")
+  if (all(controls %in% names(coef(x)))) {
+    #you could modify this to write whatever you want, "included/excluded etc"
+    out <- data.frame(Controls = "X")
+    #original formating from modelsummary help pages
+    #out <- data.frame(Controls = "✓")
+  } else {
+    out <- data.frame(Controls = "")
+    #original formating from modelsummary help pages
+    #out <- data.frame(Controls = "✗")
+  }
+  return(out)
+}
+
 #Optional custom format for the mapping of what to display in the goodness of
 #fit statistics below the regression output. See the documentation for 
 #modelsummary and the estimation commands you are using, there will be many 
 #different possible choices of what to output.
 gm <- list(
+  list("raw" = "FE: calyear", "clean" = "Year FE", "fmt" = NULL),
+  list("raw" = "FE: gvkey", "clean" = "Firm FE","fmt" = NULL),
+  list("raw" = "Controls", "clean" = "Controls","fmt" = NULL),
   list("raw" = "nobs", "clean" = "N", "fmt" = nobs_fmt),
   list("raw" = "r.squared", "clean" = "$R^2$", "fmt" = 3),
   list("raw" = "r2.within", "clean" = "$R^2$ Within", "fmt" = 3)
@@ -231,22 +255,22 @@ panel <- modelsummary(models,
 
 panel
 
-#In this LaTeX example, I will show how to manually add heading and FE rows.
-#However, in the R code to output to Word, I have provided the code to use the 
+#Optional: if you prefer to manually add heading and FE rows.
+#However, above I have provided the code to use the 
 #built in ability of fixest to create the FE Rows. 
 #This defines the rows we wish to add.
 #The terms should match what you used as the model/column names in the model list.
-my_rows <- tribble(~term,~"Base",~"No FE", ~"Year FE",~"Two-Way FE",~"With Controls",
-                  "Year FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
-                  "Firm FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
-                  "Controls","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}")
-#count the rows in the preview output to see where to insert these extra rows
-attr(my_rows,"position") <- c(7,8,9)
+# my_rows <- tribble(~term,~"Base",~"No FE", ~"Year FE",~"Two-Way FE",~"With Controls",
+#                   "Year FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
+#                   "Firm FE","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}","\\multicolumn{1}{c}{Included}",
+#                   "Controls","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Excluded}","\\multicolumn{1}{c}{Included}")
+# #count the rows in the preview output to see where to insert these extra rows
+# attr(my_rows,"position") <- c(7,8,9)
 
 
 
 #Output to latex with the extra rows added
-panel <- modelsummary(models, 
+modelsummary(models, 
                       #cluster standard errors by gvkey and calyear
                       vcov = ~ gvkey + calyear,
                       #t-stats in parenthesis under coefficients
@@ -257,16 +281,15 @@ panel <- modelsummary(models,
                       #apply the coefficient map for coef labels
                       coef_map = cm,
                       gof_map = gm,
-                      output = "latex", 
-                      escape = F,
-                      booktabs = T,
-                      add_rows = my_rows,
+                      output = glue("{data_path}/output/regression-r.tex"), 
+                      escape = F
+                      #booktabs = T
+                      #add_rows = my_rows,
                       #if you want to decimal align the columns, use the number 
                       #of d equal to the number of models
-                      #if I comment out the below line, modelsummary would dp 
+                      #if I comment out the below line, modelsummary would do 
                       # "lccccc" on its own as the default.
-                      align = "lddddd") |> 
-  #if the table is too wide then tell latex to scale it down
-  kable_styling(latex_options = c("scale_down")) |> 
-  save_kable(glue("{data_path}/output/regression-r.tex"))
+                      #align = "lddddd"
+                      )
+
 
