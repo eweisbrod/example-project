@@ -337,4 +337,66 @@ truncate_x = function(x, cuts = c(0.01,0.01)) {
 
 message("imported transformation functions")
 
+# Check Duplicates -------------------------------------------------------------
 
+
+check_duplicates <- function(data, ...) {
+  # Capture the variable names
+  group_vars <- rlang::enquos(...)
+  
+  # Count duplicates at the specified level
+  duplicated_data <- data |> 
+    dplyr::group_by(!!!group_vars) |> 
+    dplyr::mutate(dup_count = n()) |> 
+    dplyr::ungroup() |> 
+    dplyr::filter(dup_count > 1) |> 
+    dplyr::select(-dup_count)  # Remove the count column
+  
+  
+  # Count the number of duplicated groups
+  num_groups <- duplicated_data |> dplyr::distinct(!!!group_vars) |> nrow()
+  
+  # Count the number of extra observations
+  extra_obs <- nrow(duplicated_data) - num_groups
+  
+  # Get variable names as a string
+  var_names <- base::paste(purrr::map_chr(group_vars, rlang::as_name), collapse = ", ")
+  
+  # If there are no duplicates, tell the user
+  if (base::nrow(duplicated_data) == 0) {
+    base::message(glue::glue("No duplicates at the {var_names} level"))
+  } 
+  # If there are duplicates, do the following
+  else {
+    # Define the dynamic wording for output message
+    multi_groups <- dplyr::if_else(num_groups == 1, 'group has', 'groups have')
+    multi_dups1 <- dplyr::if_else(extra_obs == 1, 'is', 'are')
+    multi_dups2 <- dplyr::if_else(extra_obs == 1, 'extra observation', 'extra observations')
+    
+    # tell the user there are duplicates and how many
+    base::message(glue::glue("Duplicates found at the {var_names} level. {num_groups} {multi_groups} duplicates and there {multi_dups1} {extra_obs} {multi_dups2} detected."))
+    
+    # reorder the columns to have grouping variables at the beginning
+    col_order <- c(purrr::map_chr(group_vars, rlang::as_name), setdiff(names(duplicated_data), purrr::map_chr(group_vars, rlang::as_name)))
+    duplicated_data <- duplicated_data |> dplyr::select(all_of(col_order))
+    
+    # Show a preview of duplicate data
+    print(duplicated_data |> dplyr::slice_head(n = 5))
+    
+    # Switch cursor to console before prompting for input
+    rstudioapi::executeCommand("activateConsole")
+    
+    # Ask the user if they want to save the dataset
+    response <- readline(prompt = "Would you like to save the duplicated dataset as 'duplicated_data'? (y/n): ")
+    
+    # Respond to the user input
+    if (tolower(response) == "y") {
+      base::assign("duplicated_data", duplicated_data, envir = .GlobalEnv)  # Save to global environment
+      base::message("Dataset saved as 'duplicated_data' in the environment.")
+    } else {
+      base::message("Dataset not saved.")
+    }
+  }
+}
+
+message("imported duplicate check function")
