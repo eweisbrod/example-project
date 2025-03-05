@@ -339,7 +339,6 @@ message("imported transformation functions")
 
 # Check Duplicates -------------------------------------------------------------
 
-
 check_duplicates <- function(data, ...) {
   # Capture the variable names
   group_vars <- rlang::enquos(...)
