@@ -4,19 +4,11 @@
 #version as well for some additional / advanced formatting options.
 
 # Load Libraries [i.e., packages]
-library(dotenv)
-library(modelsummary)
-library(sjlabelled)
-library(formattable)
-library(flextable)
-library(equatags)
-library(officer)
-library(lubridate)
-library(glue)
-library(haven)
-library(fixest)
-library(tictoc) #very optional, mostly as a teaching example
-library(tidyverse) # I like to load tidyverse last to avoid package conflicts
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dotenv, modelsummary, sjlabelled, formattable, flextable,
+               equatags, officer, lubridate, glue, haven, fixest,
+               tictoc, #very optional, mostly as a teaching example
+               tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 # Load environment variables from .env file (see script 1 for detailed comments)
 load_dot_env(".env")

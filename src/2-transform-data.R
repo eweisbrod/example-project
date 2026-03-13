@@ -1,12 +1,9 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
-library(dotenv)
-library(lubridate)
-library(glue)
-library(arrow)
-library(haven)
-library(tidyverse) # I like to load tidyverse last to avoid package conflicts
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dotenv, lubridate, glue, arrow, haven,
+               tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
 # Load environment variables from .env file (see script 1 for detailed comments)

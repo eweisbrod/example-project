@@ -1,15 +1,12 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
-library(dotenv)
-library(dbplyr)
-library(RPostgres)
-library(DBI)
-library(glue)
-library(arrow)
-library(haven)
-library(tictoc) #very optional timer, mostly as a teaching example
-library(tidyverse) # I like to load tidyverse last to avoid package conflicts
+# pacman::p_load installs any missing packages automatically, then loads them.
+# This means you don't need to run a separate install script first.
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dotenv, keyring, dbplyr, RPostgres, DBI, glue, arrow, haven,
+               tictoc, #very optional timer, mostly as a teaching example
+               tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
 # Load environment variables from .env file ---------------------------------
@@ -51,6 +48,20 @@ source("src/utils.R")
 
 # Log into wrds ----------------------------------------------------------------
 
+# We use the keyring package to securely store your WRDS credentials in your
+# operating system's credential store (Windows Credential Manager, macOS
+# Keychain, etc.). This is more secure than putting passwords in .env files.
+# Note: Do NOT put passwords in .env - use keyring for secrets.
+#
+# FIRST TIME SETUP - run these two lines in your R console:
+#   keyring::key_set("wrds_user")   # Will prompt for your WRDS username
+#   keyring::key_set("wrds_pw")     # Will prompt for your WRDS password
+# This stores credentials securely in your system's keychain.
+# You only need to do this once per computer.
+#
+# To update stored credentials (e.g., after a password change), just re-run
+# the key_set lines above.
+
 if(exists("wrds")){
   dbDisconnect(wrds)  # because otherwise WRDS might time out
 }
@@ -58,8 +69,8 @@ if(exists("wrds")){
 wrds <- dbConnect(Postgres(),
                   host='wrds-pgdata.wharton.upenn.edu',
                   port=9737,
-                  user=rstudioapi::askForSecret("WRDS user"),
-                  password=rstudioapi::askForSecret("WRDS pw"),
+                  user=keyring::key_get("wrds_user"),
+                  password=keyring::key_get("wrds_pw"),
                   sslmode='require',
                   dbname='wrds')
 wrds  # checking if connection exists

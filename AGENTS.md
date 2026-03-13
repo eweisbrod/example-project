@@ -32,7 +32,6 @@ example-project/
 ├── README.md               # Main documentation and install guide
 ├── install-R.md            # R/RStudio/Git installation instructions
 ├── src/
-│   ├── --Install-Packages.R          # One-time R package installation
 │   ├── utils.R                       # Helper functions (winsorize, FF industries)
 │   ├── 1-download-wrds-data.R        # Download from WRDS (R version)
 │   ├── 1-download-wrds-data.sas      # Download from WRDS (SAS version)
@@ -49,14 +48,15 @@ example-project/
 ### Script Execution Order
 
 Scripts are numbered and should be run in order:
-1. `--Install-Packages.R` (one-time setup)
-2. `1-download-wrds-data.R` or `.sas` (requires WRDS credentials)
-3. `2-transform-data.R`
-4. `3-figures.R`
-5. `4-analyze-data-*.R` or `.do`
+1. `1-download-wrds-data.R` or `.sas` (requires WRDS credentials)
+2. `2-transform-data.R`
+3. `3-figures.R`
+4. `4-analyze-data-*.R` or `.do`
 
 Every R script loads `.env` via `dotenv` and sources `utils.R` at the top.
-See `1-download-wrds-data.R` for detailed comments on the `.env` setup.
+Packages are auto-installed via `pacman::p_load()` — no separate install step needed.
+See `1-download-wrds-data.R` for detailed comments on `.env` setup and keyring
+credential storage.
 
 ## Key Conventions
 
@@ -75,6 +75,10 @@ See `1-download-wrds-data.R` for detailed comments on the `.env` setup.
 
 ### R Code Style
 
+- **`pacman::p_load()` is used instead of `library()`** — it auto-installs
+  missing packages, so users don't need a separate install step. Each script
+  starts with `if (!require("pacman")) install.packages("pacman")` followed
+  by `pacman::p_load(...)`.
 - `tidyverse` is always loaded last to avoid package conflicts
 - The native pipe `|>` is preferred over `%>%` (though some older code
   may still use `%>%`)
