@@ -2,7 +2,7 @@
 
 This repository (repo) provides a template for an Accounting / Finance research project.
 
-[Link to install page]](install-R.md).
+[Link to install page](install-R.md).
 
 
 The code in this repository can generate output for both LaTeX and MS Office.
@@ -38,6 +38,8 @@ Files are organized as follows:
 -   The etc folder contains the screenshots used on the site
 -   There is a powerpoint file in the main/root directory with some brief introductory slides that I use during live presentations for new R users.
 
+**Important: Setting up your data directory.** This project uses a `.env` file to configure local file paths (like where your data is stored). This means you don't need to edit any code to change paths -- you only edit the `.env` file once. See the `.env` file in the project root and the setup comments in `src/1-download-wrds-data.R` for details. For Stata users, the setup comments at the top of `src/4-analyze-data-Stata.do` walk through installing the `projectpaths` and `doenv` Stata packages.
+
 A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio.
 If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then clone that.
 Instructions for getting set up with R and Git appear below.
@@ -62,6 +64,40 @@ The Journal of Finance, 74: 899-942.
 <https://doi.org/10.1111/jofi.12743>
 
 it would be much appreciated.
+
+<h2 id="about-agentsmd">🤖 About AGENTS.md - AI Assistant Configuration</h2>
+
+You may have noticed a file called `AGENTS.md` in the root of this repository. This is part of an emerging open standard for giving AI coding assistants (like Claude Code, GitHub Copilot, Cursor, Windsurf, etc.) context about a project. Below are some teaching notes about what it is and why we include it.
+
+### What is AGENTS.md?
+
+`AGENTS.md` is a markdown file that lives in the root of a repository and provides AI assistants with structured information about the project: how it's organized, what conventions to follow, what common pitfalls to avoid, and other context that helps an AI work with the code effectively. Think of it as a "README for AI" -- just as `README.md` helps *humans* understand a project, `AGENTS.md` helps *AI assistants* understand it.
+
+### Why is it called AGENTS.md?
+
+The name `AGENTS.md` was proposed as a **cross-tool standard** by the Linux Foundation's AI Agent Configuration working group, with backing from Anthropic, OpenAI, Google, Amazon, and others. The idea is that one file can work across all AI coding tools, rather than having separate config files for each tool (`.cursorrules`, `CLAUDE.md`, `.github/copilot-instructions.md`, etc.).
+
+### Why do we include it in this repo?
+
+1. **Teaching by example**: Since this is a teaching repository, we want to demonstrate modern development practices, including how to work with AI assistants.
+2. **It helps AI assistants help you**: If you open this project in an AI-enabled editor, the assistant will automatically read `AGENTS.md` and understand the project structure, the `.env` convention, the script execution order, and other important details. This makes the AI much more helpful when you ask it questions about the code.
+3. **It documents project conventions**: Even if you never use an AI assistant, `AGENTS.md` serves as useful documentation about how the project is structured and what conventions it follows. It's a good complement to the README.
+
+### What about CLAUDE.md?
+
+You may also see a `CLAUDE.md` file. This is a thin file specific to [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (Anthropic's CLI coding tool). It uses the `@AGENTS.md` import syntax to pull in the shared context from AGENTS.md, and adds a few Claude-specific instructions. This layered approach means:
+
+- **AGENTS.md** = shared context that works with *any* AI tool (committed to git)
+- **CLAUDE.md** = Claude-specific settings that import AGENTS.md (committed to git)
+- **Tool-specific files** (e.g., `.cursorrules`) = can also import or reference AGENTS.md
+
+### Should I create AGENTS.md for my own projects?
+
+If you use AI coding assistants, yes! Even a short AGENTS.md with your project's key conventions, file structure, and common pitfalls can significantly improve the AI's responses. You don't need to write it from scratch -- you can ask an AI assistant to draft one for you based on your project, then review and edit it.
+
+For more information on the standard, see:
+- [Linux Foundation AI Agent Configuration](https://www.linuxfoundation.org/press/linux-foundation-launches-open-standard-for-configuring-ai-coding-agents)
+- [Claude Code documentation on CLAUDE.md](https://docs.anthropic.com/en/docs/claude-code/memory)
 
 <h2>🛠️ Getting Started with R and Git / Installation Guide</h2>
 

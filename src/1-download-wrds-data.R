@@ -1,6 +1,7 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
+library(dotenv)
 library(dbplyr)
 library(RPostgres)
 library(DBI)
@@ -11,9 +12,40 @@ library(tictoc) #very optional timer, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
+# Load environment variables from .env file ---------------------------------
+
+# SHARING CODE WITH COAUTHORS USING .env FILES
+#
+# A .env file is a simple text file that stores configuration variables like
+# file paths. Each line has the format: VARIABLE_NAME=value
+#
+# WHY USE IT?
+# - Your code doesn't contain hardcoded paths specific to your computer
+# - Coauthors can run the same code by creating their own .env file
+# - Better for sharing code publicly (e.g., journal submissions)
+# - The .env file is gitignored so each person has their own local copy
+# - Works across R, Python, and Stata using the same .env file
+#
+# SETUP (one-time):
+# 1. Open the .env file in the project root directory
+# 2. Change the DATA_DIR path to wherever you want to store data
+#    Example: DATA_DIR=D:/Dropbox/example-project
+#    Notice the slashes go the other way from Windows!
+# 3. Save the file. You should only have to do this once per computer.
+#
+# It is recommended to not store your data in the Git project folder.
+# Github is designed for hosting code, not data.
+# I use a separate folder, usually in Dropbox if there is enough space.
+
+load_dot_env(".env")
+data_dir <- Sys.getenv("DATA_DIR")
+
+# If the above is too complicated and you don't have coauthors you can just set
+# data_dir manually by deleting the two lines above and uncommenting the below:
+# data_dir <- "D:/Dropbox/example-project"
+
 #load helper scripts
 #similar to "include" statement in SAS.
-source("src/-Global-Parameters.R")
 source("src/utils.R")
 
 
@@ -71,7 +103,7 @@ raw_funda <-
   #Merge with the Compustat Company file for header SIC code and GICs code
   inner_join(select(comp.company, gvkey, sic, fic, gind), by="gvkey") |> 
   #Use historical sic [sich] when available. Otherwise use header sic [sic]
-  mutate(sic4 = case_when( is.null(sich) ~ as.numeric(sic), TRUE ~ sich)) |> 
+  mutate(sic4 = case_when( is.na(sich) ~ as.numeric(sic), TRUE ~ sich)) |> 
   #Calculate two digit sic code
   mutate(sic2 = floor(sic4/100)) |> 
   #Delete financial and utility industries
@@ -117,7 +149,7 @@ tictoc::toc()
 # saving to Stata is convenient for working with coauthors
 # glue package allows for dynamic file paths 
 # then each coauthor can specify their own local data folder
-write_dta(raw_funda,glue("{data_path}/raw-data-R.dta")) 
+write_dta(raw_funda,glue("{data_dir}/raw-data-R.dta")) 
 #looks like about 162 MB on my machine
 
 # if the data will stay in R or another advanced/modern language like Python
@@ -128,7 +160,7 @@ write_dta(raw_funda,glue("{data_path}/raw-data-R.dta"))
 # default to a high level of gzip compression to save space
 # therefore, the write_parquet function is using the function defined in the 
 # utils script
-write_parquet(raw_funda,glue("{data_path}/raw-data-R.parquet"))
+write_parquet(raw_funda,glue("{data_dir}/raw-data-R.parquet"))
 # the parquet operations are faster and the file is only 32MB on my machine
 
 

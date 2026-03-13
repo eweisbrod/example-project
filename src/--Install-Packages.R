@@ -8,14 +8,15 @@ if (!require("pacman")) install.packages("pacman")
 #not all of the packages are crucial but I have put them all here anyways.
 #for now.
 #You may see a lot of warnings as the packages install but that is ok.
-pacman::p_load(tidyverse, 
+pacman::p_load(tidyverse,
+                dotenv,
                 dbplyr,
                 RPostgres,
                 DBI,
                 glue,
                 arrow,
                 haven,
-                tictoc, 
+                tictoc,
                 lubridate,
                 modelsummary,
                 kableExtra,

@@ -1,3 +1,9 @@
+# Environment files
+.env
+
+# Claude Code local settings
+.claude/settings.local.json
+
 # History files
 .Rhistory
 .Rapp.history

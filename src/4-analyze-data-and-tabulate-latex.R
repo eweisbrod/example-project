@@ -1,6 +1,7 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
+library(dotenv)
 library(modelsummary)
 library(sjlabelled)
 library(kableExtra)
@@ -12,9 +13,11 @@ library(fixest)
 library(tictoc) #very optional, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
+# Load environment variables from .env file (see script 1 for detailed comments)
+load_dot_env(".env")
+data_dir <- Sys.getenv("DATA_DIR")
 
 #load helper scripts
-source("src/-Global-Parameters.R")
 source("src/utils.R")
 
 #Set this option for the modelsummary output
@@ -24,7 +27,7 @@ options(modelsummary_format_numeric_latex = "plain")
 
 #read in the winsorized data
 #I found there are not many firms in the 60s so I am just going to start at 1970
-regdata <- read_dta(glue("{data_path}/regdata-R.dta")) |> 
+regdata <- read_dta(glue("{data_dir}/regdata-R.dta")) |> 
   select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) |> 
   #add variable labels 
   sjlabelled::var_labels(
@@ -86,7 +89,7 @@ kbl(table1,
      format = "latex",
     booktabs = T,
     linesep = "") |> 
-  save_kable(glue("{data_path}/output/freqtable-r.tex"))
+  save_kable(glue("{data_dir}/output/freqtable-r.tex"))
 
 
 # Table 2 Descriptive Stats ----------------------------------------------------
@@ -146,7 +149,7 @@ datasummary( All(descripdata) ~ (N = NN) + Mean * Arguments(fmt = my_fmt) +
              escape = F,
              output = 'latex',
              data = descripdata) |> 
-  save_kable(glue("{data_path}/output/descrip-r.tex"))
+  save_kable(glue("{data_dir}/output/descrip-r.tex"))
 #Here I save the output to a tex file, but you could also just remove the last
 #line and cut and paste the output from the console into Overleaf.
 
@@ -162,7 +165,7 @@ datasummary_correlation(descripdata,
                         method = "pearspear",
                         output = "latex",
                         escape = F) |> 
-  save_kable(glue("{data_path}/output/corrtable-r.tex"))
+  save_kable(glue("{data_dir}/output/corrtable-r.tex"))
 
 
 
@@ -268,5 +271,5 @@ panel <- modelsummary(models,
                       align = "lddddd") |> 
   #if the table is too wide then tell latex to scale it down
   kable_styling(latex_options = c("scale_down")) |> 
-  save_kable(glue("{data_path}/output/regression-r.tex"))
+  save_kable(glue("{data_dir}/output/regression-r.tex"))
 

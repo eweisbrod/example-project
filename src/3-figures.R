@@ -1,6 +1,7 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
+library(dotenv)
 library(modelsummary)
 library(kableExtra)
 library(formattable)
@@ -11,15 +12,18 @@ library(fixest)
 library(forcats)
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
+# Load environment variables from .env file (see script 1 for detailed comments)
+load_dot_env(".env")
+data_dir <- Sys.getenv("DATA_DIR")
+
 #load helper scripts
-source("src/-Global-Parameters.R")
 source("src/utils.R")
 
 
 # read in the data from the previous step --------------------------------------
 
 #read in the winsorized data
-regdata <- read_dta(glue("{data_path}/regdata-R.dta")) |> 
+regdata <- read_dta(glue("{data_dir}/regdata-R.dta")) |> 
   select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) 
 
 
@@ -44,10 +48,10 @@ fig <- regdata |>
 fig
 
 #For Latex output you might want to output to PDF
-ggsave(glue("{data_path}/output/ff12_fig.pdf"), fig, width = 7, height = 6)
+ggsave(glue("{data_dir}/output/ff12_fig.pdf"), fig, width = 7, height = 6)
 
 #For Word output you might want to output to an image such as .png
-ggsave(glue("{data_path}/output/ff12_fig.png"), fig, width = 4.2, height = 3.6)
+ggsave(glue("{data_dir}/output/ff12_fig.png"), fig, width = 4.2, height = 3.6)
 
 
 # Losses by Size Quintile Over Time --------------------------------------------
@@ -72,10 +76,10 @@ fig <- regdata |>
 fig
 
 #For Latex
-ggsave(glue("{data_path}/output/size_year.pdf"), fig, width = 7, height = 6)
+ggsave(glue("{data_dir}/output/size_year.pdf"), fig, width = 7, height = 6)
 
 #For Word
-ggsave(glue("{data_path}/output/size_year.png"), fig, width = 7, height = 6)
+ggsave(glue("{data_dir}/output/size_year.png"), fig, width = 7, height = 6)
 
 
 # Correlation Matrix Plot ------------------------------------------------------
@@ -97,7 +101,7 @@ corrdata
 correlation = cor(corrdata)
 col2 = colorRampPalette(c('red', 'white', 'blue'))  
 
-pdf(file=glue("{data_path}/output/corr_fig.pdf"))
+pdf(file=glue("{data_dir}/output/corr_fig.pdf"))
 corrplot(correlation, method = 'square', 
          addCoef.col = 'black', 
          diag = FALSE,
@@ -149,8 +153,8 @@ fig <- figdata |>
 fig
 
 #For Latex
-ggsave(glue("{data_path}/output/coef_year.pdf"), fig, width = 7, height = 6)
+ggsave(glue("{data_dir}/output/coef_year.pdf"), fig, width = 7, height = 6)
 
 #For Word
-ggsave(glue("{data_path}/output/coef_year.png"), fig, width = 7, height = 6)
+ggsave(glue("{data_dir}/output/coef_year.png"), fig, width = 7, height = 6)
 

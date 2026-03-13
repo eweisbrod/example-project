@@ -1,6 +1,7 @@
 # Setup ------------------------------------------------------------------------
 
 # Load Libraries [i.e., packages]
+library(dotenv)
 library(lubridate)
 library(glue)
 library(arrow)
@@ -8,16 +9,22 @@ library(haven)
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
 
+# Load environment variables from .env file (see script 1 for detailed comments)
+load_dot_env(".env")
+data_dir <- Sys.getenv("DATA_DIR")
+
+# Sample period parameters
+beg_year <- 1970
+end_year <- 2022
 
 #load helper scripts
-source("src/-Global-Parameters.R")
 source("src/utils.R")
 
 
 # read in the data from the previous step --------------------------------------
 
 #let's work with the parquet version
-data1 <- read_parquet(glue("{data_path}/raw-data-R.parquet"))
+data1 <- read_parquet(glue("{data_dir}/raw-data-R.parquet"))
 
 #note: if you choose to collect your raw data in SAS or Stata
 # these could easily be read in using haven::read_dta() or haven::read_sas()
@@ -134,4 +141,4 @@ quantile(data3b$roa, probs = c(0,.025,.975,1))
 # Save the winsorized data  ----------------------------------------------------
 
 # just saving to Stata format this time for brevity
-write_dta(data3,glue("{data_path}/regdata-R.dta")) 
+write_dta(data3,glue("{data_dir}/regdata-R.dta")) 

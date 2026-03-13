@@ -149,7 +149,7 @@ if fyr > 3 then calyear = calyear+1;
 if 1970 <= calyear <= 2022;
 *I am going to scale by total assets (at) so I am going to set a minimum
 in order to avoid small denominators;
-if at => 10;
+if at >= 10;
 
 *Define earnings (e) as earnings before special items;
 e= ib - spi;

@@ -1,40 +1,75 @@
 /******************************************************************************/
 *SETUP*
-//change to the directory where the data is stored.
-//you have to manually change to this directory, it won't do it automatically.
 
-//If we do this once up here then everything below can just be using dots
-//and it will work from any computer, can also be used to share one code with
-//coauthors (each person puts their directory here).
+// SHARING CODE WITH COAUTHORS USING .env FILES
+//
+// WHAT IS A .env FILE?
+// A .env file is a simple text file that stores configuration variables like
+// file paths. Each line has the format: VARIABLE_NAME=value
+//
+// WHY USE IT?
+// - Your code doesn't contain hardcoded paths specific to your computer
+// - Coauthors can run the same code by creating their own .env file
+// - Better for sharing code publicly (e.g., journal submissions)
+// - The .env file is gitignored so each person has their own local copy
+// - The same .env file works across R, Python, and Stata
+//
+// FIRST-TIME SETUP (only needs to be done once per computer):
+//
+// Step 1: Install the two Stata packages we use for this:
+//   - projectpaths: manages project root directories across machines
+//   - doenv: loads .env files into Stata
+// Uncomment and run these two lines to install them:
+//   net install projectpaths, from("https://raw.githubusercontent.com/eweisbrod/projectpaths/main/src/") replace
+//   net install doenv, from("https://github.com/vikjam/doenv/raw/master/") replace
+//
+// Step 2: Register this project with projectpaths.
+// Copy this line to your Stata console and replace the path with YOUR path
+// to wherever you cloned this repository:
+//   project_paths_list, add project(example-project) path("C:\_git\example-project")
+//
+// Step 3: Edit the .env file in the project root directory.
+// Open it in any text editor (e.g., Notepad) and change the DATA_DIR path
+// to wherever you want to store your data. Use FORWARD slashes even on Windows:
+//   DATA_DIR=D:/Dropbox/example-project
+//
+// That's it! After this one-time setup, the code below will just work.
+// Each coauthor does the same three steps with their own paths.
+//
+// ALTERNATIVE: If you find the above too complicated and you don't have
+// coauthors, you can skip all of this and just uncomment and edit one line:
+//   local data_dir "D:/Dropbox/example-project"
+// Then comment out the three lines below (project_paths_list, doenv, local).
 
-//Eric Desktop
-cd  "D:\Dropbox\example-project"
 
-//Eric Laptop
-cd "C:\Users\e679w418\Dropbox\example-project"
+// Navigate to the project root directory using projectpaths
+project_paths_list, project(example-project) cd
+
+// Load environment variables from the .env file
+doenv using ".env"
+
+// Store the data directory path in a local macro
+local data_dir "`r(DATA_DIR)'"
+
+// Display to verify it loaded correctly (optional, can comment out)
+display "Using data directory: `data_dir'"
 
 //I plan to save the output tables to a subfolder called output
 //you need to create this directory if you would like to follow my example.
 //You can do it manually or you can uncomment and run the below line
-//mkdir output
+//mkdir "`data_dir'/output"
 //You only need to do this once the first time you run the code.
-//If you try to make a directory that already exists you will get an error.
-
 
 
 /******************************************************************************/
 *LOAD DATA*
-use "regdata-sas.dta" , clear
+use "`data_dir'/regdata-sas.dta" , clear
 
 
-// sidenote: once you change to a root directory, you can also use relative
-// pathnames and dots. For example, say you don't use git, but instead 
-// have a root folder for your project on Dropbox
-// and saved this code in a code subfolder and data in a separate subfolder. 
-// Then, a relative path to the data folder from the code folder would be
-// use "..\Data\example-data2.dta" , clear
-//this will always be the same relative path for each computer/coauthor 
-// provided they have changed directories as above, to the relevant folder.
+// NOTE: Because we use projectpaths + doenv to load paths from the .env file,
+// all file references use the `data_dir' local macro. This means the code will
+// work on any computer without modification -- each coauthor just needs their
+// own .env file with their local data path.
 
 
 /******************************************************************************/
@@ -120,7 +155,7 @@ esttab, cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      eqlabels(, lhs("Sub-Period"))                     
 
 //output the table to Latex
-esttab using "output\freq-stata.tex", replace compress booktabs ///
+esttab using "`data_dir'/output/freq-stata.tex", replace compress booktabs ///
 	 cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      collabels("(\%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period")) ///
@@ -128,7 +163,7 @@ esttab using "output\freq-stata.tex", replace compress booktabs ///
 
 
 //output the table to Word
-esttab using "output\freq-stata.rtf", replace ///
+esttab using "`data_dir'/output/freq-stata.rtf", replace ///
 	 cell(b(fmt(%9.0fc)) rowpct(fmt(2) par)) ///
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))                    
@@ -136,7 +171,7 @@ esttab using "output\freq-stata.rtf", replace ///
 //output the table to excel
 // don't use comma-format numbers in the excel file unless you research special
 // options, because the excel is a csv file and it will break at the commas
-esttab using "output\freq-stata.csv", replace ///
+esttab using "`data_dir'/output/freq-stata.csv", replace ///
 	 cell(b(fmt(%9.0f)) rowpct(fmt(2) par)) /// f format instead of fc
      collabels("(%)") unstack noobs nonumber nomtitle    ///
      eqlabels(, lhs("Sub-Period"))
@@ -178,7 +213,7 @@ esttab . , replace noobs nonumbers label ///
 cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25(fmt(%9.3fc)) p75(fmt(%9.3fc))") compress
 
 //output the table to LaTeX
-esttab using "output\descrip-stata.tex", replace compress booktabs ///
+esttab using "`data_dir'/output/descrip-stata.tex", replace compress booktabs ///
 cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25(fmt(%9.3fc)) p75(fmt(%9.3fc))") ///
  title("Descriptive Statistics") ///
  nomtitles nonumbers noobs label ///
@@ -186,13 +221,13 @@ cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25
  
 
 //output the table to Word
-esttab using "output\descrip-stata.rtf", replace ///
+esttab using "`data_dir'/output/descrip-stata.rtf", replace ///
 cells("count(fmt(%9.0fc)) mean(fmt(%9.3fc)) p50(fmt(%9.3fc)) sd(fmt(%9.3fc)) p25(fmt(%9.3fc)) p75(fmt(%9.3fc))") compress ///
  title("Descriptive Statistics") ///
  nomtitles nonumbers noobs label 
  
  //output the table to excel
-esttab using "output\descrip-stata.csv", replace ///
+esttab using "`data_dir'/output/descrip-stata.csv", replace ///
 cells("count(fmt(%9.0f)) mean(fmt(%9.3f)) p50(fmt(%9.3f)) sd(fmt(%9.3f)) p25(fmt(%9.3f)) p75(fmt(%9.3f))") compress ///
  title("Descriptive Statistics") ///
  nomtitles nonumbers noobs label 
@@ -205,11 +240,11 @@ cells("count(fmt(%9.0f)) mean(fmt(%9.3f)) p50(fmt(%9.3f)) sd(fmt(%9.3f)) p25(fmt
 eststo clear
 
 //Run first-column regression and store results
-eststo m1, title("Base"): reghdfe roa_lead roa, cluster(gvkey calyear)  noabsorb
-eststo m2, title("No FE"): reghdfe roa_lead c.roa##i.loss, cluster(gvkey calyear)  noabsorb
-eststo m3, title("Year FE"): reghdfe roa_lead c.roa##i.loss, cluster(gvkey calyear)  absorb(calyear)
-eststo m4, title("Twoway FE"): reghdfe roa_lead c.roa##i.loss, cluster(gvkey calyear)  absorb(firm_fe calyear)
-eststo m5, title("With Controls"): reghdfe roa_lead c.roa##i.loss $controls, cluster(gvkey calyear)  absorb(firm_fe calyear)
+eststo m1, title("Base"): reghdfe roa_lead_1 roa, cluster(gvkey calyear)  noabsorb
+eststo m2, title("No FE"): reghdfe roa_lead_1 c.roa##i.loss, cluster(gvkey calyear)  noabsorb
+eststo m3, title("Year FE"): reghdfe roa_lead_1 c.roa##i.loss, cluster(gvkey calyear)  absorb(calyear)
+eststo m4, title("Twoway FE"): reghdfe roa_lead_1 c.roa##i.loss, cluster(gvkey calyear)  absorb(firm_fe calyear)
+eststo m5, title("With Controls"): reghdfe roa_lead_1 c.roa##i.loss $controls, cluster(gvkey calyear)  absorb(firm_fe calyear)
 
 // Here is a trick from the author of reghdfe to add FE indicator rows
 // http://scorreia.com/software/reghdfe/faq.html#how-can-i-combine-reghdfe-with-esttab-or-estout
@@ -243,7 +278,7 @@ drop(0* _cons) /// drops the baseline empty reference categories and constant
 	estfe . m* , labels(calyear "Year FE" firm_fe "Firm FE")
 	return list
 //Output to Latex
-esttab using "output\regression-stata.tex", replace compress booktabs ///
+esttab using "`data_dir'/output/regression-stata.tex", replace compress booktabs ///
  substitute(\_ _ _cons Constant) /// 
 drop(0* _cons) /// drops the baseline empty reference categories and constant 
  mtitles label nolegend nonotes ///
@@ -261,7 +296,7 @@ drop(0* _cons) /// drops the baseline empty reference categories and constant
 	return list
 	
 //Output to Word
-esttab using "output\regression-stata.rtf", replace ///
+esttab using "`data_dir'/output/regression-stata.rtf", replace ///
 drop(0* _cons) /// drops the baseline empty reference categories and constant 
  mtitles label nolegend nonotes ///
  title("Regression Table") ///
@@ -276,7 +311,7 @@ drop(0* _cons) /// drops the baseline empty reference categories and constant
 	return list
 	
 //Output to Excel
-esttab using "output\regression-stata.csv", replace ///
+esttab using "`data_dir'/output/regression-stata.csv", replace ///
 drop(0* _cons) /// drops the baseline empty reference categories and constant 
  mtitles label nolegend nonotes ///
  title("Regression Table") ///

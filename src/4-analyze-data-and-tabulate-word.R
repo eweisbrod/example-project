@@ -4,6 +4,7 @@
 #version as well for some additional / advanced formatting options.
 
 # Load Libraries [i.e., packages]
+library(dotenv)
 library(modelsummary)
 library(sjlabelled)
 library(formattable)
@@ -17,9 +18,11 @@ library(fixest)
 library(tictoc) #very optional, mostly as a teaching example
 library(tidyverse) # I like to load tidyverse last to avoid package conflicts
 
+# Load environment variables from .env file (see script 1 for detailed comments)
+load_dot_env(".env")
+data_dir <- Sys.getenv("DATA_DIR")
 
 #load helper scripts
-source("src/-Global-Parameters.R")
 source("src/utils.R")
 
 
@@ -27,7 +30,7 @@ source("src/utils.R")
 
 #read in the winsorized data
 #I found there are not many firms in the 60s so I am just going to start at 1970
-regdata <- read_dta(glue("{data_path}/regdata-R.dta")) |> 
+regdata <- read_dta(glue("{data_dir}/regdata-R.dta")) |> 
   select(gvkey,datadate,calyear,roa,roa_lead_1,loss,at,mve,rd,FF12,ff12num) |> 
   #add variable labels 
   sjlabelled::var_labels(
@@ -288,11 +291,11 @@ read_docx() |>
   body_add_break(pos = "after") |> 
   body_add_par("Figure 1", style = "heading 1") |> 
   body_add_par("") |> 
-  body_add_img(glue("{data_path}/output/ff12_fig.png"), 
+  body_add_img(glue("{data_dir}/output/ff12_fig.png"), 
                height = 3.6,
                width = 4.2,
                style = "centered") |> 
-  print(target = glue("{data_path}/output/tables-r.docx"))
+  print(target = glue("{data_dir}/output/tables-r.docx"))
 
 
 #Since these are flextables, they can also be output to html, ppt, markdown, etc.
