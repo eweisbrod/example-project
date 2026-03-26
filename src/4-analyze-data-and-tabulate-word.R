@@ -75,7 +75,7 @@ t1 <- bind_rows(t1, totalrow)
 t1
 
 #turn it into a flextable
-ftable1 <- flextable(t1) %>% autofit()
+ftable1 <- flextable(t1) |> autofit()
 
 #look at it
 ftable1
