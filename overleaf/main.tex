@@ -1,0 +1,764 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE
+% Overleaf-ready LaTeX template for an academic paper in Accounting/Finance.
+% Author: Eric Weisbrod
+%
+% This template accompanies the project-template and project-template-r
+% GitHub repositories. The tables and figures included below were produced
+% by the code in those repositories and pasted into this document.
+%
+% Live Overleaf version: https://www.overleaf.com/read/ctmwnmdcypzh
+% R template:            https://github.com/eweisbrod/project-template-r
+% Polyglot template:     https://github.com/eweisbrod/project-template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[english,authoryear,IEEEtran,12pt]{article}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts}
+\usepackage{etoolbox}
+\usepackage{amssymb}
+\usepackage{soul}
+\usepackage{graphicx}
+\usepackage[position=top]{subfig}
+\usepackage{amsmath}
+\usepackage{rotating}
+\usepackage[doublespacing]{setspace}
+\usepackage{verbatim}
+\usepackage{siunitx}
+\newcolumntype{d}{S[input-open-uncertainty=, input-close-uncertainty=, parse-numbers = false, table-align-text-pre=false, table-align-text-post=false ]}
+
+% tabularray support (used by modelsummary/tinytable in R)
+\usepackage{tabularray}
+\usepackage{float}
+\usepackage[normalem]{ulem}
+\UseTblrLibrary{booktabs}
+\UseTblrLibrary{siunitx}
+\newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
+\newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
+\NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
+
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage[title]{appendix}
+\usepackage{supertabular}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage[labelfont=bf,justification=centering]{caption}
+\usepackage{pdflscape}
+\usepackage{longtable}
+\usepackage{pifont}
+\usepackage{dsfont}
+\usepackage[title]{appendix}
+\usepackage{caption}
+\usepackage{ntheorem}
+
+\theoremseparator{:}
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{researchq}{Research Question}
+
+\usepackage{epstopdf}
+\usepackage{times}
+\usepackage{enumitem}
+\usepackage{authblk}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage{makecell}
+\usepackage{url, setspace, comment}
+\usepackage{tabu}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage{adjustbox}
+\usepackage{wrapfig}
+
+\usepackage{epigraph}
+\renewcommand{\epigraphflush}{center}
+\setlength{\epigraphwidth}{0.8\textwidth}
+\renewcommand{\epigraphsize}{\itshape\normalsize}
+
+\urlstyle{rm}
+
+% Bibliography: biblatex-chicago (author-year)
+\usepackage[authordate,natbib,noibid,giveninits=true,uniquename=mininit,maxnames=2,minnames=1,maxbibnames=10,minbibnames=7,hyperref=true,backend=biber,doi=false,isbn=false,url=false,footmarkoff,numbermonth=false,citetracker=true]{biblatex-chicago}
+\AtEveryCitekey{\ifciteseen{}{\defcounter{maxnames}{99}}}
+
+\hypersetup{
+  pdfborder={0 0 0},
+  colorlinks,
+  citecolor=Blue,
+  linkcolor=Blue,
+  urlcolor=Blue}
+
+% Make cite hyperlinks include authors
+\DeclareFieldFormat{citehyperref}{%
+   \DeclareFieldAlias{bibhyperref}{noformat}%
+   \bibhyperref{#1}}
+\DeclareFieldFormat{textcitehyperref}{%
+   \DeclareFieldAlias{bibhyperref}{noformat}%
+   \bibhyperref{%
+     #1%
+     \ifbool{cbx:parens}
+       {\bibcloseparen\global\boolfalse{cbx:parens}}
+       {}}}
+\savebibmacro{cite}
+\savebibmacro{textcite}
+\renewbibmacro*{cite}{%
+   \printtext[citehyperref]{%
+     \restorebibmacro{cite}%
+     \usebibmacro{cite}}}
+\renewbibmacro*{textcite}{%
+   \ifboolexpr{
+     ( not test {\iffieldundef{prenote}} and
+       test {\ifnumequal{\value{citecount}}{1}} )
+     or
+     ( not test {\iffieldundef{postnote}} and
+       test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+   }
+     {\DeclareFieldAlias{textcitehyperref}{noformat}}
+     {}%
+   \printtext[textcitehyperref]{%
+     \restorebibmacro{textcite}%
+     \usebibmacro{textcite}}}
+
+\addbibresource{Bibliography.bib}
+
+% Section formatting
+\usepackage{titlesec}
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}{\normalsize\bfseries}{\thesection. }{0 pt}{}{}
+\titleformat{\subsection}[hang]{\bfseries}{\thesubsection\ }{0 pt}{}{}
+
+% Caption formatting: TABLE/FIGURE in bold, on separate line
+\usepackage[tablename = TABLE, figurename = FIGURE, labelfont=bf,
+textfont = bf, labelsep=newline]{caption}
+\defbibheading{bibliography}{\centering \textbf{REFERENCES}}
+
+\makeatletter
+\patchcmd{\@makecaption}{.\qquad}{\par}{}{}
+\makeatother
+
+\setlength{\affilsep}{0pt}
+\renewcommand\Affilfont{\itshape\small}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\makeatletter
+\patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@nmfmt{\NAT@nm}}{}{}
+\DeclareRobustCommand\citepos
+  {\begingroup
+   \let\NAT@nmfmt\NAT@posfmt
+   \NAT@swafalse\let\NAT@ctype\z@\NAT@partrue
+   \@ifstar{\NAT@fulltrue\NAT@citetp}{\NAT@fullfalse\NAT@citetp}}
+\let\NAT@orig@nmfmt\NAT@nmfmt
+\def\NAT@posfmt#1{\NAT@orig@nmfmt{#1's}}
+\makeatother
+
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+
+\clearpage
+\begin{singlespace}
+\title{\textbf{\large Earnings Announcement Event Study: \\ A Teaching Template for Empirical Research}}
+\vspace{-1ex}
+{\author{\normalsize Author 1 \\ University 1 \\ \textit{author1@uni1.edu} \vspace{-2ex} \and \normalsize Author 2  \\ University 2  \\ \textit{author2@uni2.edu}} }
+\maketitle
+\end{singlespace}
+\thispagestyle{empty}
+
+\begin{singlespace}
+\vspace{-0.5in}
+\begin{abstract}
+\noindent This document is a \LaTeX\ template for creating an academic paper formatted for Accounting or Finance journals. The tables and figures were produced by the companion coding templates on GitHub, which demonstrate a complete empirical pipeline from WRDS data download through publication-ready output. The example analysis tests whether the market reacts more strongly to earnings surprises when the direction of the sales change confirms the earnings change (the ``SameSign'' interaction). Code is available in R, Python, and Stata.
+
+\bigskip
+
+\noindent \textbf{Keywords:} earnings announcements, event study, SUE, teaching template.
+\end{abstract}
+\end{singlespace}
+
+\blfootnote{A live version of this document including the \LaTeX\ source code is available at: \url{https://www.overleaf.com/read/ctmwnmdcypzh}. The companion GitHub coding templates are available at \url{https://github.com/eweisbrod/project-template-r} (R only) and \url{https://github.com/eweisbrod/project-template} (Python + R + Stata).}
+
+\thispagestyle{empty}
+\clearpage\newpage
+\setcounter{page}{1}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+
+\section{Introduction} \label{section-intro}
+\vspace{-0.1in}
+
+This document is a \LaTeX\ template for creating an academic paper formatted for potential publication in Accounting or Finance. It accompanies the coding templates at \url{https://github.com/eweisbrod/project-template-r} and \url{https://github.com/eweisbrod/project-template}, which demonstrate a complete empirical pipeline: downloading data from WRDS, merging databases, creating variables, producing figures, and outputting formatted tables.
+
+The example analysis uses an \textbf{earnings announcement event study}. We compute standardized unexpected earnings (SUE) as the seasonal change in quarterly income scaled by prior-quarter market value, and test whether the three-day buy-and-hold abnormal return (BHAR) around the announcement is stronger when the direction of the sales change confirms the earnings change (our ``SameSign'' interaction variable).
+
+
+\section{Background and Hypothesis}\label{sec:background}
+
+The earnings response coefficient (ERC) measures the market's reaction to an earnings surprise. A large literature documents that ERCs vary with the perceived quality and persistence of the earnings signal. We hypothesize that earnings increases accompanied by sales increases are perceived as higher quality --- reflecting genuine demand growth rather than cost-cutting or accrual manipulation --- and therefore elicit a stronger market reaction.
+
+\begin{hyp}[H\ref{hyp:samesign}] \label{hyp:samesign}
+Ceteris paribus, the earnings response coefficient is larger when the earnings change and sales change move in the same direction.
+\end{hyp}
+
+
+\section{Data and Methodology}\label{section-method}
+
+\subsection{Sample Selection}
+
+Our sample begins with Compustat quarterly fundamentals (fundq) for fiscal years 1970--2024 with non-missing earnings announcement dates. We merge with the CRSP/Compustat Linking Table (CCM) to obtain CRSP security identifiers, and with CRSP stocknames for SIC codes. We exclude financial firms (SIC 60--69) and utilities (SIC 49). Table~\ref{tab:sample-selection} details the sample selection procedure.
+
+\subsection{Variables}
+
+We define standardized unexpected earnings as:
+\begin{equation}\small \label{eq:sue}
+SUE_{i,q} = \frac{IBQ_{i,q} - IBQ_{i,q-4}}{MVE_{i,q-1}},
+\end{equation}
+where $IBQ_{i,q}$ is quarterly income before extraordinary items for firm $i$ in quarter $q$, and $MVE_{i,q-1}$ is market value of equity at the end of the prior quarter. Using dollar earnings scaled by dollar market value avoids per-share split-adjustment complications. See Appendix~\ref{vars} for formal variable definitions.
+
+\subsection{Regression Model}
+
+We estimate the following regression to test H\ref{hyp:samesign}:
+\begin{equation}\small \label{eq:regression}
+\begin{aligned}
+    BHAR_{i,q} = {} & \alpha + \beta_1 SUE_{i,q} + \beta_2 SameSign_{i,q} + \beta_3 SUE_{i,q} \times SameSign_{i,q} \\
+    & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
+\end{aligned}
+\end{equation}
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement, $SameSign_{i,q}$ equals one if the earnings change and sales change have the same sign, and $Controls$ includes $\ln(MVE)^{std}$ and $LOSS$ (each interacted with $SUE$). We cluster standard errors by firm (permno) and fiscal year-quarter.
+
+
+\section{Results}\label{section-results}
+
+\begin{itemize}
+    \item Table \ref{tab:sample-selection} presents the sample selection procedure.
+    \item Table \ref{tab:freq-r} presents the frequency of SameSign by decade (R version). Table \ref{tab:freq-stata} presents the Stata version.
+    \item Table \ref{tab:descrip-r} provides descriptive statistics (R version). Table \ref{tab:descrip-py} provides the Python version.
+    \item Table \ref{tab:corr-r} provides a correlation matrix (R version).
+    \item Table \ref{tab:regress-r} presents the regression results (R version). Table \ref{tab:regress-py} presents the Python version. Table \ref{tab:regress-stata} presents the Stata version.
+\end{itemize}
+
+Table~\ref{tab:regress-r} presents the results from estimating Eq.~(\ref{eq:regression}). The significantly positive coefficient on $SUE \times SameSign$ across all specifications provides evidence consistent with H\ref{hyp:samesign}: the market reacts more strongly to earnings surprises when sales move in the same direction.
+
+
+\section{Conclusion}\label{section-conclusion}
+
+This template demonstrates how to produce a complete empirical paper using open-source tools. The companion GitHub repositories provide the full pipeline code in R, Python, and Stata.
+
+
+% REFERENCES
+\newpage
+\begin{singlespace}
+\printbibliography
+\end{singlespace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX: Variable Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage\newpage
+\setcounter{table}{0}
+\makeatletter
+\renewcommand{\thetable}{A.\arabic{table}}
+\setcounter{figure}{0}
+\makeatletter
+\renewcommand{\thefigure}{A.\arabic{figure}}
+
+\section*{{\large Appendix}} \label{appendix}
+
+\begin{table}[h!t!b] \footnotesize
+\setstretch{1.0}
+\captionsetup{justification=centering}
+\caption{Variable Definitions} \label{vars}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3.8cm}p{12cm}}
+\toprule
+\multicolumn{1}{l}{Variable} & \multicolumn{1}{l}{Definition} \\
+\toprule
+
+\multicolumn{2}{l}{\textbf{Dependent Variable}}\\
+\cmidrule{1-2}
+
+$BHAR_{[-1,+1]}$ & Buy-and-hold abnormal return over the three trading days centered on the earnings announcement date (rdq). Calculated as the product of $(1 + ret)$ minus the product of $(1 + vwretd)$ over the $[-1,+1]$ window, where $ret$ is the CRSP daily stock return and $vwretd$ is the CRSP value-weighted market return. \\
+
+\multicolumn{2}{l}{\textbf{Independent Variables}}\\
+\cmidrule{1-2}
+
+$SUE$ & Standardized Unexpected Earnings. Calculated as $(IBQ_{q} - IBQ_{q-4}) / MVE_{q-1}$, where $IBQ$ is Compustat quarterly income before extraordinary items and $MVE_{q-1}$ is prior-quarter market value of equity ($CSHOQ_{q-1} \times PRCCQ_{q-1}$). Winsorized at the 1st and 99th percentiles. \\
+
+$SameSign$ & An indicator variable equal to one if the sign of the seasonal earnings change ($IBQ_{q} - IBQ_{q-4}$) equals the sign of the seasonal sales change ($SALEQ_{q} - SALEQ_{q-4}$), and zero otherwise. \\
+
+\multicolumn{2}{l}{\textbf{Control Variables}}\\
+\cmidrule{1-2}
+
+$LOSS$ & An indicator variable equal to one if quarterly income before extraordinary items ($IBQ$) is negative, and zero otherwise. \\
+
+$\ln(MVE)$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($\ln(MVE)^{std}$). \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURES AND TABLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage\newpage
+\setcounter{table}{0}
+\makeatletter
+\renewcommand{\thetable}{\arabic{table}}
+\setcounter{figure}{0}
+\makeatletter
+\renewcommand{\thefigure}{\arabic{figure}}
+
+\section*{\large Figures and Tables}
+
+
+% FIGURE 1: SameSign by Industry
+\begin{figure}[h!tb]
+\captionsetup{font=normal}
+\caption{\textbf{Frequency of SameSign by Industry}}\label{fig:ff12}
+\begin{center}
+\includegraphics[scale=0.80]{figures/ff12_fig.pdf}
+\footnotesize
+\begin{minipage}{16cm}
+\begin{singlespace}
+This figure presents the frequency of SameSign (quarters where the earnings change and sales change move in the same direction) by Fama-French 12 industry classification. Figures were produced using ggplot2 (R) or plotnine (Python).
+\end{singlespace}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\clearpage\newpage
+
+% FIGURE 2: SameSign over time + ERC by year
+\begin{figure}[h!t!b]
+\captionsetup{font=normal}
+\caption{\textbf{Time Series}}%
+\label{fig:yearly}%
+\centering
+\subfloat[SameSign Frequency by Size Quintile Over Time]{{\includegraphics[scale=0.6]{figures/size_year.pdf} }}%
+\qquad
+\subfloat[Year-by-Year ERC with Confidence Bands]{{\includegraphics[scale=0.6]{figures/erc_year.pdf} }}%
+\footnotesize
+\begin{minipage}{15.5cm}
+\begin{singlespace}
+\vspace{-0.3in}
+Panel A plots the frequency of SameSign by market value quintile over time. Panel B plots the earnings response coefficient (ERC) --- the slope of BHAR on SUE --- estimated separately for each year, split by SameSign.
+\end{singlespace}
+\end{minipage}
+\end{figure}
+
+\clearpage\newpage
+
+% FIGURE 3: Event Study CAR
+\begin{figure}[h!tb]
+\captionsetup{font=normal}
+\caption{\textbf{Cumulative Abnormal Returns Around Earnings Announcements}}\label{fig:car}
+\begin{center}
+\includegraphics[scale=0.80]{figures/car_fig.pdf}
+\footnotesize
+\begin{minipage}{16cm}
+\begin{singlespace}
+This figure presents cumulative buy-and-hold abnormal returns (BHARs) over the $[-5,+5]$ trading-day window around earnings announcements, split by SUE direction (positive vs.\ negative) and SameSign (solid = same sign, dashed = different sign).
+\end{singlespace}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\clearpage\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 1: Sample Selection
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Sample Selection} \label{tab:sample-selection}}
+
+% Pasted from sample-selection-r.tex (or sample-selection-py.tex — identical)
+\begin{tabular}[t]{clrr}
+\toprule
+Step & Description & Obs & (Diff)\\
+\midrule
+1 & Compustat fundq observations (1970 <= fyearq <= 2024, rdq not null) & 1,346,387 & \\
+2 & Less: obs in fiscal-year-change (gvkey, fyearq, fqtr) duplicates & 1,344,705 & (1,682)\\
+3 & Less: obs in (gvkey, datadate) duplicates & 1,343,627 & (1,078)\\
+4 & Less: obs without valid CCM link to CRSP permno & 995,937 & (347,690)\\
+5 & Less: obs with duplicate permno x rdq (kept most recent quarter) & 993,116 & (2,821)\\
+6 & Less: obs without CRSP SIC or in financials / utilities & 769,606 & (223,510)\\
+7 & Less: obs without valid seasonal lag (12-month gap) & 677,278 & (92,328)\\
+8 & Less: penny stocks (prccq\_lag1 <= \$1) & 637,265 & (40,013)\\
+9 & Less: obs with missing data (SUE, size, BHAR window, etc.) & 617,494 & (19,771)\\
+\bottomrule
+\end{tabular}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table outlines the sample selection procedure. The \textit{Obs} column reports the cumulative sample size remaining after each step, and the \textit{(Diff)} column reports the number of observations removed. This table was produced by the Python/R pipeline and pasted into this document.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 2: Frequency by Decade (R)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{SameSign Frequency by Decade (R)} \label{tab:freq-r}}
+
+% Pasted from freqtable-r.tex
+\begin{tabular}[t]{lrrr}
+\toprule
+Year & Firm-Quarters & SameSign Quarters & Pct. SameSign\\
+\midrule
+1970 - 1979 & 52,929 & 39,546 & 74.72\%\\
+1980 - 1989 & 88,307 & 61,813 & 70.00\%\\
+1990 - 1999 & 139,293 & 95,309 & 68.42\%\\
+2000 - 2009 & 150,034 & 98,843 & 65.88\%\\
+2010 - 2019 & 124,290 & 77,838 & 62.63\%\\
+2020+ & 62,641 & 37,951 & 60.58\%\\
+Total & 617,494 & 411,300 & 66.61\%\\
+\bottomrule
+\end{tabular}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table reports the frequency of SameSign (quarters where earnings and sales changes move in the same direction) by decade. Created using kableExtra in R.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 3: Frequency by Decade (Stata)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{SameSign Frequency by Decade (Stata)} \label{tab:freq-stata}}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+% Pasted from freqtable-stata.tex
+\begin{tabularx}{\textwidth}{Xccc}
+\toprule
+Year & Not SameSign & SameSign & Total\\
+     & (\%) & (\%) & (\%) \\
+\midrule
+1970 - 1979&   13,383&   39,546&   52,929\\
+          &  (25.28)&  (74.72)& (100.00)\\
+1980 - 1989&   26,494&   61,813&   88,307\\
+          &  (30.00)&  (70.00)& (100.00)\\
+1990 - 1999&   43,984&   95,309&  139,293\\
+          &  (31.58)&  (68.42)& (100.00)\\
+2000 - 2009&   51,191&   98,843&  150,034\\
+          &  (34.12)&  (65.88)& (100.00)\\
+2010 - 2019&   46,452&   77,838&  124,290\\
+          &  (37.37)&  (62.63)& (100.00)\\
+2020+     &   24,690&   37,951&   62,641\\
+          &  (39.42)&  (60.58)& (100.00)\\
+Total     &  206,194&  411,300&  617,494\\
+          &  (33.39)&  (66.61)& (100.00)\\
+\bottomrule
+\end{tabularx}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table reports the frequency of SameSign by decade. Created using estout in Stata. Note the different layout compared to the R version: Stata's \texttt{estpost tabulate} produces a cross-tabulation with row percentages, while R's version reports counts and a single percentage column.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 4: Descriptive Statistics (R)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Descriptive Statistics (R)} \label{tab:descrip-r}}
+
+% Pasted from descrip-r.tex (modelsummary/tabularray format)
+% Note: modelsummary with tinytable produces tabularray format
+\begin{tblr}[]{
+colspec={Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-9}{solid, black, 0.05em},
+hline{1}={1-9}{solid, black, 0.1em},
+hline{7}={1-9}{solid, black, 0.1em},
+column{1}={}{halign=l},
+column{2-9}={}{halign=r},
+}
+& N & Mean & SD & Min & P25 & Median & P75 & Max \\
+$BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
+$SUE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
+$SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
+$LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
+$\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
+\end{tblr}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Created using datasummary from the modelsummary package in R. Continuous variables are winsorized at the 1st and 99th percentiles.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 5: Descriptive Statistics (Python)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Descriptive Statistics (Python)} \label{tab:descrip-py}}
+
+% Pasted from descrip-py.tex (great_tables format)
+% great_tables produces tabular* stretched to \linewidth with booktabs
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrrrrr}
+\toprule
+Variable & N & Mean & SD & Min & P25 & Median & P75 & Max \\
+\midrule\addlinespace[2.5pt]
+BHAR[-1,+1] & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
+SUE & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
+SameSign & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
+LOSS & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
+ln(MVE) & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
+\bottomrule
+\end{tabular*}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Created using great\_tables (by Posit) in Python. Note the \texttt{tabular*} format stretched to \texttt{\textbackslash linewidth}, compared to R's \texttt{tblr} (tabularray) format.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 6: Correlation Matrix (R)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Correlation Matrix (R)} \label{tab:corr-r}}
+
+% Pasted from corrtable-r.tex (tabularray format, Pearson above / Spearman below)
+\begin{tblr}[]{
+colspec={Q[]Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-6}{solid, black, 0.05em},
+hline{1}={1-6}{solid, black, 0.1em},
+hline{7}={1-6}{solid, black, 0.1em},
+column{1}={}{halign=l},
+column{2-6}={}{halign=r},
+}
+& $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+$BHAR_{[-1,+1]}$ & 1 & .12 & .06 & -.11 & -.01 \\
+$SUE$ & .19 & 1 & .01 & -.25 & .02 \\
+$SameSign$ & .07 & .22 & 1 & -.19 & .04 \\
+$LOSS$ & -.13 & -.34 & -.19 & 1 & -.20 \\
+$\ln(MVE)$ & .03 & .01 & .04 & -.20 & 1 \\
+\end{tblr}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides Pearson (Spearman) correlations above (below) the diagonal. Variables are as defined in Appendix~\ref{vars}. Created using datasummary\_correlation from the modelsummary package in R.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 7: Regression (R)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setstretch{1.0}
+\caption{\textbf{Regression Results (R)} \label{tab:regress-r}}
+
+% Pasted from regression-r.tex (tabularray format from modelsummary)
+\begin{tblr}[]{
+colspec={Q[]Q[]Q[]Q[]Q[]Q[]},
+hline{2}={1-6}{solid, black, 0.05em},
+hline{8}={1-6}{solid, black, 0.05em},
+hline{1}={1-6}{solid, black, 0.1em},
+hline{14}={1-6}{solid, black, 0.1em},
+column{2-6}={}{halign=c},
+column{1}={}{halign=l},
+}
+& Base & Interaction & Year FE & Two-Way FE & Controls \\
+$SUE$ & 0.176\sym{***} & 0.097\sym{***} & 0.096\sym{***} & 0.095\sym{***} & 0.165\sym{***} \\
+& (22.252) & (11.931) & (12.222) & (12.203) & (20.427) \\
+$SameSign$ &  & 0.012\sym{***} & 0.011\sym{***} & 0.011\sym{***} & 0.008\sym{***} \\
+&  & (23.958) & (24.307) & (23.846) & (18.091) \\
+$SUE \times SameSign$ &  & 0.128\sym{***} & 0.133\sym{***} & 0.133\sym{***} & 0.111\sym{***} \\
+&  & (10.324) & (12.234) & (12.373) & (11.477) \\
+Year FE &  &  & X & X & X \\
+Industry FE &  &  &  & X & X \\
+Controls &  &  &  &  & X \\
+N & 617,494 & 617,494 & 617,494 & 617,494 & 617,494 \\
+$R^2$ & 0.014 & 0.019 & 0.020 & 0.021 & 0.031 \\
+$R^2$ Within &  &  & 0.019 & 0.019 & 0.030 \\
+\end{tblr}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $\ln(MVE)^{std}$ and $LOSS$, each interacted with $SUE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 8: Regression (Python)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setstretch{1.0}
+\caption{\textbf{Regression Results (Python)} \label{tab:regress-py}}
+
+% Pasted from regression-py.tex (pyfixest etable format)
+% pyfixest uses threeparttable + tabularx with makecell for coef/t-stat pairs
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}l>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+\toprule
+ & \multicolumn{1}{c}{Base} & \multicolumn{1}{c}{Interaction} & \multicolumn{1}{c}{Year FE} & \multicolumn{1}{c}{Two-Way FE} & \multicolumn{1}{c}{Controls} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6}
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+\addlinespace[1ex]
+SUE & \makecell{0.176 \\ (22.251)} & \makecell{0.097 \\ (11.931)} & \makecell{0.096 \\ (12.222)} & \makecell{0.095 \\ (12.203)} & \makecell{0.165 \\ (20.427)} \\
+\addlinespace[0.5ex]
+SameSign &  & \makecell{0.012 \\ (23.958)} & \makecell{0.011 \\ (24.307)} & \makecell{0.011 \\ (23.846)} & \makecell{0.008 \\ (18.091)} \\
+\addlinespace[0.5ex]
+SUE $\times$ SameSign &  & \makecell{0.128 \\ (10.324)} & \makecell{0.133 \\ (12.234)} & \makecell{0.133 \\ (12.373)} & \makecell{0.111 \\ (11.477)} \\
+\addlinespace[0.5ex]
+\midrule
+\addlinespace[1ex]
+ff12num & - & - & - & x & x \\
+fyearq & - & - & x & - & - \\
+fyearq  & - & - & - & x & x \\
+\midrule
+\addlinespace[1ex]
+Observations & 617,494 & 617,494 & 617,494 & 617,494 & 617,494 \\
+$R^2$ & 0.014 & 0.019 & 0.02 & 0.021 & 0.031 \\
+\bottomrule
+\end{tabularx}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table reports the same regression as Tables~\ref{tab:regress-r} and~\ref{tab:regress-stata}, produced using pyfixest in Python. pyfixest uses R's fixest formula syntax (\texttt{"y \textasciitilde\ x | fe1 + fe2"}) and produces LaTeX via \texttt{etable(type="tex")}. Note the \texttt{makecell} format for coefficient/t-statistic pairs and the \texttt{tabularx} layout, compared to R's tabularray and Stata's standard tabular.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 9: Regression (Stata)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setstretch{1.0}
+\caption{\textbf{Regression Results (Stata)} \label{tab:regress-stata}}
+
+% Pasted from regression-stata.tex (estout format)
+\begin{tabular}{l*{5}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                &\multicolumn{1}{c}{Base}&\multicolumn{1}{c}{Interaction}&\multicolumn{1}{c}{Year FE}&\multicolumn{1}{c}{Two-Way FE}&\multicolumn{1}{c}{Controls}\\
+\midrule
+SUE             &    0.176\sym{$^{***}$}&    0.097\sym{$^{***}$}&    0.096\sym{$^{***}$}&    0.095\sym{$^{***}$}&    0.165\sym{$^{***}$}\\
+                &  (22.25)              &  (11.93)              &  (12.22)              &  (12.20)              &  (20.43)              \\
+$SameSign$      &                       &    0.012\sym{$^{***}$}&    0.011\sym{$^{***}$}&    0.011\sym{$^{***}$}&    0.008\sym{$^{***}$}\\
+                &                       &  (23.96)              &  (24.31)              &  (23.85)              &  (18.09)              \\
+$SUE \times SameSign$&                       &    0.128\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.111\sym{$^{***}$}\\
+                &                       &  (10.32)              &  (12.23)              &  (12.37)              &  (11.48)              \\
+Year FE         &       No              &       No              &      Yes              &      Yes              &      Yes              \\
+Industry FE     &       No              &       No              &       No              &      Yes              &      Yes              \\
+Constant        &      Yes              &      Yes              &       No              &       No              &       No              \\
+\midrule
+Controls        &                       &                       &                       &                       &      Yes              \\
+N               &  617,494              &  617,494              &  617,494              &  617,494              &  617,494              \\
+$R^2$           &    0.014              &    0.019              &    0.020              &    0.021              &    0.031              \\
+$R^2$ Within    &    0.014              &    0.019              &    0.019              &    0.019              &    0.030              \\
+\bottomrule
+\end{tabular}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table reports the same regression as Table~\ref{tab:regress-r}, produced using reghdfe + estout in Stata. Note the slightly different formatting: Stata's estout uses a different significance symbol style and includes a ``Constant'' indicator row showing which models estimate a constant term.
+\end{tabular}
+}
+\end{table}
+
+
+\end{document}
