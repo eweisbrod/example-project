@@ -1,99 +1,119 @@
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
-This repository (repo) provides a template for an Accounting / Finance research project. It covers the following steps using a very basic earnings persistence regression as an example:
+This repository is the **hub** for a set of teaching materials on running a reproducible empirical project in Accounting / Finance. It hosts the paper that describes the materials, this README that introduces them, and pointers to three companion template repositories that hold the actual code:
 
-1. Installing Git and R
-2. Downloading data from WRDS using R OR SAS
-3. Saving data to a Stata file using R OR SAS
-4. Creating Figures using R
-5. Creating a full set of VERY PRETTY tables using R OR Stata
-    * Manual tables
-    * Cross-tab
-    * Descriptive Statistics
-    * Correlation Matrix
-    * Regression (with dynamic FE indicators, etc)
-6. Outputing the tables to LaTeX OR MS Office
-   * Overleaf LaTeX template included: <https://www.overleaf.com/read/ctmwnmdcypzh>
-   * [Example PDF for the LaTeX tables](./assets/Paper_Template.pdf)
+- **[`project-template-r`](https://github.com/eweisbrod/project-template-r)** — pure R event-study pipeline. Recommended starting point for R users or for total beginners that want to go from zero to a full research project in one single language. Demonstrates downloading data from WRDS, transforming it, producing publication-ready figures, and outputting tables to LaTeX and MS Word.
+- **[`project-template`](https://github.com/eweisbrod/project-template)** — polyglot version. Python handles the WRDS download and data transformation; figures and tables are demonstrated in **R**, **Python**, and **Stata** in parallel against the same parquet files.
+- **[`overleaf-template`](https://github.com/eweisbrod/overleaf-template)** — the LaTeX paper template. Demonstrates the table and figure outputs from the templates and includes citation, hypothesis numbering, and section-structure examples. Live on Overleaf at <https://www.overleaf.com/read/ctmwnmdcypzh>.
+
+The example pipeline runs an earnings-announcement event study: it computes standardized unexpected earnings (SUE) and tests whether the three-day buy-and-hold abnormal return is amplified when the seasonal sales change agrees with the seasonal earnings change (a `SUE × SameSign` interaction).
 
 
 ## Table of Contents
 
 * [Introduction](#intro)
-* [How to Use These Materials](#usethese)
-* [Getting Started with R and Git](#getstart)
-* [Forking This Repository](#fork)
+* [The companion templates](#templates)
+* [JAR Data and Code Sharing Policy](#jar)
+* [Prerequisites](#prereqs)
+* [Using a template](#use)
+* [Citing](#cite)
+* [About AGENTS.md](#about-agentsmd)
 * [Additional Resources](#links)
 
-##  <a name="intro"></a>Introduction 
+## <a name="intro"></a>Introduction
 
-The goal of this example is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples to assist PhD students and junior colleages in preparing nice-looking tables for our research projects. This website began as an example of how to code a basic research project entirely in R, but has expanded to provide equivalent code for users that prefer SAS or Stata. 
+The goal of this hub is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples for PhD students and junior colleagues. The materials began as an example of how to code a basic R research project; over time they grew to include Python and Stata equivalents, plus an Overleaf paper template.
 
-My recommendation for managing your research project is to anchor your project in R, and manage your code on Github. Github offers private repositories for academic users if your code is proprietary. Github also offers great version control and search functionality. Your data can be stored and shared separately, perhaps using an online backup and file sharing service such as Dropbox or OneDrive. The example code in this repository gives examples for setting up references to a shared data directory with coauthors. R can easily read in both SAS and Stata files, and easily output to Stata if needed. Personally, I still do some of my initial data collection in SAS, and then move the data to R for analyses. I don't enjoy working in Stata, but I have included a Stata version of the code for reference. You may encounter coauthors that are only comfortable collaborating in Stata. If you do your analyses and table creation in Stata, I recommend to at least learn a little bit of R for creating figures. Making figures in R is more intuitive than in Stata and the figures look nicer. You can read your Stata dataset into R and make some nice figures that will really enhance your research project. 
+My recommendation for managing your research project is to anchor the project in a Git repository on GitHub. GitHub offers private repositories for academic users if your code is proprietary, plus version control and search. Your data can live and be shared separately on Dropbox or OneDrive — the templates use a `.env` file for path configuration so the same code runs on every collaborator's machine without edits.
 
-I recommend writing your paper using LaTeX on Overleaf if possible. Overleaf is great for working with coauthors and having a "single version" of the paper with a history of all changes. LaTeX also offers many features for making your paper look nice and managing citations, etc. The [Overleaf template](https://www.overleaf.com/read/ctmwnmdcypzh) included with this repo is its own resource for getting started in LaTeX. In addition to showing the example output of the tables generated in the code, it provides examples for adding citations, section headings, etc. You can copy the source code from Overleaf and paste it into your own Overleaf project or .tex file to get started. With that said, the American Accounting Association and many of your coauthors will prefer you to work in MS Word. This example project provides alternate code for outputing nice tables to MS Word and Excel. Sometimes I initially create rough tables in MS Word to email to coauthors, and then I move the tables into LaTeX / Overleaf once the project matures.
+I recommend writing the paper using LaTeX on Overleaf if possible. Overleaf is great for working with coauthors and keeping a single version of the paper with full revision history. The Overleaf template included with this hub is its own resource for getting started in LaTeX — it shows the example tables/figures generated by the code templates plus citations, headings, hypothesis numbering, and so on. With that said, the American Accounting Association and many of your coauthors will prefer Word; the polyglot template's R and Stata implementations include `.docx` and `.rtf` outputs alongside the LaTeX `.tex` files.
 
-In this example project, I have put greater emphasis on the "last mile" of table creation and formatting as compared with "learning to code" or learning the ins-and-outs of various financial databases. Therefore, users may want to take a look at this example project, go somewhere else to get up to speed on their coding skills, and then come back when they are starting to output tables. I mainly use these example materials in conjunction with in-person instruction, so there might be parts that are not completely self-standing on the website. There is a very bare-bones attached slide deck with some of the discussion material that I cover in-person. Please always feel free to reach out to me with any questions about the material or suggestions for additional instructions. You can find my contact info on my university webpage, or use the GitHub "issues" or pull requests to collaborate.
+I have put greater emphasis on the "last mile" of table creation and formatting than on "learning to code" or learning the ins-and-outs of various financial databases. Users may want to take a look at this hub, go elsewhere to get up to speed on coding skills, and then come back when they are ready to output tables. I primarily use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-contained on the website. Please feel free to reach out with any questions or to use the GitHub Issues / pull requests on any of the four repos.
 
-## <a name="usethese"></a> How To Use These Materials
 
-One way to use the material in this repository is to simply browse through the code in your web browser and either download or copy/paste any parts that are useful to you.
-If you are viewing this on GitHub, the folder structure probably appears above this ReadMe content.
-You can also click the "Code" tab at the top of the page if needed.
-Files are organized as follows:
+## <a name="templates"></a>The companion templates
 
--   The src folder contains the relevant SAS, R, and Stata code
--   The assets folder contains an optional RStudio theme and font, slide deck, website images, etc.
+Pick the template that matches your stack. They share the same example pipeline and the same `.env` / `keyring` conventions, so figures and tables produced by one are reproducible from the others.
 
-**Important: Setting up your data directory.** This project uses a `.env` file to configure local file paths (like where your data is stored). This means you don't need to edit any code to change paths -- you only edit the `.env` file once. See the `.env` file in the project root and the setup comments in `src/1-download-wrds-data.R` for details. For Stata users, the setup comments at the top of `src/4-analyze-data-Stata.do` walk through installing the `projectpaths` and `doenv` Stata packages.
+| Template | Best for | Languages |
+|---|---|---|
+| [`project-template-r`](https://github.com/eweisbrod/project-template-r) | New R users; standalone R-only project | R |
+| [`project-template`](https://github.com/eweisbrod/project-template) | Multi-language teams; demonstrating cross-language consistency | Python (download + transform), R / Python / Stata (figures + tables) |
+| [`overleaf-template`](https://github.com/eweisbrod/overleaf-template) | The paper itself | LaTeX (Overleaf-compatible) |
 
-A second, arguably better, way to use this material would be to "clone" the material to your local machine, using a Git client such as RStudio.
-If you are familiar with Git or Github, it is probably better to fork your own version of this repository and then clone that.
-Instructions for getting set up with R and Git appear below.
+Each template repo is set up as a GitHub **template repository**, so you can click "Use this template" to spin up your own copy.
 
-Please feel free to use these materials in your work or share them with others.
 
-I recommend that you "fork" this repository to your own GitHub account and then "clone" the files down to a local folder on your computer [(see below)](#fork). This will help you understand Git, and you can customize the files as needed.  
+## <a name="jar"></a>JAR Data and Code Sharing Policy
 
-You can also download all of the files in the repo as a zip file by clicking [here](https://github.com/eweisbrod/example-project/zipball/main).
+The Journal of Accounting Research's Data and Code Sharing Policy expects authors to provide three things:
 
-Of course, you can also simply browse through the code on GitHub in your web browser and either download or copy/paste any parts that are useful to you.
-If you are viewing this on the ".io" website, there is a "view in GitHub button above." If you are viewing this on GitHub, the folder structure appears above this ReadMe content.
-You can also click the "Code" tab at the top of the page if needed.
+1. **Code** that converts raw data into the final analytical dataset and produces the reported tables and figures.
+2. **A comprehensive log file** documenting the end-to-end execution of that code.
+3. **Identifiers** (e.g., `gvkey`, `permno`) of the observations comprising the final sample.
 
-Files are organized as follows:
-*   The src folder contains the relevant SAS, R, and Stata code
-*   The assets folder contains an optional RStudio theme and font, slide deck, website images, etc.
+Both code templates are designed around these requirements:
 
-### Citing Me
-Please leave a link / attribution to this repository when sharing it with others. If you are able to work in a citation to one of my recent papers, that would help me out!
+- The pipeline splits raw WRDS pulls (`RAW_DATA_DIR`) from derived data (`DATA_DIR`). A replication run can re-execute scripts 2-4 against the original analyst's preserved raw inputs without hitting WRDS.
+- Both templates produce **per-script logs in the SAS-log style** — every command echoed, output interleaved, plain text. The R-only template's `run-all.R` calls `batch_run()` (a thin `utils.R` helper around `R CMD BATCH`) on each numbered script; the polyglot template's `run-all.py` uses an equivalent `batch_run()` (in `utils.py`) that subprocesses through an AST-based echo wrapper. SAS and Stata produce the same shape natively, so all four pipeline languages emit visually consistent logs.
+- Both templates have a `5-data-provenance.{R,py}` step that exports `sample-identifiers.{parquet,csv}` (gvkey, permno, rdq, datadate, fyearq, fqtr) and prints SHA256 hashes for every raw and derived file. That step's own `.Rout` / `.log` is the project's content-addressed provenance record.
 
-* Some of the code in this repo was developed for Bochkay et al. (2022), so it would be appropriate to cite it as a source of the coding examples:
-   * BOCHKAY, K., MARKOV, S., SUBASI, M. and WEISBROD, E. (2022), The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings.
-Journal of Accounting Research, 60: 1695-1740. <https://doi.org/10.1111/1475-679X.12457>
-   * [Code Appendix](https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60)
 
-## <a name="about-agentsmd"></a> About AGENTS.md - AI Assistant Configuration
+## <a name="prereqs"></a>Prerequisites
 
-You may have noticed a file called `AGENTS.md` in the root of this repository. This is part of an emerging open standard for giving AI coding assistants (like Claude Code, GitHub Copilot, Cursor, Windsurf, etc.) context about a project. Below are some teaching notes about what it is and why we include it.
+You will need the following installed locally before using either code template. Each template's README lists exactly which of these its pipeline depends on (the LaTeX-only `overleaf-template` needs none of them).
+
+- **Git** — <https://git-scm.com/downloads>. The [happygitwithr](https://happygitwithr.com/) book is an excellent step-by-step setup guide if you are new to Git.
+- **R** (≥ 4.0) and **RStudio Desktop** — <https://posit.co/download/rstudio-desktop/>.
+- **Python** (≥ 3.12) and **uv** — <https://docs.astral.sh/uv/getting-started/installation/>. uv manages Python versions and virtual environments automatically; if you have uv installed you do not need a separate Python install.
+- **Stata** (≥ 16) with the `reghdfe`, `estout`, `projectpaths`, and `doenv` packages — only required for the Stata implementations of the polyglot template's tables.
+- **A WRDS account** — <https://wrds-www.wharton.upenn.edu/>.
+- **A GitHub account** — <https://github.com/>. Linking your school email gives you free private repos via <https://education.github.com/benefits>.
+
+
+## <a name="use"></a>Using a template
+
+Each of the three companion repositories is a GitHub **template repository**. Use the green **Use this template → Create a new repository** button on the template's GitHub page to spin up your own copy:
+
+1. Open the template you want — e.g. <https://github.com/eweisbrod/project-template-r>.
+2. Click **Use this template → Create a new repository**. Pick a name and visibility (public or private). This creates a brand-new repo in your account with the template's contents but no fork relationship to the original.
+3. Clone your new repo to a local folder on your computer using RStudio (File → New Project → Version Control → Git) or `git clone` from the command line.
+4. Follow the template's own README for setup (running its `setup.R` / `setup.py`, configuring `.env`, storing WRDS credentials in keyring).
+
+> **Important:** Do not put the local clone inside Dropbox. Git and Dropbox interact badly unless you are an advanced user. Keep your code on a regular drive (e.g. `C:/_git/your-project/`) and put your raw and derived data inside Dropbox separately — the templates' `.env` configuration is built around exactly that split via `RAW_DATA_DIR` and `DATA_DIR`.
+
+If you are not yet ready to spin up your own copy, you can browse the code on each template's GitHub page and copy/paste the parts that are useful to you, or download a zip from any repo's "Code" button.
+
+
+## <a name="cite"></a>Citing
+
+Please leave a link / attribution to this hub when sharing it with others. If you can work in a citation to one of my recent papers, that would help me out:
+
+- **Bochkay, Markov, Subasi, and Weisbrod (2022)** — *The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings.* Journal of Accounting Research, 60: 1695-1740. <https://doi.org/10.1111/1475-679X.12457>. Some of the original code in this repo was developed for that paper. ([Code Appendix](https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60))
+- **Weisbrod (2019)** — *Stockholders' Unrealized Returns and the Market Reaction to Financial Disclosures.* Journal of Finance, 74: 899-942. <https://doi.org/10.1111/jofi.12743>
+
+
+## <a name="about-agentsmd"></a>About AGENTS.md - AI Assistant Configuration
+
+Each repo in this hub (this one and the three template repos) ships with an `AGENTS.md` file in its root. This is part of an emerging open standard for giving AI coding assistants (Claude Code, GitHub Copilot, Cursor, Windsurf, etc.) context about a project. Below are some teaching notes about what it is and why we include it.
 
 ### What is AGENTS.md?
 
-`AGENTS.md` is a markdown file that lives in the root of a repository and provides AI assistants with structured information about the project: how it's organized, what conventions to follow, what common pitfalls to avoid, and other context that helps an AI work with the code effectively. Think of it as a "README for AI" -- just as `README.md` helps *humans* understand a project, `AGENTS.md` helps *AI assistants* understand it.
+`AGENTS.md` is a markdown file in the root of a repository that provides AI assistants with structured information about the project: how it's organized, what conventions to follow, what common pitfalls to avoid. Think of it as a "README for AI" — just as `README.md` helps *humans* understand a project, `AGENTS.md` helps *AI assistants* understand it.
 
 ### Why is it called AGENTS.md?
 
-The name `AGENTS.md` was proposed as a **cross-tool standard** by the Linux Foundation's AI Agent Configuration working group, with backing from Anthropic, OpenAI, Google, Amazon, and others. The idea is that one file can work across all AI coding tools, rather than having separate config files for each tool (`.cursorrules`, `CLAUDE.md`, `.github/copilot-instructions.md`, etc.).
+The name was proposed as a **cross-tool standard** by the Linux Foundation's AI Agent Configuration working group, with backing from Anthropic, OpenAI, Google, Amazon, and others. The idea is that one file can work across all AI coding tools instead of separate config files per tool (`.cursorrules`, `CLAUDE.md`, `.github/copilot-instructions.md`, etc.).
 
-### Why do we include it in this repo?
+### Why include it in these repos?
 
-1. **Teaching by example**: Since this is a teaching repository, we want to demonstrate modern development practices, including how to work with AI assistants.
-2. **It helps AI assistants help you**: If you open this project in an AI-enabled editor, the assistant will automatically read `AGENTS.md` and understand the project structure, the `.env` convention, the script execution order, and other important details. This makes the AI much more helpful when you ask it questions about the code.
-3. **It documents project conventions**: Even if you never use an AI assistant, `AGENTS.md` serves as useful documentation about how the project is structured and what conventions it follows. It's a good complement to the README.
+1. **Teaching by example** — since these are teaching repositories, we want to demonstrate modern development practices, including how to work with AI assistants.
+2. **It helps AI assistants help you** — if you open a template in an AI-enabled editor, the assistant automatically reads `AGENTS.md` and understands the project structure, the `.env` convention, the script execution order, and other important details. This makes the AI much more helpful when you ask it questions.
+3. **It documents project conventions** — even if you never use an AI assistant, `AGENTS.md` is good complementary documentation about how the project is structured.
 
 ### What about CLAUDE.md?
 
-You may also see a `CLAUDE.md` file. This is a thin file specific to [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (Anthropic's CLI coding tool). It uses the `@AGENTS.md` import syntax to pull in the shared context from AGENTS.md, and adds a few Claude-specific instructions. This layered approach means:
+You may also see a `CLAUDE.md` file. This is a thin file specific to [Claude Code](https://docs.anthropic.com/en/docs/claude-code). It uses the `@AGENTS.md` import syntax to pull in the shared context from `AGENTS.md` and adds Claude-specific instructions. The layered approach:
 
 - **AGENTS.md** = shared context that works with *any* AI tool (committed to git)
 - **CLAUDE.md** = Claude-specific settings that import AGENTS.md (committed to git)
@@ -101,130 +121,25 @@ You may also see a `CLAUDE.md` file. This is a thin file specific to [Claude Cod
 
 ### Should I create AGENTS.md for my own projects?
 
-If you use AI coding assistants, yes! Even a short AGENTS.md with your project's key conventions, file structure, and common pitfalls can significantly improve the AI's responses. You don't need to write it from scratch -- you can ask an AI assistant to draft one for you based on your project, then review and edit it.
+Yes, if you use AI coding assistants. Even a short AGENTS.md with your project's key conventions, file structure, and common pitfalls can significantly improve the AI's responses. You don't need to write it from scratch — you can ask an AI assistant to draft one based on your project, then review and edit it.
 
 For more information on the standard, see:
 - [Linux Foundation AI Agent Configuration](https://www.linuxfoundation.org/press/linux-foundation-launches-open-standard-for-configuring-ai-coding-agents)
 - [Claude Code documentation on CLAUDE.md](https://docs.anthropic.com/en/docs/claude-code/memory)
 
-* Alternately, you could cite my dissertation paper:
-   * WEISBROD, E. (2019), Stockholders' Unrealized Returns and the Market Reaction to Financial Disclosures. The Journal of Finance, 74: 899-942. <https://doi.org/10.1111/jofi.12743>
 
-##  <a name="getstart"></a>Getting Started with R and Git
+## <a name="links"></a>Additional Resources
 
-In order to "clone" (copy) this repository to your machine and run the R code, you will need to install Git, R, RStudio, and several R packages to your machine.
-I will provide the installation steps for a Windows machine, but the steps are very similar for MacOS or Linux.
+There are many great resources out there. A few to get started:
 
-1. **Install Git**
-
--   Follow the steps at this link: <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
-
-I think it is a good idea to allow this option to install git into your PATH so that RStudio can find it.
-
-![git install 1](assets/images/git1.jpg)
-
-It is also helpful to allow git to install the credential manager to help with storing your github credentials.
-
-![git install 2](assets/images/git2.jpg)
-
--   Finally, I also recommend to install / allow Git bash during the installation.
-
-2. **Install R**
-
--   Before you install RStudio, you should first install R from the following link: <https://cran.rstudio.com/>
-
-If you already have R on your machine, I recommend at least R version 4.0 or better to follow along with the code in this repo.
-If you use an older version of R, you may see some warnings about R packages being built with a different version, but usually everything will still work.
-
-3. **Install RStudio**
-
--   Install RStudio Desktop from the following link: <https://www.rstudio.com/products/rstudio/download/#download>
-
-![rstudio install](assets/images/rstudio1.jpg)
-
-As shown in the screenshot, R should be installed first, as we did in the previous step.
-
-4. **Sign up for a Github account**
-
--   If you have not done so already, register for an account at <https://github.com/>
-
--   There are some benefits to linking your Github account to your school email (<https://education.github.com/benefits>).
-
--   Below, I recommend that you use the same primary email address that you use for github when you set your user.email in git.
-
-5. **Open RStudio and set your Git credentials**
-
--   To work with Git, you need to set your user name and email.
--   There are many ways to do this, but an easy way is using RStudio's built-in terminal.
-
-![rstudio terminal](assets/images/terminal1.jpg)
-
--   Click on the "terminal" tab that should be next to console.
--   Type the following commands
-
-```         
-git config --global user.email "your@email.com"
-```
-
-```         
-git config --global user.name "Your Name"
-```
-
--   NOTE: If this step doesn't work, don't worry. Just keep going. This might not work if you did not install Git bash, but you should still be able to keep going.
-
-##  <a name="fork"></a>Forking this Repository 
-
-The best way to work with this code and learn Git/Github is to fork your own version of this repo, and then clone it to your local machine in RStudio as a project with version control. A "fork" is basically your own version of this code repository that will live in your own GitHub account. You can read about the basics in the [Github Documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo). 
- 
- <b><ins> IMPORTANT: You will need to create a local directory to hold the local copy of this repository on your computer. DO NOT put this directory inside Dropbox. Dropbox and Git do not play well together unless you are an advanced user. I recommend to use a simple directory on your main drive that is easy to find. </b></ins>
-
-* If you are reading this on the ".io" webpage, click [here](https://github.com/eweisbrod/example-project/#fork) or the button above to view this page on GitHub.
-  
-* At the top of the github page, click the "fork" button, as shown in the screenshot (while signed into your GitHub account):
-
-![fork repo](assets/images/fork1.png)
-
-Follow the prompts to create your own version of this repo. You can rename it and change its description as desired.
-
-![fork repo](assets/images/fork2.png)
-
- 
--   Now go to **YOUR** version repo on GitHub. It should be something like "github.com/your-username/example-project." At the top of **YOUR** page, click the green code button and copy the https link to this repo. **AGAIN: do NOT click the code button on MY page, do it on your own repo! Your screenshot should have your name instead of mine!**
-
-![clone repo](assets/images/clone1.jpg)
-
--   In RStudio, click File -\> New Project.
-    On the next menu, click "Version Control" and choose Git.
-
--   Paste the URL into the box, as follows:
-
-![clone repo2](assets/images/clone2.jpg)
-
--   Click "Create Project"
-
-
-
-If you have successfully cloned the project, you should be able to see the list of files in the project in RStudio. These files are also saved on your computer in whatever folder you chose when you created the project. 
-
-* To get started with running the code and connecting to WRDS, you should open the "--Install-Packages.R" script in the "src" folder in RStudio.
-   *  Run the commands in this file by highlighting them and pushing "ctrl+Enter" or by highlighting them and clicking "run."
-     
-*  If you are able to successfully connect to WRDS you should see a line like this output in your console:
-
-![postgres](assets/images/postgres.PNG)
-
-If you were able to successfully install the packages and connect to WRDS, you should now be ready to follow along and run the remaining code.
-
-##  <a name="links"></a>Additional Resources
-
-There are so many resources out there. I am sure I will leave out many great resources, but here are some to get started:
-* https://wrds-www.wharton.upenn.edu/pages/support/sample-programs/ WRDS offers sample programs for working with various databases.
-* https://iangow.github.io/far_book/ "Empirical Research in Accounting: Tools and Methods" by Ian Gow and Tony Ding is a great open-source textbook for learning research methods as well as some R programming. They also offer some tips on using an SQL database to store your research data instead of storing it in flat files.
-* https://www.openassetpricing.com/ Very cool open-source asset pricing project with a lot of downloadable data and code.
-* https://www.accountingcodingcamp.com/ offers paid online courses for learning SAS, Stata, and Python.
-* https://happygitwithr.com/ reference material for learning to use Git in R.
-* https://mlr3.mlr-org.com/ If you are interested in machine learning, the mlr ecosystem is interesting to check out and has a book in-progress to go with it. I think this is somewhat similar to the scikit-learn ecosystem in Python.
-* https://www.tidymodels.org/ The "Tidyverse" also offers a machine learning ecosystem called tidmodels.
-* https://www.futureverse.org/ The futureverse offers powerful packages for parallel processing in R. I have used it before. Contact me if you get interested in this. It is pretty powerful. 
-* https://docs.ropensci.org/targets/ I have not tried this, but if you are a person that likes to stay organized, I hear the Targets package in R is pretty cool for organizing the pipeline of your research project in R. 
-* https://rstudio.github.io/reticulate/ I don't really use Python, but if you are a Python user, I hear this package for using Python INSIDE OF R is cool. 
+* <https://wrds-www.wharton.upenn.edu/pages/support/sample-programs/> — WRDS sample programs for working with various databases.
+* <https://iangow.github.io/far_book/> — *Empirical Research in Accounting: Tools and Methods* by Ian Gow and Tony Ding. Open-source textbook for learning research methods and R programming, including tips on using SQL databases instead of flat files.
+* <https://www.openassetpricing.com/> — open-source asset pricing project with downloadable data and code.
+* <https://www.accountingcodingcamp.com/> — paid online courses for SAS, Stata, and Python.
+* <https://happygitwithr.com/> — reference material for using Git with R.
+* <https://mlr3.mlr-org.com/> — the mlr ecosystem for machine learning in R, with an in-progress book.
+* <https://www.tidymodels.org/> — the tidyverse's machine-learning ecosystem.
+* <https://pharmaverse.github.io/logrx/> — `logrx` for FDA-grade reproducibility logging in R; what `project-template-r` uses for `run-all.R`.
+* <https://loguru.readthedocs.io/> — `loguru` for friendly Python logging; what `project-template` uses for `run-all.py`.
+* <https://docs.ropensci.org/targets/> — the `targets` package for organizing the dependency graph of an R research project.
+* <https://rstudio.github.io/reticulate/> — `reticulate` for using Python *inside* R.
