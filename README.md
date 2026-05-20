@@ -2,8 +2,8 @@
 
 This repository is the **hub** for a set of teaching materials on developing a reproducible empirical research project. The example is primarily designed for business school researchers in Accounting / Finance, but can be adapted for any type of academic journal article. This hub hosts the paper that describes the materials, this README that introduces them, and pointers to two companion template repositories that hold the actual code:
 
-- **[`project-template`](https://github.com/eweisbrod/project-template)** — a swiss-army-knife research-pipeline template. Ships parallel **R** and **Python** implementations of every numbered pipeline step (download, transform, figures, analyze, provenance), plus a **Stata** implementation of the analyze/tables step that reads the `.dta` written by either the R or Python transform. On first run, the template asks you to pick a language combination (Full R, Full Python, Python + R, Python + Stata, R + Stata, or all three) and prunes the irrelevant files so your project ends up focused on the stack you actually use.
-- **[`overleaf-template`](https://github.com/eweisbrod/overleaf-template)** — the LaTeX paper template. Demonstrates the table and figure outputs from the templates and includes citation, hypothesis numbering, and section-structure examples. Live on Overleaf at <https://www.overleaf.com/read/ctmwnmdcypzh>.
+- **[`project-template`](https://github.com/eweisbrod/project-template)** — a swiss-army-knife research-pipeline template. Ships parallel **R** and **Python** implementations of every numbered pipeline step (download, transform, figures, analyze, provenance), plus a **Stata** implementation of the analyze/tables step that reads the `.dta` written by either the R or Python transform. On first run, the template asks you to pick a language combination (Full R, Full Python, Python + R, Python + Stata, R + Stata, or all three) and prunes the irrelevant files so your project ends up focused on the stack you actually use.(This hub repo also includes a [`sas-example/`](sas-example/) folder with a working SAS macro file (`MACROS.sas`) and notes on how to apply the `.env` / batch-logging conventions from the templates to a SAS pipeline.)
+- **[`overleaf-template`](https://github.com/eweisbrod/overleaf-template)** — the LaTeX paper template. Demonstrates the table and figure outputs from the coding template and includes citation, hypothesis numbering, and section-structure examples. Live on Overleaf at <https://www.overleaf.com/read/ctmwnmdcypzh>.
 
 The example pipeline runs an earnings-announcement event study: it computes unexpected earnings (UE) and tests whether the three-day buy-and-hold abnormal return is amplified when the seasonal sales change agrees with the seasonal earnings change (a `UE × SameSign` interaction).
 
@@ -21,13 +21,13 @@ The example pipeline runs an earnings-announcement event study: it computes unex
 
 ## <a name="intro"></a>Introduction
 
-The goal of this hub is to help researchers go from zero to producing a publication-ready research document as quickly as possible. A secondary goal is to provide good table-formatting examples for PhD students and junior colleagues. The materials began as an example of how to code a basic R research project; over time they grew to include Python and Stata equivalents, plus an Overleaf paper template.
+The goal of this hub is to help researchers go from zero to a reproducible publication-ready research document as quickly as possible. Clean, version-controlled project workflows are emphasized throughout in order to generate reproducible tables and figures using code designed to satisfy academic journal code submission policies. The reusable github templates can also help experienced researchers (myself included) quickly jumpstart new project repositories. Lastly, these materials provide good table-formatting examples for PhD students and junior colleagues to encourage them to produce polished workproducts that facilitate readers' understanding of their work. 
 
-My recommendation for managing your research project is to anchor the project in a Git repository on GitHub. GitHub offers private repositories for academic users if your code is proprietary, plus version control and search. Your data can live and be shared separately on Dropbox or OneDrive — the templates use a `.env` file for path configuration so the same code runs on every collaborator's machine without edits.
+My recommendation for managing your research project is to anchor the project in a Git repository on GitHub. GitHub offers private repositories for academic users if your code is proprietary, plus version control and search. Your data can be stored and shared separately using services such as Dropbox or OneDrive — the templates use a `.env` file for path configuration so the same code runs on every collaborator's machine without edits.
 
-I recommend writing the paper using LaTeX on Overleaf if possible. Overleaf is great for working with coauthors and keeping a single version of the paper with full revision history. The Overleaf template included with this hub is its own resource for getting started in LaTeX — it shows the example tables/figures generated by the code templates plus citations, headings, hypothesis numbering, and so on. With that said, the American Accounting Association and many of your coauthors will prefer Word; the polyglot template's R and Stata implementations include `.docx` and `.rtf` outputs alongside the LaTeX `.tex` files.
+I recommend writing the paper using LaTeX on Overleaf if possible. Overleaf is great for working with coauthors and keeping a single version of the paper with full revision history. The Overleaf template included with this hub provides resources for getting started in LaTeX — it shows the example tables/figures generated by the code templates plus examples of how to write citations, headings, hypothesis numbering, and so on. With that said, you may encounter senior coauthors who prefer Microsoft Word; accordingly, the coding template's R and Stata implementations include `.docx` and `.rtf` outputs alongside the LaTeX `.tex` files.
 
-I have put greater emphasis on the "last mile" of table creation and formatting than on "learning to code" or learning the ins-and-outs of various financial databases. Users may want to take a look at this hub, go elsewhere to get up to speed on coding skills, and then come back when they are ready to output tables. I primarily use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-contained on the website. Please feel free to reach out with any questions or to use the GitHub Issues / pull requests on any of the three repos.
+I have put greater emphasis on reproducible project management and polishing the "last mile" of table creation and formatting than on "learning to code" or learning the ins-and-outs of various financial databases. Users may want to take a look at this hub, go elsewhere to get up to speed on coding skills, and then come back when they are ready to output tables. I use these materials in conjunction with in-person instruction, so there might be parts that are not completely self-contained on the website. Please feel free to reach out with any questions or to use the GitHub Issues / pull requests on any of the three repos.
 
 
 ## <a name="templates"></a>The companion templates
@@ -41,14 +41,13 @@ Pick the template that matches what you're building. Both are GitHub template re
 
 The two are designed to be used together: `project-template` writes `.tex` files into its `OUTPUT_DIR`, and `overleaf-template`'s `main.tex` reads them via `\input{}`. They share the same `.env` / `keyring` conventions so figures and tables produced by one slot into the other without configuration.
 
-The previous **`project-template-r`** repository has been sunset — pick **option 1 (Full R)** at first run in `project-template` for an identical R-only project skeleton.
 
 This hub repo also includes a [`sas-example/`](sas-example/) folder with a working SAS macro file (`MACROS.sas`) and notes on how to apply the `.env` / batch-logging conventions from the templates to a SAS pipeline. SAS isn't part of `project-template`'s pipeline, so this lives in the hub rather than in a language-specific template.
 
 
 ## <a name="jar"></a>JAR Data and Code Sharing Policy
 
-The Journal of Accounting Research's Data and Code Sharing Policy expects authors to provide three things:
+This template is designed to satisfy the *Journal of Accounting Research*'s Data and Code Sharing Policy (https://onlinelibrary.wiley.com/page/journal/1475679x/homepage/forauthors.html#DataPolicy). The policy expects authors to provide three things:
 
 1. **Code** that converts raw data into the final analytical dataset and produces the reported tables and figures.
 2. **A comprehensive log file** documenting the end-to-end execution of that code.
@@ -56,21 +55,21 @@ The Journal of Accounting Research's Data and Code Sharing Policy expects author
 
 `project-template` is designed around these requirements:
 
-- The pipeline splits raw WRDS pulls (`RAW_DATA_DIR`) from derived data (`DATA_DIR`). A replication run can re-execute scripts 2-4 against the original analyst's preserved raw inputs without hitting WRDS.
+- The pipeline splits raw WRDS pulls (`RAW_DATA_DIR`) from derived data (`DATA_DIR`). A replication run can re-execute scripts 2-4 against the original researcher's preserved raw inputs without hitting WRDS.
 - Every pipeline step produces a **per-script log in the SAS-log style** — every command echoed, output interleaved, plain text. R steps go through `batch_run()` (an `R CMD BATCH` wrapper in `utils.R`); Python steps go through an equivalent `batch_run()` in `utils.py` that subprocesses through an AST-based echo wrapper; Stata's native `log using` and SAS's native `proc printto` produce the same shape. All four supported languages emit visually consistent logs.
 - The `5-data-provenance.{R,py}` step exports `sample-identifiers.{parquet,csv}` (gvkey, permno, rdq, datadate, fyearq, fqtr) and prints SHA256 hashes for every raw, derived, and output file. That step's own `.Rout` / `.log` is the project's content-addressed provenance record.
 
 
 ## <a name="prereqs"></a>Prerequisites
 
-You will need the following installed locally before using either code template. Each template's README lists exactly which of these its pipeline depends on (the LaTeX-only `overleaf-template` needs none of them).
+You will need the following installed locally before using the code template. Each template's README lists exactly which of these its pipeline depends on (the LaTeX-only `overleaf-template` needs none of them).
 
-- **Git** — <https://git-scm.com/downloads>. The [happygitwithr](https://happygitwithr.com/) book is an excellent step-by-step setup guide if you are new to Git.
+- **Git** — <https://git-scm.com/downloads>. The [happygitwithr](https://happygitwithr.com/) book provides a step-by-step setup guide if you are new to Git.
 - **R** (≥ 4.0) and **RStudio Desktop** — <https://posit.co/download/rstudio-desktop/>.
 - **Python** (≥ 3.12) and **uv** — <https://docs.astral.sh/uv/getting-started/installation/>. uv manages Python versions and virtual environments automatically; if you have uv installed you do not need a separate Python install.
 - **Stata** (≥ 17, for the `collect` framework used in the bundled `4-analyze-data.do`) with the `reghdfe`, `estout`, `projectpaths`, and `doenv` packages — only required if you picked a Stata-inclusive combo at setup.
 - **A WRDS account** — <https://wrds-www.wharton.upenn.edu/>.
-- **A GitHub account** — <https://github.com/>. Linking your school email gives you free private repos via <https://education.github.com/benefits>.
+- **A GitHub account** — <https://github.com/>. Linking your school email gives you free private repositories as well as monthly Github Copilot tokens via <https://education.github.com/benefits>.
 
 
 ## <a name="use"></a>Using a template
@@ -78,22 +77,18 @@ You will need the following installed locally before using either code template.
 Each of the two companion repositories is a GitHub **template repository**. Use the green **Use this template → Create a new repository** button on the template's GitHub page to spin up your own copy:
 
 1. Open the template you want — e.g. <https://github.com/eweisbrod/project-template>.
-2. Click **Use this template → Create a new repository**. Pick a name and visibility (public or private). This creates a brand-new repo in your account with the template's contents but no fork relationship to the original.
+2. Click **Use this template → Create a new repository**. Pick a name and visibility (public or private). This creates a brand-new rpository (repo) in your account with the template's contents but no fork relationship to the original.
 3. Clone your new repo to a local folder on your computer using RStudio (File → New Project → Version Control → Git) or `git clone` from the command line.
 4. Follow the template's own README for setup (running its `setup.R` / `setup.py`, configuring `.env`, storing WRDS credentials in keyring).
 
-> **Important:** Do not put the local clone inside Dropbox. Git and Dropbox interact badly unless you are an advanced user. Keep your code on a regular drive (e.g. `C:/_git/your-project/`) and put your raw and derived data inside Dropbox separately — the templates' `.env` configuration is built around exactly that split via `RAW_DATA_DIR` and `DATA_DIR`.
+> **Important:** I recommend that you do not put the local clone inside Dropbox. Git and Dropbox can interact badly unless you are an advanced user. Keep your code on a regular drive (e.g. `C:/_git/your-project/`) and put your raw and derived data inside Dropbox separately — the templates' `.env` configuration is built around exactly that split via `RAW_DATA_DIR` and `DATA_DIR`.
 
 If you are not yet ready to spin up your own copy, you can browse the code on each template's GitHub page and copy/paste the parts that are useful to you, or download a zip from any repo's "Code" button.
 
 
 ## <a name="cite"></a>Citing
 
-Please leave a link / attribution to this hub when sharing it with others. If you can work in a citation to one of my recent papers, that would help me out:
-
-- **Bochkay, Markov, Subasi, and Weisbrod (2022)** — *The Roles of Data Providers and Analysts in the Production, Dissemination, and Pricing of Street Earnings.* Journal of Accounting Research, 60: 1695-1740. <https://doi.org/10.1111/1475-679X.12457>. Some of the original code in this repo was developed for that paper. ([Code Appendix](https://www.chicagobooth.edu/research/chookaszian/journal-of-accounting-research/online-supplements-and-datasheets/volume-60))
-- **Weisbrod (2019)** — *Stockholders' Unrealized Returns and the Market Reaction to Financial Disclosures.* Journal of Finance, 74: 899-942. <https://doi.org/10.1111/jofi.12743>
-
+Please leave a link / attribution to this hub when sharing it with others. 
 
 ## <a name="about-agentsmd"></a>About AGENTS.md - AI Assistant Configuration
 
@@ -135,13 +130,8 @@ For more information on the standard, see:
 There are many great resources out there. A few to get started:
 
 * <https://wrds-www.wharton.upenn.edu/pages/support/sample-programs/> — WRDS sample programs for working with various databases.
-* <https://iangow.github.io/far_book/> — *Empirical Research in Accounting: Tools and Methods* by Ian Gow and Tony Ding. Open-source textbook for learning research methods and R programming, including tips on using SQL databases instead of flat files.
+* <https://iangow.github.io/far_book/> — *Empirical Research in Accounting: Tools and Methods* by Ian Gow and Tony Ding. Open-source textbook for learning research methods and R programming.
 * <https://www.openassetpricing.com/> — open-source asset pricing project with downloadable data and code.
 * <https://www.accountingcodingcamp.com/> — paid online courses for SAS, Stata, and Python.
 * <https://happygitwithr.com/> — reference material for using Git with R.
-* <https://mlr3.mlr-org.com/> — the mlr ecosystem for machine learning in R, with an in-progress book.
-* <https://www.tidymodels.org/> — the tidyverse's machine-learning ecosystem.
-* <https://pharmaverse.github.io/logrx/> — `logrx` for FDA-grade reproducibility logging in R; an alternative to the `R CMD BATCH` approach `project-template` uses.
-* <https://loguru.readthedocs.io/> — `loguru` for friendly Python logging; what `project-template` uses for `run-all.py`.
-* <https://docs.ropensci.org/targets/> — the `targets` package for organizing the dependency graph of an R research project.
-* <https://rstudio.github.io/reticulate/> — `reticulate` for using Python *inside* R.
+
