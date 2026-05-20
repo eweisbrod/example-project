@@ -46,6 +46,8 @@ This hub repo also includes a [`sas-example/`](sas-example/) folder with a worki
 
 For information on reporting issues, contributing fixes or improvements, or seeking support, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+In-depth notes on individual topics that come up in the templates (environment variables, Git, WRDS credentials, AI agents, etc.) live in the [`topics/`](topics/) folder.
+
 
 ## <a name="jar"></a>JAR Data and Code Sharing Policy
 

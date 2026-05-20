@@ -45,9 +45,12 @@ example-project/
 ├── paper/               # JOSE paper source for example-project itself
 │   ├── paper.md
 │   └── paper.bib
-└── sas-example/         # SAS macros + README, since neither template ships SAS
-    ├── MACROS.sas       # Working SAS macro file (load_env, tddays, winsor, ff12/49, ...)
-    └── README.md        # How to use + SAS batch-mode gotchas
+├── sas-example/         # SAS macros + README, since neither template ships SAS
+│   ├── MACROS.sas       # Working SAS macro file (load_env, tddays, winsor, ff12/49, ...)
+│   └── README.md        # How to use + SAS batch-mode gotchas
+└── topics/              # In-depth notes on individual topics
+    ├── README.md        # Index + list of planned topics
+    └── *.md             # One kebab-case file per topic
 ```
 
 There is no `src/` here; that lived in this repo before the templates were
