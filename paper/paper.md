@@ -13,7 +13,7 @@ tags:
   - data and code sharing policy
 authors:
   - name: Eric H. Weisbrod
-    orcid: 0000-0000-0000-0000
+    orcid: 0000-0002-8814-250X
     affiliation: 1
 affiliations:
   - name: University of Kansas, USA
