@@ -28,9 +28,10 @@ of the example pipeline code; that lives in two companion repositories:
   LaTeX paper template demonstrating the tables and figures.
 
 This hub repo holds the JOSE paper, the README that introduces the
-materials, the assets (screenshots, slide deck), the Overleaf paper
-source under `overleaf/`, and the SAS reference macros under
-`sas-example/`.
+materials, the assets (screenshots, slide deck), and the SAS reference
+macros under `sas-example/`. The LaTeX paper source itself lives in
+the `overleaf-template` companion repo, not here — see the pointer
+to it in the bullet list above.
 
 ## Repo structure
 
@@ -46,8 +47,6 @@ example-project/
 │   ├── theme/           # Optional RStudio theme + font for teaching
 │   ├── Paper_Template.pdf  # Example PDF showing the LaTeX tables
 │   └── slides.pptx      # In-person teaching deck
-├── overleaf/
-│   └── main.tex         # JOSE paper source (also tracked in overleaf-template)
 ├── paper/               # JOSE paper source for example-project itself
 │   ├── paper.md
 │   └── paper.bib
@@ -67,9 +66,9 @@ the SAS reference macros live in the hub as a copy-pasteable starting point.
   pipeline code to run.
 - When the user asks to update the pipeline, recognize that they likely
   mean the templates and ask which one. Do not recreate `src/` here.
-- When the user asks to update the Overleaf paper, the canonical text
-  lives in `overleaf-template`. The `overleaf/` folder here may be a
-  duplicate / snapshot — confirm before editing.
+- When the user asks to update the Overleaf paper, switch into the
+  `overleaf-template` companion repo — the LaTeX source is not
+  duplicated in this hub.
 - README links to both template repos and to the JOSE paper. Keep
   those links current if URLs change.
 
@@ -78,6 +77,7 @@ the SAS reference macros live in the hub as a copy-pasteable starting point.
 - **No code lives here.** If a session starts here and the task is about
   the pipeline (download, transform, regression, tables), the work
   belongs in `project-template`. Switch directories before editing.
-- **The `overleaf/` folder vs. the `overleaf-template` repo.** The latter
-  is the canonical Overleaf project (synced to Overleaf via Git). Treat
-  this folder as a snapshot unless the user confirms otherwise.
+- **The LaTeX paper isn't here either.** It lives in the
+  `overleaf-template` companion repo. There used to be a snapshot
+  copy under `overleaf/` in this hub; it was removed to avoid
+  divergence.
