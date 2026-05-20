@@ -11,19 +11,26 @@
 
 This repository is the **hub** for a set of teaching materials on running a
 reproducible empirical project in Accounting / Finance. It is not the home
-of the example pipeline code; that lives in three companion repositories:
+of the example pipeline code; that lives in two companion repositories:
 
-- [`project-template-r`](https://github.com/eweisbrod/project-template-r) —
-  R-only event-study pipeline (recommended starting point for R users).
 - [`project-template`](https://github.com/eweisbrod/project-template) —
-  Polyglot version: Python download/transform plus R/Python/Stata parallel
-  implementations of figures and tables.
+  the research-pipeline template. Ships parallel R and Python
+  implementations of every numbered step (download, transform, figures,
+  analyze, provenance), plus a Stata implementation of the
+  analyze/tables step that reads the `.dta` written by either R or
+  Python's transform. On first run, `project_setup()` asks the user to
+  pick a language combination (Full R / Full Python / Python + R /
+  Python + Stata / R + Stata / all three) and prunes the irrelevant
+  files. The previous `project-template-r` repository has been sunset;
+  option 1 (Full R) of `project-template` produces an identical R-only
+  skeleton.
 - [`overleaf-template`](https://github.com/eweisbrod/overleaf-template) —
   LaTeX paper template demonstrating the tables and figures.
 
 This hub repo holds the JOSE paper, the README that introduces the
-materials, the assets (screenshots, slide deck), and the Overleaf paper
-source under `overleaf/`.
+materials, the assets (screenshots, slide deck), the Overleaf paper
+source under `overleaf/`, and the SAS reference macros under
+`sas-example/`.
 
 ## Repo structure
 
@@ -39,12 +46,20 @@ example-project/
 │   ├── theme/           # Optional RStudio theme + font for teaching
 │   ├── Paper_Template.pdf  # Example PDF showing the LaTeX tables
 │   └── slides.pptx      # In-person teaching deck
-└── overleaf/
-    └── main.tex         # JOSE paper source (also tracked in overleaf-template)
+├── overleaf/
+│   └── main.tex         # JOSE paper source (also tracked in overleaf-template)
+├── paper/               # JOSE paper source for example-project itself
+│   ├── paper.md
+│   └── paper.bib
+└── sas-example/         # SAS macros + README, since neither template ships SAS
+    ├── MACROS.sas       # Working SAS macro file (load_env, tddays, winsor, ff12/49, ...)
+    └── README.md        # How to use + SAS batch-mode gotchas
 ```
 
 There is no `src/` here; that lived in this repo before the templates were
 split out. The templates are now the canonical home of the pipeline code.
+`sas-example/` is the one exception — neither template ships SAS code, so
+the SAS reference macros live in the hub as a copy-pasteable starting point.
 
 ## When working in this repo
 
@@ -55,15 +70,14 @@ split out. The templates are now the canonical home of the pipeline code.
 - When the user asks to update the Overleaf paper, the canonical text
   lives in `overleaf-template`. The `overleaf/` folder here may be a
   duplicate / snapshot — confirm before editing.
-- README links to all three template repos and to the JOSE paper. Keep
+- README links to both template repos and to the JOSE paper. Keep
   those links current if URLs change.
 
 ## Common pitfalls
 
 - **No code lives here.** If a session starts here and the task is about
   the pipeline (download, transform, regression, tables), the work
-  belongs in `project-template-r` or `project-template`. Switch
-  directories or ask the user which template the change is for.
+  belongs in `project-template`. Switch directories before editing.
 - **The `overleaf/` folder vs. the `overleaf-template` repo.** The latter
   is the canonical Overleaf project (synced to Overleaf via Git). Treat
   this folder as a snapshot unless the user confirms otherwise.
