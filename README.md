@@ -44,6 +44,8 @@ The two are designed to be used together: `project-template` writes `.tex` files
 
 This hub repo also includes a [`sas-example/`](sas-example/) folder with a working SAS macro file (`MACROS.sas`) and notes on how to apply the `.env` / batch-logging conventions from the templates to a SAS pipeline. SAS isn't part of `project-template`'s pipeline, so this lives in the hub rather than in a language-specific template.
 
+For information on reporting issues, contributing fixes or improvements, or seeking support, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 
 ## <a name="jar"></a>JAR Data and Code Sharing Policy
 

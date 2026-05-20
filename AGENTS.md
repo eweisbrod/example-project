@@ -39,8 +39,9 @@ example-project/
 ├── _config.yml          # GitHub Pages config (renders README at the .io URL)
 ├── AGENTS.md            # This file
 ├── CLAUDE.md            # Claude Code config (imports AGENTS.md)
-├── README.md            # Hub landing page
+├── CONTRIBUTING.md      # Issues, PRs, support channels
 ├── LICENSE
+├── README.md            # Hub landing page
 ├── paper/               # JOSE paper source for example-project itself
 │   ├── paper.md
 │   └── paper.bib
