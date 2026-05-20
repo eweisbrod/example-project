@@ -28,10 +28,9 @@ of the example pipeline code; that lives in two companion repositories:
   LaTeX paper template demonstrating the tables and figures.
 
 This hub repo holds the JOSE paper, the README that introduces the
-materials, the assets (screenshots, slide deck), and the SAS reference
-macros under `sas-example/`. The LaTeX paper source itself lives in
-the `overleaf-template` companion repo, not here — see the pointer
-to it in the bullet list above.
+materials, and the SAS reference macros under `sas-example/`. The
+LaTeX paper source itself lives in the `overleaf-template` companion
+repo, not here — see the pointer to it in the bullet list above.
 
 ## Repo structure
 
@@ -42,11 +41,6 @@ example-project/
 ├── CLAUDE.md            # Claude Code config (imports AGENTS.md)
 ├── README.md            # Hub landing page
 ├── LICENSE
-├── assets/              # Screenshots and images for documentation
-│   ├── images/          # Inline images referenced from README
-│   ├── theme/           # Optional RStudio theme + font for teaching
-│   ├── Paper_Template.pdf  # Example PDF showing the LaTeX tables
-│   └── slides.pptx      # In-person teaching deck
 ├── paper/               # JOSE paper source for example-project itself
 │   ├── paper.md
 │   └── paper.bib

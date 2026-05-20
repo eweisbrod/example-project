@@ -66,6 +66,3 @@ vignettes/*.pdf
 /out/*
 # macOS
 .DS_Store
-
-# Local design-exploration scratch (not for the public hub)
-log-comparison/
