@@ -135,3 +135,12 @@ There are many great resources out there. A few to get started:
 * <https://www.accountingcodingcamp.com/> — paid online courses for SAS, Stata, and Python.
 * <https://happygitwithr.com/> — reference material for using Git with R.
 
+
+## License
+
+This hub and its companion templates are licensed under the
+[Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
+(CC-BY-4.0) license. You can fork, modify, and use these materials
+in your own teaching or research as long as you provide attribution.
+See [LICENSE](LICENSE) in each repo for the full legal code.
+
