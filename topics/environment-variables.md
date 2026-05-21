@@ -334,10 +334,15 @@ libname data "&DATA_DIR";
 ```
 
 After `%load_env;`, each `KEY` from `.env` is available as a global
-SAS macro variable (`&RAW_DATA_DIR`, `&DATA_DIR`, etc.). By default, the macro
-looks for `.env` one directory above the executing `.sas` file (the
-project root), parses each `KEY=VALUE` line, and pushes it into the
-macro namespace.
+SAS macro variable (`&RAW_DATA_DIR`, `&DATA_DIR`, etc.). By default,
+the macro derives the path to `.env` from `&codepath` by stripping
+the `.sas` filename and then stripping one more directory level —
+with the conventional `src/foo.sas` layout, that lands on the repo
+root. The macro doesn't check for the literal name `src/`; any
+project where the `.sas` file lives one directory below `.env`
+works. If the auto-derived path doesn't exist, `%load_env` errors
+out clearly and tells you to pass an explicit path via
+`%load_env(file=...)`.
 
 See [`sas-example/README.md`](../sas-example/README.md) for the
 fine print on how the SAS implementation handles batch vs.

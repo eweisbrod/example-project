@@ -35,7 +35,9 @@ libname raw  "&RAW_DATA_DIR";
 libname data "&DATA_DIR";
 ```
 
-`%load_env` reads `.env` from one directory above the executing `.sas` file (same convention as `dotenv` in R/Python — repo root, parallel to `src/`). Pass `%load_env(file=...)` to override.
+By default, `%load_env` derives the path to `.env` from the executing `.sas` file: it strips the filename, then strips one more directory level, then appends `.env`. With the conventional `src/4-analyze.sas` layout that lands on `<repo-root>/.env` — the same place R and Python `dotenv` look. The macro does **not** check for the literal name `src/`; any project where the `.sas` file lives one directory below `.env` works.
+
+If the auto-derived path is wrong for your layout, the macro emits a clear ERROR in the log and you can pass an explicit path: `%load_env(file=D:/path/to/.env);`. This works, but be aware that hardcoding the path back into the `.sas` file partly defeats the purpose of using `.env` in the first place — you've moved the machine-specific value back into source. The usual better fix is to restructure the project so the `.sas` script lives one directory below the `.env`.
 
 ### How `%load_env` finds the script (the two-way fallback)
 
@@ -48,7 +50,7 @@ SAS exposes the running script's path via two different mechanisms, each of whic
 
 So both the bootstrap snippet above *and* `%load_env` itself try `SYSIN` first and fall back to `SAS_EXECFILEPATH`. The order matters: when SAS_EXECFILEPATH isn't defined, `sysget` prints a noisy WARNING that bumps SAS's exit code to 1 and shows up in every batch log. Checking SYSIN first avoids triggering that warning in the common batch case.
 
-Once a path is in hand, `%load_env` strips the filename to get `src/`, then strips `src/` to get the repo root, then appends `.env`. (It does this with `findc(...,b)` + `substr` rather than `\..\..\` so it doesn't depend on the OS normalizing `path/file.sas/../../.env` correctly.)
+Once a path is in hand, `%load_env` strips the filename (everything after the last backslash), then strips one more directory level the same way, then appends `.env`. Both strips are generic last-backslash lookups — neither checks the directory name, so the macro is not literally looking for a folder called `src/`; it works on any layout where the executing `.sas` file sits one directory below `.env`. (It does this with `findc(...,b)` + `substr` rather than `\..\..\` so it doesn't depend on the OS normalizing `path/file.sas/../../.env` correctly.)
 
 The macro reads the file via `data _null_; infile; input;` and pushes each `KEY=VALUE` row to a global macro variable with `call symputx(key, val, "G")`. Compared to `filename`+`fopen`+`fread`, the data step gives you SAS's normal log diagnostics for free if anything goes wrong.
 
