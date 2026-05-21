@@ -15,6 +15,14 @@ This note explains how the templates in this hub keep configuration
 out of the code using environment variables and a `.env` file, why
 that matters, and a few practical gotchas.
 
+<details open markdown="block">
+<summary>On this page</summary>
+
+1. TOC
+{:toc}
+
+</details>
+
 ## What is an environment variable?
 
 An environment variable is a `KEY=VALUE` pair maintained by your

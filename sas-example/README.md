@@ -14,6 +14,13 @@ This folder ([browse on GitHub](https://github.com/eweisbrod/example-project/tre
 
 The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not ship SAS scripts, so these reference materials live here instead. For a complete real-world project using the conventions end-to-end across **R, Stata, and SAS**, see the [`consensus`](https://github.com/eweisbrod/consensus) repo — every SAS script there (`002`–`005`) follows the patterns described below; the rest of the pipeline (download, transform, analysis, figures) is in R and Stata.
 
+<details open markdown="block">
+<summary>On this page</summary>
+
+1. TOC
+{:toc}
+
+</details>
 
 ## A complete example, annotated
 
