@@ -1,6 +1,7 @@
 ---
-title: SAS macros example
-nav_order: 2
+title: SAS macros (reference)
+parent: Topics
+nav_order: 99
 ---
 
 # SAS macros example: `MACROS.sas`

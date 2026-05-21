@@ -1,4 +1,4 @@
-> 📖 **Rendered docs:** <https://eweisbrod.github.io/example-project/>
+> 📖 **Best viewed as rendered docs here:** <https://eweisbrod.github.io/example-project/>
 
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
@@ -14,6 +14,7 @@ The example pipeline runs an earnings-announcement event study: it computes unex
 
 * [Introduction](#intro)
 * [The companion templates](#templates)
+* [Topics in depth](#topics)
 * [JAR Data and Code Sharing Policy](#jar)
 * [Prerequisites](#prereqs)
 * [Using a template](#use)
@@ -44,11 +45,21 @@ Pick the template that matches what you're building. Both are GitHub template re
 The two are designed to be used together: `project-template` writes `.tex` files into its `OUTPUT_DIR`, and `overleaf-template`'s `main.tex` reads them via `\input{}`. They share the same `.env` / `keyring` conventions so figures and tables produced by one slot into the other without configuration.
 
 
-This hub repo also includes a [`sas-example/`](sas-example/) folder with a working SAS macro file (`MACROS.sas`) and notes on how to apply the `.env` / batch-logging conventions from the templates to a SAS pipeline. SAS isn't part of `project-template`'s pipeline, so this lives in the hub rather than in a language-specific template.
-
 For information on reporting issues, contributing fixes or improvements, or seeking support, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-In-depth notes on individual topics that come up in the templates (environment variables, Git, WRDS credentials, AI agents, etc.) live in the [`topics/`](topics/) folder.
+
+## <a name="topics"></a>Topics in depth
+
+Some pieces of the workflow benefit from a chapter-length explanation rather than a paragraph in a README. Those live in the [`topics/`](topics/) folder — each file is a standalone reference; read whichever one you need, in any order.
+
+| Chapter | What it covers |
+|---|---|
+| [Environment variables and the `.env` file](topics/environment-variables.md) | What an env var is, why the templates use a project-level `.env` instead of OS-level config, how each of R / Python / Stata / SAS reads it, credentials in `keyring` vs. `.env`, common gotchas |
+| _planned_ | WRDS access and credentials; the `RAW_DATA_DIR` / `DATA_DIR` split; AI agents in a reproducible workflow; citation management with Zotero; … |
+
+See [`topics/README.md`](topics/README.md) for the full list of planned chapters and the conventions these files follow.
+
+In addition, the [`sas-example/`](sas-example/) folder holds a working SAS macro file (`MACROS.sas`) you can copy as a starting point if you want to apply the templates' `.env` and batch-logging conventions to a SAS pipeline. SAS isn't part of `project-template`'s pipeline, so this reference lives in the hub rather than in a language-specific template.
 
 
 ## <a name="jar"></a>JAR Data and Code Sharing Policy

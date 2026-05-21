@@ -18,9 +18,6 @@ contributions are welcome and several kinds are particularly useful:
 - **Suggestions for new advanced-topic briefings, additional
   templates, or improvements to the pedagogical sequence.**
 
-This document covers the three things the JOSE review checklist
-asks for: how to contribute, how to report issues, and how to seek
-support.
 
 ## Where to file
 
@@ -83,8 +80,7 @@ Three channels, in order of preference:
    questions (workflow, course-design feedback, how-do-I-do-X-with-
    this-template) where the answer isn't a bug fix.
 3. **Email** to the maintainer for anything that can't be discussed
-   in public. The address is in the hub README's "Citing" section
-   and on the maintainer's [KU Business School profile](https://business.ku.edu/people/eric-weisbrod).
+   in public. The address is on the maintainer's [KU Business School profile](https://business.ku.edu/people/eric-weisbrod).
 
 The maintainer is a full-time faculty member — response times will
 vary, especially during teaching semesters.
