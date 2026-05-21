@@ -141,7 +141,10 @@ Both work for academic writing. They optimize for very different things.
 - **Pros.** Universal — every collaborator has it. Tracked Changes and Comments are mature. WYSIWYG editing has no learning curve. 
 - **Cons.** Binary file format is unfriendly to git (you can commit `.docx` but you can't meaningfully diff revisions). Equation editor is clunky. Bibliography management requires external tools (Mendeley, Zotero, EndNote). Cross-references break in confusing ways. Files occasionally corrupt. Filename-version sprawl (`paper_v3_FINSAL_2_jw-edits.docx`) is a real cost over the life of a paper.
 
-> 💡 **Flexible Project Template:** the R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
+{: .tip-title }
+> Flexible Project Template
+>
+> The R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
 
 ## Files at the repo root
 

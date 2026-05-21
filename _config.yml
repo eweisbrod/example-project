@@ -13,6 +13,25 @@ color_scheme: light
 search_enabled: true
 heading_anchors: true
 
+# Callout boxes (styled note/tip/warning panels in topic pages).
+# Each entry defines a CSS class you can apply with {: .name } or
+# {: .name-title } in markdown. See:
+# https://just-the-docs.com/docs/configuration/#callouts
+callouts_level: loud
+callouts:
+  note:
+    title: Note
+    color: blue
+  tip:
+    title: Tip
+    color: green
+  important:
+    title: Important
+    color: yellow
+  warning:
+    title: Warning
+    color: red
+
 aux_links:
   "View on GitHub":
     - "https://github.com/eweisbrod/example-project"
