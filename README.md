@@ -1,9 +1,4 @@
----
-title: Home
-layout: home
-nav_order: 1
-permalink: /
----
+> 📖 **Rendered docs:** <https://eweisbrod.github.io/example-project/>
 
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
