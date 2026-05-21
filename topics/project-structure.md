@@ -110,11 +110,23 @@ Once you know the order of your pipeline, prefixing each file with its position 
 But early in a project the order isn't known yet, and you're writing scratchwork. Two patterns work well:
 
 - **`XXX-` or `scratch-` prefixes** for files you're still exploring with. `XXX-explore-fundq.R`, `scratch-pull-test.R`. These sort separately from the numbered pipeline so they don't pretend to be canonical. When a `scratch-` file stabilizes, rename it into the numbered sequence.
-- **Multiple `000-` scripts for raw data collection** when there are several independent pulls. `000-collect-wrds.R`, `000-collect-bloomberg.R`, `000-collect-factset.R`. Zero signals "before the pipeline starts" — these run once each, write to `RAW_DATA_DIR`, and aren't re-executed on every run-all. Then `1-` is the first script that operates on the collected raw data.
+- **Multiple `000-` scripts for raw data collection** when there are several independent pulls. `000-collect-wrds.R`, `000-collect-bloomberg.R`, `000-collect-factset.R`. Zero signals "before the pipeline starts" — these run once each, write to `RAW_DATA_DIR`, and aren't re-executed on every run-all. Then `001-` is the first script that operates on the collected raw data.
 
-### Dated artifacts
+### Don't put dates in filenames
 
-For data files specifically, embedding a date in the filename solves a different problem: WRDS data changes over time (Compustat backfills, IBES restates, etc.), and a reviewer running your code two years from now will get different numbers than you did. Date-stamping the raw file (`fundq_2025-07-18.parquet`) preserves which snapshot the paper's results come from. `YYYY-MM-DD` is the most defensible format; `MMDDYYYY` works too — what matters is consistency within a project.
+A tempting pattern when starting a project is to embed a date in raw-data filenames — `fundq_2025-07-18.parquet`, `ibes_2025-07-18.parquet` — on the theory that the date preserves which snapshot the paper's results came from. The underlying concern is real: WRDS data changes over time (Compustat backfills, IBES restates), and a reviewer running your code two years from now will get different numbers than you did. But date-stamping the filename is the wrong fix.
+
+- **It breaks every script that reads the file each time you refresh the data.** Every reference to `fundq_2025-07-18.parquet` has to be hunt-and-replaced to `fundq_2025-12-01.parquet` next quarter, and again the quarter after. That defeats the entire point of using `.env` and a fixed project structure to keep paths out of the analysis code.
+- **It re-creates the filename-sprawl problem git was supposed to solve.** It's the data-file analog of `paper_v3_FINAL_jw-edits.docx`: a folder full of nearly-identical filenames and no clean record of which one is the canonical version for a given paper draft.
+- **It conflates two different kinds of metadata.** "When was this snapshot pulled" is metadata *about* a file; "what's the file called" is its name. Folding the two together muddles the distinction.
+
+The cleaner approach: **use stable filenames** (`fundq.parquet`, not `fundq_<date>.parquet`) and record snapshot dates somewhere else.
+
+- The `005-data-provenance.{R,py}` step in the templates writes the SHA256 hash of every raw and derived file to its log. That log *is* your snapshot pin — a reviewer running your code two years from now whose `fundq.parquet` has a different SHA256 knows the underlying data has shifted, and yours hasn't.
+- Git's commit history of `001-download-data.{R,py}` records when each pull was committed, which is when the snapshot was taken.
+- For projects that genuinely need to reference a snapshot date in code (e.g., a JAR replication package noting "data as of YYYY-MM-DD"), put the date in `.env` (`WRDS_PULL_DATE=2025-07-18`) or in a small `data/SNAPSHOT.txt`. Scripts read it from there; filenames stay stable.
+
+You'll see dated filenames in some real-world projects (including some referenced from this hub) — that pattern is usually inherited from an older codebase or a coauthor convention, not something to copy into a project starting fresh.
 
 ## The manuscript: LaTeX/Overleaf vs. Microsoft Word
 
@@ -217,8 +229,8 @@ And in cloud sync (Dropbox), outside the repo:
 ```
 D:/Dropbox/your-project/
 ├── raw/                                    # RAW_DATA_DIR in .env
-│   ├── fundq_2025-07-18.parquet
-│   ├── ibes_surpsum_2025-07-18.parquet
+│   ├── fundq.parquet
+│   ├── ibes_surpsum.parquet
 │   └── ...
 ├── derived/                                # DATA_DIR in .env
 │   ├── regdata.parquet
