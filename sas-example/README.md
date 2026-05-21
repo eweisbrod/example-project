@@ -1,10 +1,10 @@
 ---
-title: SAS macros
+title: SAS Examples
 parent: Topics
 nav_order: 99
 ---
 
-# SAS macros example: `MACROS.sas`
+# SAS-example Folder:
 
 This folder ([browse on GitHub](https://github.com/eweisbrod/example-project/tree/main/sas-example)) holds three artifacts that together form a copy-pasteable starting point for projects that include SAS:
 
@@ -12,12 +12,12 @@ This folder ([browse on GitHub](https://github.com/eweisbrod/example-project/tre
 - **[`002-merge-fdp-data.sas`](002-merge-fdp-data.sas)** — a real working SAS script using `MACROS.sas`. Copied verbatim from the [`consensus`](https://github.com/eweisbrod/consensus) repo (where it lives at [`src/002-merge-fdp-data.sas`](https://github.com/eweisbrod/consensus/blob/main/src/002-merge-fdp-data.sas)). Same license (CC-BY-4.0).
 - **This `README.md`** — a step-by-step walkthrough of the conventions, anchored on a trimmed excerpt of `002-merge-fdp-data.sas`.
 
-The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not ship SAS scripts, so these reference materials live in the hub instead. For a complete real-world project using the conventions end-to-end across **R, Stata, and SAS**, see the [`consensus`](https://github.com/eweisbrod/consensus) repo — every SAS script there (`002`–`005`) follows the patterns described below; the rest of the pipeline (download, transform, analysis, figures) is in R and Stata.
+The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not ship SAS scripts, so these reference materials live here instead. For a complete real-world project using the conventions end-to-end across **R, Stata, and SAS**, see the [`consensus`](https://github.com/eweisbrod/consensus) repo — every SAS script there (`002`–`005`) follows the patterns described below; the rest of the pipeline (download, transform, analysis, figures) is in R and Stata.
 
 
 ## A complete example, annotated
 
-The trimmed excerpt below keeps the scaffolding and elides the ~600 lines of analytical `proc sql` that follow the preamble. The full ~820-line working script is sitting alongside this README at [`002-merge-fdp-data.sas`](002-merge-fdp-data.sas) — open it for the complete picture, including the I/B/E/S / FactSet / Zacks / Capital IQ / Bloomberg joins that produce the consensus repo's `all_five1.sas7bdat`. The trimmed version below demonstrates every convention `MACROS.sas` is designed around: portable paths via `.env`, conditional WRDS signon, cached WRDS downloads, and clean exits.
+The trimmed excerpt below keeps the scaffolding used for the `proc sql` steps that follow the preamble. The full ~820-line working script is sitting alongside this README at [`002-merge-fdp-data.sas`](002-merge-fdp-data.sas) — open it for the complete picture. The trimmed version below demonstrates every convention `MACROS.sas` is designed around: portable paths via `.env`, conditional WRDS signon, cached WRDS downloads, and clean exits.
 
 ```sas
 /* 002-merge-fdp-data.sas (excerpt from the consensus repo)
@@ -84,7 +84,6 @@ libname data "&DATA_DIR";
 %maybe_signoff;
 ```
 
-The rest of this page walks through each block.
 
 ### Step 1 — Resolve `&codepath`, `%include` macros, `%load_env`
 
