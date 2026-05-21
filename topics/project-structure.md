@@ -1,14 +1,20 @@
 ---
 title: Project structure
-parent: In-depth topics
+parent: In-depth Topics
 nav_order: 1
 ---
 
 # Project structure for research
 
-A reproducible research project lives in **three places at once**: a GitHub repository (canonical code), a local clone on your computer (where you actually work), and a cloud-sync folder like Dropbox or OneDrive (data and shared documents). Keeping those three locations distinct — and putting the right kinds of files in each — is the foundation everything else in this hub builds on.
+An academic research project is made up of several distinct artifacts, each with different storage and collaboration needs. The major pieces:
 
-This chapter walks through the storage split, the folder layout inside a project, file naming, and the LaTeX-vs-Word manuscript decision. It's aimed at PhD students starting their first paper, but the same conventions scale to multi-coauthor projects.
+- **Code** — scripts that turn raw data into the analytical dataset and produce the reported tables and figures.
+- **Data** — raw external pulls (WRDS, hand-collected, etc.) and the derived analytical datasets that code produces.
+- **The manuscript** — the actual paper being written.
+
+A project also accumulates supporting artifacts: papers collected for the literature review, working memos between coauthors, intermediate outputs that never make it into the published paper, presentation slides, etc. Those don't fit cleanly into any single category and are mostly stored wherever feels natural — often alongside the data in a cloud-sync folder.
+
+This chapter focuses on the three main pieces — **code, data, and manuscript** — and how to organize them with reproducibility in mind. The structure these materials envision uses **four storage locations at once**: a GitHub repository for code, a local clone on your computer where you actually work, a cloud-sync folder (Dropbox / OneDrive / etc.) for data and supporting artifacts, and Overleaf for the LaTeX manuscript if you use one. This convention isn't the only way to organize a project — it's the one the templates throughout this hub are designed around — but it scales cleanly from a first PhD paper to a multi-coauthor R&R.
 
 <details open markdown="block">
 <summary>On this page</summary>
@@ -18,17 +24,20 @@ This chapter walks through the storage split, the folder layout inside a project
 
 </details>
 
-## The three storage locations
+## The four storage locations
 
-A research project pulls in artifacts that live on very different timescales and storage media. The convention used throughout this hub:
+Each artifact lives on a very different timescale and benefits from different storage. The split this hub's templates assume:
 
 | Lives in | What it holds | Why |
 |---|---|---|
-| **GitHub** (the remote repo) | All code, scripts, configuration templates (`.example-env`), the README, `AGENTS.md` / `CLAUDE.md`, the LaTeX paper source if you have one. | Git is built for line-by-line versioning of small text files. GitHub adds collaboration, issues, and replication-package archival. |
-| **Local clone** (a folder on your disk, e.g. `C:/_git/your-project/`) | Same code as GitHub, plus your local `.env` with machine-specific paths, plus the `log/` directory of execution logs. | This is where you actually work. The clone syncs to GitHub via `git push` and `git pull`. |
-| **Cloud sync** (Dropbox / OneDrive / Google Drive) | Raw and derived data, the literature collection, working memos, output figures and tables, shared documents that aren't text-with-history. | Data files are too big and too binary for git. Cloud-sync clients handle them well and share them across collaborators without polluting git history. |
+| **GitHub** (the remote repo) | Code, scripts, configuration templates (`.example-env`), the README, `AGENTS.md` / `CLAUDE.md`. *If you don't use Overleaf, the LaTeX paper source goes here too.* | Git is built for line-by-line versioning of small text files. GitHub adds collaboration, issues, and replication-package archival. |
+| **Local clone** (a folder on your disk, e.g. `C:/_git/your-project/`) | A working copy of the GitHub repo, plus your local `.env` with machine-specific paths, plus the `log/` directory of execution logs. | This is where you actually work. The clone syncs to GitHub via `git push` and `git pull`. |
+| **Cloud sync** (Dropbox / OneDrive / Google Drive) | Raw and derived data, the literature collection, working memos, intermediate outputs. *If you use MS Word for the manuscript instead of LaTeX, the `.docx` lives here.* | Data files are too big and too binary for git. Cloud-sync clients handle them well and share them across collaborators without polluting git history. |
+| **Overleaf** (or another LaTeX-collaboration tool) | The LaTeX manuscript source (`main.tex`) and the bibliography (`.bib`), if you use Overleaf. Has its own per-edit version history with Word-style real-time multi-author editing. | Lets coauthors edit the LaTeX in a browser without each installing a LaTeX distribution. Can optionally sync back to a GitHub repo as a backup, but the canonical copy is Overleaf-side. |
 
-The structural rule: **code is in git, data is in the cloud, and the local clone references the cloud via `.env`**. The same code runs on every collaborator's machine because each has their own `.env` pointing at their own copy of the data ([Environment variables and .env](environment-variables.md) covers the mechanics).
+**Where the manuscript actually lives is a tool decision**, not a layout decision. LaTeX-via-Overleaf users keep it in Overleaf (location 4). LaTeX-without-Overleaf users keep `.tex` files in git alongside the code (location 1). MS Word users keep `.docx` in cloud sync (location 3). The [LaTeX-vs-Word section below](#the-manuscript-latexoverleaf-vs-microsoft-word) walks through the tradeoffs of that choice.
+
+The structural rule: **code in git, data in cloud sync, manuscript wherever the writing tool keeps it, and the local clone references the data folder via `.env`**. The same code runs on every collaborator's machine because each has their own `.env` pointing at their own copy of the data ([Environment variables and .env](environment-variables.md) covers the mechanics).
 
 ## Why code and data must be separate
 
@@ -75,7 +84,7 @@ your-project/
 │   ├── run-all.R                 # orchestrator
 │   └── utils.R                   # shared helpers
 ├── log/                          # script execution logs (gitignored)
-└── paper/                        # LaTeX source if working locally (optional)
+└── paper/                        # LaTeX source (only if NOT using Overleaf; optional)
     ├── main.tex
     └── Bibliography.bib
 ```

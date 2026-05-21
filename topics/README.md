@@ -1,11 +1,11 @@
 ---
-title: In-depth topics
+title: In-depth Topics
 nav_order: 6
 has_children: true
 permalink: /topics/
 ---
 
-# In-depth topics
+# In-depth Topics
 
 Chapter-length notes on individual topics that come up in the templates but
 don't fit cleanly into a README. Each file is a standalone reference —
@@ -37,18 +37,3 @@ live; unlinked entries are placeholders for content I plan to add.
   a working SAS script (`002-merge-fdp-data.sas` from the consensus repo),
   and a walkthrough of using `%load_env` + `batch_run_sas()` for
   JAR-style logs.
-- **WRDS access and credentials** — connecting from R / Python /
-  Stata, storing credentials in the OS keyring, the chunked-download
-  pattern for very large tables.
-- **The `RAW_DATA_DIR` / `DATA_DIR` split** — why the templates
-  separate raw external pulls from derived analytical datasets, and
-  how that supports replication.
-
-
-## Conventions for these notes
-
-Each topic file is named in kebab-case (`environment-variables.md`,
-not `EnvironmentVariables.md`). The first line is the topic title as
-a level-1 heading. Screenshots go in `topics/img/`. Code blocks use
-triple-backtick fences with a language tag (`r`, `python`, `bash`,
-etc.) so GitHub's rendering highlights them.
