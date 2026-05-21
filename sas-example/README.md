@@ -159,7 +159,7 @@ batch_run_sas("src/002-merge-fdp-data.sas")
 3. **Invokes SAS** in batch mode: `sas -SYSIN src/002-merge-fdp-data.sas -LOG log/002-merge-fdp-data-sas.log [-WORK <dir>]`.
 4. **Captures the exit code** and surfaces a warning if it's non-zero.
 
-The default log filename uses a `-sas.log` suffix so a hypothetical `4-analyze-data.do` (Stata) and `4-analyze-data.sas` running side-by-side don't collide on log filename. The `.log` file itself is the SAS-native log — a reviewer can grep it without running SAS.
+The default log filename uses a `-sas.log` suffix so a hypothetical `004-analyze-data.do` (Stata) and `004-analyze-data.sas` running side-by-side don't collide on log filename. The `.log` file itself is the SAS-native log — a reviewer can grep it without running SAS.
 
 A Python `run-all.py` calls the identically-named `batch_run_sas()` from `utils.py`; the contract is the same.
 

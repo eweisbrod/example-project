@@ -78,11 +78,11 @@ your-project/
 ├── CLAUDE.md                     # Claude Code config (optional)
 ├── src/                          # source code, all scripts live here
 │   ├── 000-collect-fundq.R       # raw collection (may be several of these)
-│   ├── 1-download-data.R         # canonical pipeline starts here
-│   ├── 2-transform-data.R
-│   ├── 3-figures.R
-│   ├── 4-analyze-data.R
-│   ├── 5-data-provenance.R
+│   ├── 001-download-data.R         # canonical pipeline starts here
+│   ├── 002-transform-data.R
+│   ├── 003-figures.R
+│   ├── 004-analyze-data.R
+│   ├── 005-data-provenance.R
 │   ├── run-all.R                 # orchestrator
 │   └── utils.R                   # shared helpers
 ├── log/                          # script execution logs (gitignored)
@@ -93,15 +93,15 @@ your-project/
 
 Raw and derived data live outside this tree, in cloud-sync folders pointed to by `RAW_DATA_DIR` and `DATA_DIR` in `.env`.
 
-`output/` is sometimes inside the project (when outputs are small `.tex` tables and `.png` figures) and sometimes outside in cloud sync (when outputs balloon or you have many of them). The templates default to `OUTPUT_DIR=output` so it lives inside the repo; flip it to an absolute Dropbox path in `.env` if your outputs get large.
+`output/` is sometimes inside the project (when outputs are small `.tex` tables and `.png` figures) and sometimes outside in cloud sync (when outputs balloon or you have many of them). The templates default to `OUTPUT_DIR=output` so it lives inside the repo; flip it to a Dropbox path or another absolute file path in `.env` if you prefer to store output in cloud sync or another location.
 
 ## Naming files
 
 Three principles, paraphrased from [Jenny Bryan's *Naming Things*](https://speakerdeck.com/jennybc/how-to-name-files):
 
-1. **Machine readable** — lowercase, hyphens or underscores instead of spaces, no accented characters, no punctuation other than `-` `_` `.`. So `1-download-data.R`, not `1. Download Data.R`.
-2. **Human readable** — keywords that describe what the file does. `1-download-data.R` over `script1.R`.
-3. **Plays well with default ordering** — numeric prefixes so files sort by execution order. `1-download-data.R`, `2-transform-data.R`, `3-figures.R` line up in any file browser without thinking.
+1. **Machine readable** — lowercase, hyphens or underscores instead of spaces, no accented characters, no punctuation other than `-` `_` `.`. So `001-download-data.R`, not `1. Download Data.R`.
+2. **Human readable** — keywords that describe what the file does. `001-download-data.R` over `script1.R`.
+3. **Plays well with default ordering** — numeric prefixes so files sort by execution order. `001-download-data.R`, `002-transform-data.R`, `003-figures.R` line up in any file browser without thinking.
 
 ### Numbered scripts (and what to do before the order is known)
 
@@ -196,16 +196,16 @@ your-project/                              # local clone, NOT inside Dropbox
 ├── src/
 │   ├── 000-collect-fundq.R                 # raw collection (could be several)
 │   ├── 000-collect-ibes.R
-│   ├── 1-download-data.R                   # canonical pipeline starts here
-│   ├── 2-transform-data.R
-│   ├── 3-figures.R
-│   ├── 4-analyze-data.R
-│   ├── 5-data-provenance.R
+│   ├── 001-download-data.R                   # canonical pipeline starts here
+│   ├── 002-transform-data.R
+│   ├── 003-figures.R
+│   ├── 004-analyze-data.R
+│   ├── 005-data-provenance.R
 │   ├── run-all.R
 │   └── utils.R
 ├── log/                                    # populated by run-all; gitignored
-│   ├── 1-download-data.Rout
-│   ├── 2-transform-data.Rout
+│   ├── 001-download-data.Rout
+│   ├── 002-transform-data.Rout
 │   └── ...
 └── paper/                                  # LaTeX source (optional, alt. is Overleaf)
     ├── main.tex

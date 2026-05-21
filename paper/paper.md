@@ -108,7 +108,7 @@ from this landscape:
    all four supported languages — R produces `.Rout` files via
    `R CMD BATCH`; Python produces `.log` files via an AST-walking
    wrapper; Stata and SAS use their native `log using` /
-   `proc printto`). A final `5-data-provenance` step exports
+   `proc printto`). A final `005-data-provenance` step exports
    sample-identifier files in both Parquet and CSV and prints an
    inventory of every raw, derived, and output file with mtime,
    size, and SHA256 hash. The resulting artifact set is what JAR
@@ -139,7 +139,7 @@ The pipeline is organized as five numbered scripts that run in
 order. Each step has parallel implementations in the languages the
 user picked at setup time:
 
-1. `1-download-data` — connects to WRDS via the PostgreSQL endpoint,
+1. `001-download-data` — connects to WRDS via the PostgreSQL endpoint,
    pulls Compustat fundq, the CCM link table, CRSP stocknames, the
    CRSP daily stock file, and the CRSP value-weighted index. Large
    tables are streamed to parquet via a server-side cursor so peak
@@ -147,19 +147,19 @@ user picked at setup time:
    pattern. A `skip_if_exists` default keeps the raw inputs immutable
    on re-runs.
 
-2. `2-transform-data` — merges fundq with the CCM link and SIC
+2. `002-transform-data` — merges fundq with the CCM link and SIC
    codes, constructs UE and the same-sign indicator, applies sample
    filters, and joins event-window CRSP returns to compute
    buy-and-hold abnormal returns (BHAR). DuckDB is used to query
    the parquet files directly without loading the largest table
    (CRSP daily, ~100M rows) into memory.
 
-3. `3-figures` — produces five publication-ready figures
+3. `003-figures` — produces five publication-ready figures
    (industry-level same-sign frequency; size-quintile time series;
    correlation heatmap; event-study CAR plot; year-by-year ERC with
    confidence bands) using `ggplot2` in R and `plotnine` in Python.
 
-4. `4-analyze-data` — produces a sample-selection table, a
+4. `004-analyze-data` — produces a sample-selection table, a
    frequency table by decade, descriptive statistics, a correlation
    matrix, and the main regression table with cumulative fixed
    effects. Outputs land in `output/` as `.tex` files for LaTeX,
@@ -167,7 +167,7 @@ user picked at setup time:
    `-r` / `-py` / `-stata` filename suffix lets the same analysis be
    produced and inspected side-by-side across languages.
 
-5. `5-data-provenance` — exports the sample-identifier file (gvkey,
+5. `005-data-provenance` — exports the sample-identifier file (gvkey,
    permno, rdq, datadate, fyearq, fqtr) in both parquet and CSV and
    prints an inventory of `RAW_DATA_DIR`, `DATA_DIR`, and
    `OUTPUT_DIR` with mtime, size, and SHA256 hash. Together with
@@ -183,7 +183,7 @@ Stata-inclusive combo at setup, the .do file is still on disk and
 skipped automatically.
 
 The setup itself is a `project_setup()` function in `utils.{R,py}`,
-called at the top of `1-download-data.{R,py}`. On a fresh clone (no
+called at the top of `001-download-data.{R,py}`. On a fresh clone (no
 `.env` file yet) it walks the user through choosing a language
 combination, entering data and output directories, storing WRDS
 credentials in the OS keyring (Windows Credential Manager / macOS

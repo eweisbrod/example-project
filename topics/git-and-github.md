@@ -67,8 +67,8 @@ A commit message should answer "what did this commit change and why?" in one lin
 - ❌ `fix bug`
 - ❌ `updates`
 - ❌ `wip`
-- ✅ `fix off-by-one in 2-transform: fyearq filter used > instead of >=`
-- ✅ `add SameSign control to baseline regression in 4-analyze`
+- ✅ `fix off-by-one in 002-transform: fyearq filter used > instead of >=`
+- ✅ `add SameSign control to baseline regression in 004-analyze`
 - ✅ `bump RAW_DATA_DIR snapshot to 2025-07-18 ibes pull`
 
 Future-you reads these messages when answering reviewer questions six months later. Be specific.
