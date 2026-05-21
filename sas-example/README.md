@@ -1,12 +1,12 @@
 ---
-title: SAS macros (reference)
+title: SAS macros
 parent: Topics
 nav_order: 99
 ---
 
 # SAS macros example: `MACROS.sas`
 
-This folder mirrors a working SAS macro file (`MACROS.sas`) used in a real research pipeline, kept here as a teaching reference. The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not currently ship SAS scripts; if you want to apply the same `.env` / env-var pattern in a SAS pipeline of your own, this is a starting point you can copy.
+This folder ([browse on GitHub](https://github.com/eweisbrod/example-project/tree/main/sas-example)) mirrors a working SAS macro file (`MACROS.sas`) used in a real research pipeline, kept here as a teaching reference. The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not currently ship SAS scripts; if you want to apply the same `.env` / env-var pattern in a SAS pipeline of your own, this is a starting point you can copy.
 
 ## What's in here
 
