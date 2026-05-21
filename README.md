@@ -22,7 +22,7 @@ The goal of this hub is to help researchers go from zero to a reproducible publi
 | [JAR Data and Code Sharing Policy](pages/jar-data-policy.md) | How `project-template` is structured to satisfy the *Journal of Accounting Research*'s data-and-code-sharing policy. |
 | [Prerequisites](pages/prerequisites.md) | Software (Git, R, Python, Stata) and account (WRDS, GitHub) requirements for using the templates. |
 | [Using a template](pages/using-a-template.md) | Step-by-step on spinning up your own copy of a template via GitHub's "Use this template" button. |
-| [In-depth topics](topics/) | Chapter-length notes — environment variables and `.env`, the AGENTS.md / AI-assistant conventions, the SAS macros reference, plus planned chapters on WRDS credentials, the raw/derived data split, and more. |
+| [In-depth topics](topics/) | Chapter-length notes — project structure for research, Git and GitHub, environment variables and `.env`, the AGENTS.md / AI-assistant conventions, the SAS macros reference, plus planned chapters on WRDS credentials and the raw/derived data split. |
 | [Additional resources](pages/additional-resources.md) | Pointers to related books, course materials, and data sources. |
 | [Contributing](CONTRIBUTING.md) | How to file issues, suggest changes, or seek support across the three repos. |
 

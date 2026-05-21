@@ -17,9 +17,19 @@ read whichever one you need, in any order. Linked from the
 The list will grow as topics are written. Linked entries below are
 live; unlinked entries are placeholders for content I plan to add.
 
+- **[Project structure for research](project-structure.md)** — the
+  three storage locations (GitHub, local clone, cloud sync), why
+  code and data must be separate, why the local clone shouldn't be
+  inside Dropbox, the recommended folder layout, file-naming
+  conventions, and the LaTeX-vs-Word manuscript decision.
+- **[Git and GitHub for research projects](git-and-github.md)** —
+  Git vs. GitHub, the everyday commit/push/pull workflow, template
+  repositories, branching for R&R revisions, tagging paper
+  versions, `.gitignore` essentials, and a glossary.
 - **[Environment variables and the `.env` file](environment-variables.md)** —
   what an environment variable is, why the templates use `.env`
-  instead of hardcoded paths, OS-specific setup, common gotchas.
+  instead of hardcoded paths, how each of R / Python / Stata / SAS
+  reads it, credentials in `keyring` vs. `.env`, common gotchas.
 - **[About AGENTS.md](agents-md.md)** — what the `AGENTS.md` file in each
   repo is, the cross-tool standard behind it, how it interacts with
   `CLAUDE.md`, and why you might want one in your own projects.
