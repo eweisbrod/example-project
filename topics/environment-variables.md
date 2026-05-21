@@ -1,7 +1,7 @@
 ---
 title: Environment variables and .env
 parent: In-depth topics
-nav_order: 4
+nav_order: 5
 ---
 
 # Environment variables and the `.env` file

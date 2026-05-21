@@ -31,6 +31,12 @@ live; unlinked entries are placeholders for content I plan to add.
   reproducible research code, how IDEs treat a folder as a project,
   the source-control panels in RStudio and VS Code, per-editor
   setup notes, ligature fonts, and AI-assistant integration.
+- **[Python virtual environments with `venv` and `uv`](python-virtual-environments.md)** —
+  what a Python virtual environment is, why you need one per project,
+  the messy Python tool landscape (venv / pip / pip-tools / pyenv /
+  pipx / poetry / conda) and why the templates standardize on `uv`,
+  the `pyproject.toml` + `uv.lock` model, and the five `uv` commands
+  you'll actually use day-to-day.
 - **[Environment variables and the `.env` file](environment-variables.md)** —
   what an environment variable is, why the templates use `.env`
   instead of hardcoded paths, how each of R / Python / Stata / SAS
@@ -42,7 +48,3 @@ live; unlinked entries are placeholders for content I plan to add.
   a working SAS script (`002-merge-fdp-data.sas` from the consensus repo),
   and a walkthrough of using `%load_env` + `batch_run_sas()` for
   JAR-style logs.
-- **Python virtual environments with `venv` and `uv`** — what a
-  Python virtual environment is, why you need one per project, the
-  shift from manual `venv` to `uv` for the templates, and how the
-  IDE picks up the project's interpreter.
