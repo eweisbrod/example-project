@@ -193,23 +193,24 @@ And in cloud sync (Dropbox), outside the repo:
 
 ```
 D:/Dropbox/your-project/
-├── raw/                                    # RAW_DATA_DIR in .env
-│   ├── fundq.parquet
-│   ├── ibes_surpsum.parquet
-│   └── ...
-├── derived/                                # DATA_DIR in .env
-│   ├── regdata.parquet
-│   ├── figure-data.parquet
-│   └── ...
+├── data/
+│   ├── raw/                                # RAW_DATA_DIR in .env
+│   │   ├── fundq.parquet
+│   │   ├── ibes_surpsum.parquet
+│   │   └── ...
+│   └── derived/                            # DATA_DIR in .env
+│       ├── regdata.parquet
+│       ├── figure-data.parquet
+│       └── ...
 ├── output/                                 # OUTPUT_DIR in .env (or kept in-repo)
 │   ├── table-summary.tex
 │   ├── figure-event-study.png
 │   └── ...
-├── lit/                                    # papers you're reading
+├── papers/                                 # papers you're reading
 └── memos/                                  # working notes shared with coauthors
 ```
 
-Each collaborator points their `.env` at their own copy of the Dropbox folders. The code in git is identical for everyone. Run `git pull`; their machine reproduces yours.
+Each collaborator points their `.env` at their own copy of the Dropbox folders. The code then becomes identical for everyone. Run `git pull`; their machine reproduces yours.
 
 ## See also
 

@@ -87,8 +87,8 @@ named `.env` at the *project root*. The file is just `KEY=VALUE`
 lines, for example:
 
 ```
-RAW_DATA_DIR=D:/Dropbox/my-project/raw
-DATA_DIR=D:/Dropbox/my-project/derived
+RAW_DATA_DIR=D:/Dropbox/my-project/data/raw
+DATA_DIR=D:/Dropbox/my-project/data/derived
 OUTPUT_DIR=output
 ```
 
@@ -153,22 +153,22 @@ paths to the data:
 
 **Author 1, laptop** — small SSD, Dropbox folder on `C:`:
 ```
-RAW_DATA_DIR=C:/Dropbox/our-paper/raw
-DATA_DIR=C:/Dropbox/our-paper/derived
+RAW_DATA_DIR=C:/Dropbox/our-paper/data/raw
+DATA_DIR=C:/Dropbox/our-paper/data/derived
 OUTPUT_DIR=output
 ```
 
 **Author 1, desktop** — large secondary drive, data on `D:`:
 ```
-RAW_DATA_DIR=D:/Dropbox/our-paper/raw
-DATA_DIR=D:/Dropbox/our-paper/derived
+RAW_DATA_DIR=D:/Dropbox/our-paper/data/raw
+DATA_DIR=D:/Dropbox/our-paper/data/derived
 OUTPUT_DIR=output
 ```
 
 **Author 2, MacBook** — macOS, no drive letters, Dropbox in `~`:
 ```
-RAW_DATA_DIR=/Users/coauthor/Dropbox/our-paper/raw
-DATA_DIR=/Users/coauthor/Dropbox/our-paper/derived
+RAW_DATA_DIR=/Users/coauthor/Dropbox/our-paper/data/raw
+DATA_DIR=/Users/coauthor/Dropbox/our-paper/data/derived
 OUTPUT_DIR=output
 ```
 
@@ -210,8 +210,8 @@ templates commit a sibling file called `.example-env`. Same `KEY=VALUE`
 format, but with placeholder values:
 
 ```
-RAW_DATA_DIR=D:/Dropbox/your-project-name/raw
-DATA_DIR=D:/Dropbox/your-project-name/derived
+RAW_DATA_DIR=D:/Dropbox/your-project-name/data/raw
+DATA_DIR=D:/Dropbox/your-project-name/data/derived
 OUTPUT_DIR=output
 ```
 
