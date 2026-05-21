@@ -31,13 +31,13 @@ Each artifact lives on a very different timescale and benefits from different st
 | Lives in | What it holds | Why |
 |---|---|---|
 | **GitHub** (the remote repo) | Code, scripts, configuration templates (`.example-env`), the README, `AGENTS.md` / `CLAUDE.md`. *If you don't use Overleaf, the LaTeX paper source goes here too.* | Git is built for line-by-line versioning of small text files. GitHub adds collaboration, issues, and other tools. |
-| **Local clone** (a folder on your disk, e.g. `C:/_git/your-project/`) | A working copy of the GitHub repo, plus your local `.env` with machine-specific paths, plus the `log/` directory of execution logs. | This is where you actually work. The clone syncs to GitHub via `git push` and `git pull`. |
+| **Local clone** (a folder on your disk, e.g. `C:/_git/your-project/`) | A working copy of the GitHub repo, plus your local `.env` with machine-specific paths 
+(see the companion chapter **[Environment variables and the `.env` file](environment-variables.md)**), plus the `log/` directory of execution logs. | This is where you actually work. The clone syncs to GitHub via `git push` and `git pull`. |
 | **Cloud sync** (Dropbox / OneDrive / Google Drive) | Raw and derived data, the literature collection, working memos, intermediate outputs. *If you use MS Word for the manuscript instead of LaTeX, the `.docx` lives here.* | Data files are too big and too binary for git. Cloud-sync clients handle them well and share them across collaborators without polluting git history. |
 | **Overleaf** (or another LaTeX-collaboration tool) | The LaTeX manuscript source (`main.tex`) and the bibliography (`.bib`), if you use Overleaf. Has its own per-edit version history with Word-style real-time multi-author editing. | Lets coauthors edit the LaTeX in a browser without each installing a LaTeX distribution. Can optionally sync back to a GitHub repo as a backup, but the canonical copy is Overleaf-side. |
 
 **Where the manuscript actually lives is a tool decision**, not a layout decision. LaTeX-via-Overleaf users keep it in Overleaf (location 4). LaTeX-without-Overleaf users keep `.tex` files in git alongside the code (location 1). MS Word users keep `.docx` in cloud sync (location 3). The [LaTeX-vs-Word section below](#the-manuscript-latexoverleaf-vs-microsoft-word) walks through the tradeoffs of that choice.
 
-> 📄 **About `.env`.** This chapter mentions a `.env` file repeatedly — it's a small text file at the project root that holds machine-specific paths (`RAW_DATA_DIR`, `DATA_DIR`, etc.). For what it contains, how each of R / Python / Stata / SAS reads it, the credentials-not-in-`.env` rule, and common gotchas, see the companion chapter **[Environment variables and the `.env` file](environment-variables.md)**. The rest of this chapter uses `.env` as the configuration mechanism without re-explaining it.
 
 
 ## Why code and data must be separate
@@ -48,7 +48,7 @@ The temptation when starting a project is to put everything in one folder. Don't
 - **Git treats large binaries badly.** A 4 GB `.parquet` committed to git balloons the repo size, slows every `clone` and `pull`, and never compresses across versions. Cloud-sync handles big binaries gracefully; git fights you over them.
 - **Sensitive or restricted data has different storage requirements.** Some data can't legally live in regular cloud sync: human-subjects data under IRB protocol, restricted-use Census microdata, certain proprietary feeds whose terms prohibit re-sharing. For these cases the data folder may need to sit on an institutional secure server, an encrypted local volume, or a special-purpose enclave instead of Dropbox or OneDrive. The code-data separation still works the same way — your `.env` just points at the secure location, and the code stays in Git on GitHub as usual.
 - **Replication packages are easier to assemble.** When you ship code to a journal, you ship just the contents of git. The data goes in a separate archive (or stays restricted, with a sample-identifier file as the bridge). Mixing the two in one folder forces you to disentangle them later.
-- **Your IDE treats the project folder as a unit.** Modern editors — VS Code, RStudio, Cursor — open a folder and treat it as a "project": they set the working directory there, show its files in the explorer pane, wire up Git integration against the repo at the folder's root, and run scripts relative to it. Keeping code *inside* the project folder and data *outside* it gives the IDE a tight, focused view of just the source you're editing — not 80 GB of `.sas7bdat` files cluttering the file tree. See [Setting up your IDE](setting-up-your-ide.md) for the per-editor specifics (RStudio's `.Rproj`, VS Code's `.vscode/`, ligature fonts, AI-assistant integration).
+- **Your IDE works one folder at a time.** Modern editors — VS Code, RStudio, Cursor — open a folder and treat its contents as the unit of work: they set the working directory there, show its files in the explorer pane, wire up Git integration against the repo at the folder's root, and run scripts relative to it. (IDEs use the word "project" for that folder — that's their term, narrower than how this chapter uses it. In our terms, what the IDE calls a "project" is the repo.) Keeping code *inside* the repo and data *outside* it gives the IDE a tight, focused view of just the source you're editing without cluttering the file tree. See [Setting up your IDE](setting-up-your-ide.md) for the per-editor specifics (RStudio's `.Rproj`, VS Code's `.vscode/`, ligature fonts, AI-assistant integration).
 
 
 ## Why the local clone shouldn't be inside Dropbox
@@ -59,15 +59,14 @@ Git and cloud-sync clients both watch the filesystem for changes. When they figh
 
 The clean separation:
 
-- **Code** within a git repository folder somewhere like `C:/_git/your-project/` (Windows) or `~/_git/your-project/` (Mac/Linux). Standard local disk, no cloud sync watching it. The template keeps actual scripts in a src/ subfolder within the repository root folder.
+- **Code** within a git repository folder somewhere like `C:/_git/your-project/` (Windows) or `~/_git/your-project/` (Mac/Linux). Standard local disk, no cloud sync watching it. The templates keep scripts in a `src/` subfolder of the repo root.
 - **Data** in `D:/Dropbox/your-project/data/raw/` and `D:/Dropbox/your-project/data/derived/`. Dropbox-synced.
-- **`.env`** in the repository root folder, pointing at the Dropbox paths. Most modern IDEs will open the project root folder as the working directory.
+- **`.env`** at the repo root, pointing at the Dropbox paths. Modern IDEs open the repo root as the working directory, so scripts running in the IDE find `.env` automatically.
 
-Advanced users with strong opinions sometimes put code in cloud sync — git+Dropbox interaction is finicky but not catastrophic if you know what you're doing. For a PhD student starting their first project, just don't.
 
-## Inside the project: the folder layout
+## Inside the repo: the folder layout
 
-Most projects in this hub follow this skeleton (`project-template` ships exactly this):
+The companion templates in this hub ship this repo skeleton, and any project built on top of one of them inherits it:
 
 ```
 your-project/
@@ -133,9 +132,9 @@ Both work for academic writing. They optimize for very different things.
 
 **The hub's pragmatic answer:** the R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
 
-## Files at the project root
+## Files at the repo root
 
-A few specific files almost always live at the project root, alongside `src/`:
+A few specific files almost always live at the repo root, alongside `src/`:
 
 - **`README.md`** — what this project is and how to run it. Should answer "what does this code do?" and "how do I run it?" without making the reader open any other file.
 - **`AGENTS.md`** — AI assistant context. Even if you don't use AI tools, AGENTS.md is good complementary documentation. See [About AGENTS.md](agents-md.md) for the full story.
@@ -147,7 +146,7 @@ A few specific files almost always live at the project root, alongside `src/`:
 
 ## `.gitignore` essentials for research projects
 
-A research project accumulates a lot of files that shouldn't be in git: raw data downloads, machine-specific config, log files, build artifacts, OS clutter. The `.gitignore` file at the project root lists patterns Git should never track.
+A research project accumulates a lot of files that shouldn't be in git: raw data downloads, machine-specific config, log files, build artifacts, OS clutter. The `.gitignore` file at the repo root lists patterns Git should never track.
 
 A defensive baseline:
 
@@ -183,7 +182,7 @@ Useful rule of thumb: **anything that can be regenerated by running the code sho
 
 `*.csv` is a judgment call — if your project has small input CSVs (like a hand-curated list of tickers) that should travel with the code, you'll want to commit those specific files. The pattern above ignores all `.csv` by default; commit exceptions explicitly with `git add -f <file>`.
 
-## A worked example: the project tree
+## A worked example: the repo tree
 
 A quarterly earnings-announcement event study, end to end:
 
@@ -213,7 +212,7 @@ your-project/                              # local clone, NOT inside Dropbox
     └── Bibliography.bib
 ```
 
-And in cloud sync (Dropbox), outside the project tree:
+And in cloud sync (Dropbox), outside the repo:
 
 ```
 D:/Dropbox/your-project/
@@ -239,6 +238,6 @@ Each collaborator points their `.env` at their own copy of the Dropbox folders. 
 
 - [Environment variables and the `.env` file](environment-variables.md) — the mechanism that makes the same code run against three different filesystems.
 - [Git and GitHub for research projects](git-and-github.md) — the version-control workflow that ties the local clone to the remote repo.
-- [About AGENTS.md](agents-md.md) — what to put in the `AGENTS.md` at your project root.
+- [About AGENTS.md](agents-md.md) — what to put in the `AGENTS.md` at your repo root.
 - [Jenny Bryan, *Naming Things*](https://speakerdeck.com/jennybc/how-to-name-files) — the canonical reference for file naming.
 - [Jenny Bryan, *What They Forgot to Teach You About R*](https://rstats.wtf/) — broader project-organization wisdom for R users.
