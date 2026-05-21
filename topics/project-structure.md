@@ -114,17 +114,16 @@ But early in a project the order isn't known yet, and you're writing scratchwork
 
 ### Don't put dates in filenames
 
-A tempting pattern when starting a project is to embed a date in raw-data filenames — `fundq_2025-07-18.parquet`, `ibes_2025-07-18.parquet` — on the theory that the date preserves which snapshot the paper's results came from. The underlying concern is real: WRDS data changes over time (Compustat backfills, IBES restates), and a reviewer running your code two years from now will get different numbers than you did. But date-stamping the filename is the wrong fix.
+A tempting pattern when starting a project is to embed a date in raw-data filenames — `fundq_2025-07-18.parquet`, `ibes_2025-07-18.parquet` — on the theory that the date preserves which snapshot the paper's results came from. The underlying concern is real: data vintages change over time (e.g., Compustat backfills, error corrections, split adjustments, etc.), and a reviewer running your code two years from now will get different numbers than you did. But date-stamping the filename is the wrong fix.
 
 - **It breaks every script that reads the file each time you refresh the data.** Every reference to `fundq_2025-07-18.parquet` has to be hunt-and-replaced to `fundq_2025-12-01.parquet` next quarter, and again the quarter after. That defeats the entire point of using `.env` and a fixed project structure to keep paths out of the analysis code.
-- **It re-creates the filename-sprawl problem git was supposed to solve.** It's the data-file analog of `paper_v3_FINAL_jw-edits.docx`: a folder full of nearly-identical filenames and no clean record of which one is the canonical version for a given paper draft.
+- **It re-creates the filename-sprawl problem git was supposed to solve.** It's the data-file analog of `paper_v3_FINAL_ew-edits.docx`: a folder full of nearly-identical filenames and no clean record of which one is the canonical version for a given paper draft.
 - **It conflates two different kinds of metadata.** "When was this snapshot pulled" is metadata *about* a file; "what's the file called" is its name. Folding the two together muddles the distinction.
 
 The cleaner approach: **use stable filenames** (`fundq.parquet`, not `fundq_<date>.parquet`) and record snapshot dates somewhere else.
 
 - The `005-data-provenance.{R,py}` step in the templates writes the SHA256 hash of every raw and derived file to its log. That log *is* your snapshot pin — a reviewer running your code two years from now whose `fundq.parquet` has a different SHA256 knows the underlying data has shifted, and yours hasn't.
-- Git's commit history of `001-download-data.{R,py}` records when each pull was committed, which is when the snapshot was taken.
-- For projects that genuinely need to reference a snapshot date in code (e.g., a JAR replication package noting "data as of YYYY-MM-DD"), put the date in `.env` (`WRDS_PULL_DATE=2025-07-18`) or in a small `data/SNAPSHOT.txt`. Scripts read it from there; filenames stay stable.
+- **Archiving old vintages** is the one legitimate use of dates in raw-data naming. When you decide to refresh your sample and re-pull from WRDS, copy the current contents of `RAW_DATA_DIR` into a dated archive subfolder (e.g., `RAW_DATA_DIR/archive/2025-07-18/`) *before* re-running `001-download-data`. The live pipeline keeps reading `fundq.parquet` at its stable path; the archived vintage sits alongside as a reference you can diff against if the refreshed results unexpectedly change. The principle behind this: stamp the date when something becomes *historical*, not while it's still actively in use.
 
 You'll see dated filenames in some real-world projects (including some referenced from this hub) — that pattern is usually inherited from an older codebase or a coauthor convention, not something to copy into a project starting fresh.
 
