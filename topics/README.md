@@ -1,3 +1,10 @@
+---
+title: Topics
+nav_order: 3
+has_children: true
+permalink: /topics/
+---
+
 # Topics
 
 In-depth notes on individual topics that come up in the templates but
@@ -10,12 +17,10 @@ read whichever one you need, in any order. Linked from the
 The list will grow as topics are written. Linked entries below are
 live; unlinked entries are placeholders for content I plan to add.
 
-- **Environment variables and the `.env` file** — what an environment
-  variable is, why the templates use `.env` instead of hardcoded
-  paths, OS-specific setup, common gotchas.
-- **Git and GitHub for research workflows** — using template
-  repositories, branching for a research project, working with the
-  RStudio Git pane vs. the terminal.
+
+- **[Environment variables and the `.env` file](environment-variables.md)** —
+  what an environment variable is, why the templates use `.env`
+  instead of hardcoded paths, OS-specific setup, common gotchas.
 - **WRDS access and credentials** — connecting from R / Python /
   Stata, storing credentials in the OS keyring, the chunked-download
   pattern for very large tables.
@@ -25,12 +30,7 @@ live; unlinked entries are placeholders for content I plan to add.
 - **AI agents in a reproducible research workflow** — Claude Code,
   GitHub Copilot, AGENTS.md / CLAUDE.md conventions, capturing AI
   contributions for the project record.
-- **Reading a `.Rout` log file** — what `R CMD BATCH` produces, how
-  it differs from `source()`, and what to look for when something
-  goes wrong.
-- **Citation management with Zotero and biblatex-chicago** — exporting
-  from Zotero with stable citation keys, the `\citet` / `\citep` /
-  `\citepos` family.
+
 
 ## Conventions for these notes
 

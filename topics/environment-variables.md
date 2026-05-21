@@ -1,3 +1,9 @@
+---
+title: Environment variables and .env
+parent: Topics
+nav_order: 1
+---
+
 # Environment variables and the `.env` file
 
 Most research projects need a small amount of *configuration* —

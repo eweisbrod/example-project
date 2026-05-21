@@ -1,3 +1,8 @@
+---
+title: Contributing
+nav_order: 4
+---
+
 # Contributing
 
 Thanks for your interest in this teaching hub. It is intentionally a

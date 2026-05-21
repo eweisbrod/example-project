@@ -1,3 +1,9 @@
+---
+title: Home
+layout: home
+nav_order: 1
+---
+
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
 This repository is the **hub** for a set of teaching materials on developing a reproducible empirical research project. The example is primarily designed for business school researchers in Accounting / Finance, but can be adapted for any type of academic journal article. This hub hosts the paper that describes the materials, this README that introduces them, and pointers to two companion template repositories that hold the actual code:

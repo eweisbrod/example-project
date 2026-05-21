@@ -1,3 +1,8 @@
+---
+title: SAS macros example
+nav_order: 2
+---
+
 # SAS macros example: `MACROS.sas`
 
 This folder mirrors a working SAS macro file (`MACROS.sas`) used in a real research pipeline, kept here as a teaching reference. The companion [`project-template`](https://github.com/eweisbrod/project-template) repo does not currently ship SAS scripts; if you want to apply the same `.env` / env-var pattern in a SAS pipeline of your own, this is a starting point you can copy.

@@ -1,8 +1,29 @@
 title: Example Research Project
-description: An Example Accounting / Finance Research Project
-show_downloads: true
+description: A teaching hub for reproducible empirical research in accounting and finance
+show_downloads: false
 google_analytics:
 
-remote_theme: pages-themes/leap-day@v0.2.0
+remote_theme: just-the-docs/just-the-docs
+
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+color_scheme: light
+search_enabled: true
+heading_anchors: true
+
+aux_links:
+  "View on GitHub":
+    - "https://github.com/eweisbrod/example-project"
+aux_links_new_tab: true
+
+footer_content: 'Eric Weisbrod &middot; <a href="https://github.com/eweisbrod/example-project/blob/main/LICENSE">CC-BY-4.0</a>'
+
+exclude:
+  - paper/
+  - AGENTS.md
+  - CLAUDE.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
