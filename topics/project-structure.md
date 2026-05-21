@@ -95,13 +95,17 @@ Raw and derived data live outside this tree, in cloud-sync folders pointed to by
 
 `output/` is sometimes inside the project (when outputs are small `.tex` tables and `.png` figures) and sometimes outside in cloud sync (when outputs balloon or you have many of them). The templates default to `OUTPUT_DIR=output` so it lives inside the repo; flip it to a Dropbox path or another absolute file path in `.env` if you prefer to store output in cloud sync or another location.
 
-## Naming files
+### Files at the repo root
 
-Three principles, paraphrased from [Jenny Bryan's *Naming Things*](https://speakerdeck.com/jennybc/how-to-name-files):
+A few specific files almost always live at the repo root, alongside `src/`:
 
-1. **Machine readable** — lowercase, hyphens or underscores instead of spaces, no accented characters, no punctuation other than `-` `_` `.`. So `001-download-data.R`, not `1. Download Data.R`.
-2. **Human readable** — keywords that describe what the file does. `001-download-data.R` over `script1.R`.
-3. **Plays well with default ordering** — numeric prefixes so files sort by execution order. `001-download-data.R`, `002-transform-data.R`, `003-figures.R` line up in any file browser without thinking.
+- **`README.md`** — what this project is and how to run it. Should answer "what does this code do?" and "how do I run it?" without making the reader open any other file.
+- **`AGENTS.md`** — AI assistant context. Even if you don't use AI tools, AGENTS.md is good complementary documentation. See [About AGENTS.md](agents-md.md) for the full story.
+- **`CLAUDE.md`** — Claude Code-specific configuration that imports AGENTS.md. Skip if you don't use Claude Code.
+- **`.env`** — local configuration (paths, etc.). Gitignored. See [Environment variables and .env](environment-variables.md).
+- **`.example-env`** — committed placeholder showing what variables `.env` should contain.
+- **`.gitignore`** — what NOT to commit. See [Git and GitHub for research projects](git-and-github.md#gitignore-for-research-projects) for a defensive baseline.
+- **`LICENSE`** — what others are allowed to do with your code. Pick one explicitly rather than leaving it blank.
 
 ### Numbered scripts (and what to do before the order is known)
 
@@ -111,6 +115,14 @@ But early in a project the order isn't known yet, and you're writing scratchwork
 
 - **`XXX-` or `scratch-` prefixes** for files you're still exploring with. `XXX-explore-fundq.R`, `scratch-pull-test.R`. These sort separately from the numbered pipeline so they don't pretend to be canonical. When a `scratch-` file stabilizes, rename it into the numbered sequence.
 - **Multiple `000-` scripts for raw data collection** when there are several independent pulls. `000-collect-wrds.R`, `000-collect-bloomberg.R`, `000-collect-factset.R`. Zero signals "before the pipeline starts" — these run once each, write to `RAW_DATA_DIR`, and aren't re-executed on every run-all. Then `001-` is the first script that operates on the collected raw data.
+
+## Naming files
+
+Three principles, paraphrased from [Jenny Bryan's *Naming Things*](https://speakerdeck.com/jennybc/how-to-name-files):
+
+1. **Machine readable** — lowercase, hyphens or underscores instead of spaces, no accented characters, no punctuation other than `-` `_` `.`. So `001-download-data.R`, not `1. Download Data.R`.
+2. **Human readable** — keywords that describe what the file does. `001-download-data.R` over `script1.R`.
+3. **Plays well with default ordering** — numeric prefixes so files sort by execution order. `001-download-data.R`, `002-transform-data.R`, `003-figures.R` line up in any file browser without thinking.
 
 ### Don't put dates in filenames
 
@@ -146,55 +158,6 @@ Both work for academic writing. They optimize for very different things.
 >
 > The R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
 
-## Files at the repo root
-
-A few specific files almost always live at the repo root, alongside `src/`:
-
-- **`README.md`** — what this project is and how to run it. Should answer "what does this code do?" and "how do I run it?" without making the reader open any other file.
-- **`AGENTS.md`** — AI assistant context. Even if you don't use AI tools, AGENTS.md is good complementary documentation. See [About AGENTS.md](agents-md.md) for the full story.
-- **`CLAUDE.md`** — Claude Code-specific configuration that imports AGENTS.md. Skip if you don't use Claude Code.
-- **`.env`** — local configuration (paths, etc.). Gitignored. See [Environment variables and .env](environment-variables.md).
-- **`.example-env`** — committed placeholder showing what variables `.env` should contain.
-- **`.gitignore`** — what NOT to commit (see below).
-- **`LICENSE`** — what others are allowed to do with your code. Pick one explicitly rather than leaving it blank.
-
-## `.gitignore` essentials for research projects
-
-A research project accumulates a lot of files that shouldn't be in git: raw data downloads, machine-specific config, log files, build artifacts, OS clutter. The `.gitignore` file at the repo root lists patterns Git should never track.
-
-A defensive baseline:
-
-```gitignore
-# Secrets and machine-specific config
-.env
-
-# Execution logs and outputs (regenerable)
-log/
-output/
-
-# Large data files
-*.parquet
-*.csv
-*.dta
-*.sas7bdat
-*.feather
-
-# Editor and OS clutter
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-*.swp
-
-# Language-specific build artifacts
-__pycache__/
-.Rproj.user/
-.Rhistory
-```
-
-Useful rule of thumb: **anything that can be regenerated by running the code shouldn't be in git**. Logs regenerate. Derived parquets regenerate. The `output/` files regenerate. None of those belong in version control.
-
-`*.csv` is a judgment call — if your project has small input CSVs (like a hand-curated list of tickers) that should travel with the code, you'll want to commit those specific files. The pattern above ignores all `.csv` by default; commit exceptions explicitly with `git add -f <file>`.
 
 ## A worked example: the repo tree
 
