@@ -123,7 +123,7 @@ A tempting pattern when starting a project is to embed a date in raw-data filena
 The cleaner approach: **use stable filenames** (`fundq.parquet`, not `fundq_<date>.parquet`) and record snapshot dates somewhere else.
 
 - The `005-data-provenance.{R,py}` step in the templates writes the SHA256 hash of every raw and derived file to its log. That log *is* your snapshot pin — a reviewer running your code two years from now whose `fundq.parquet` has a different SHA256 knows the underlying data has shifted, and yours hasn't.
-- **Archiving old vintages** is the one legitimate use of dates in raw-data naming. When you decide to refresh your sample and re-pull from WRDS, copy the current contents of `RAW_DATA_DIR` into a dated archive subfolder (e.g., `RAW_DATA_DIR/archive/2025-07-18/`) *before* re-running `001-download-data`. The live pipeline keeps reading `fundq.parquet` at its stable path; the archived vintage sits alongside as a reference you can diff against if the refreshed results unexpectedly change. The principle behind this: stamp the date when something becomes *historical*, not while it's still actively in use.
+- **Archiving old vintages** is one legitimate use of dates in raw-data naming. When you decide to refresh your sample and re-pull raw data, you may want to copy the current contents of `RAW_DATA_DIR` into a dated archive subfolder (e.g., `RAW_DATA_DIR/archive/2025-07-18/`) *before* re-running `001-download-data`. The live pipeline keeps reading `fundq.parquet` at its stable path; the archived vintage sits alongside as a reference you can diff against if the refreshed results unexpectedly change. The principle behind this: stamp the date when something becomes *historical*, not while it's still actively in use.
 
 You'll see dated filenames in some real-world projects (including some referenced from this hub) — that pattern is usually inherited from an older codebase or a coauthor convention, not something to copy into a project starting fresh.
 
@@ -134,14 +134,14 @@ Both work for academic writing. They optimize for very different things.
 **LaTeX (typically via Overleaf):**
 
 - **Pros.** Equation rendering is unmatched. Bibliography management via BibTeX is integrated and reproducible. Cross-references (table/figure/equation numbering) update automatically. The `.tex` source is plain text, so it lives in git and diffs cleanly. Overleaf provides Word-style real-time collaboration. The `.tex` table files your pipeline produces (`\input{}`-ed into the manuscript) keep results and prose in sync — re-run the pipeline and the next compile shows the new numbers. The hub's [`overleaf-template`](https://github.com/eweisbrod/overleaf-template) is built around exactly this workflow.
-- **Cons.** Steeper initial learning curve. Compilation errors can be cryptic at first. Tracked changes are awkward (LaTeX-aware diff tools exist but aren't as smooth as Word's). Some senior coauthors will outright refuse to write in LaTeX.
+- **Cons.** Steeper initial learning curve. Some senior coauthors will outright refuse to write in LaTeX. Compilation errors can be cryptic at first. Tracked changes are awkward (Overleaf has tracked changes but they aren't as smooth as Word's). With that said, tracked changes are often unnecessary or redundant alongside either Git version control or Overleaf's revision history. 
 
 **Microsoft Word:**
 
-- **Pros.** Universal — every collaborator has it. Tracked Changes and Comments are mature. WYSIWYG editing has no learning curve. Some journals' direct-submission systems expect `.docx`.
-- **Cons.** Binary file format is unfriendly to git (you can commit `.docx` but you can't meaningfully diff revisions). Equation editor is clunky. Bibliography management requires external tools (Mendeley, Zotero, EndNote). Cross-references break in confusing ways. Files occasionally corrupt. Filename-version sprawl (`paper_v3_FINAL_2_jw-edits.docx`) is a real cost over the life of a paper.
+- **Pros.** Universal — every collaborator has it. Tracked Changes and Comments are mature. WYSIWYG editing has no learning curve. 
+- **Cons.** Binary file format is unfriendly to git (you can commit `.docx` but you can't meaningfully diff revisions). Equation editor is clunky. Bibliography management requires external tools (Mendeley, Zotero, EndNote). Cross-references break in confusing ways. Files occasionally corrupt. Filename-version sprawl (`paper_v3_FINSAL_2_jw-edits.docx`) is a real cost over the life of a paper.
 
-**The hub's pragmatic answer:** the R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
+> 💡 **Flexible Project Template:** the R and Stata implementations of `project-template` produce **both** `.tex` and `.docx`/`.rtf` outputs of every table. The LaTeX version slots into Overleaf for LaTeX-using authors; the `.docx`/`.rtf` slots into Word for Word-using coauthors. If your senior coauthor insists on Word, you can still keep your pipeline LaTeX-native and hand them the `.docx`.
 
 ## Files at the repo root
 
