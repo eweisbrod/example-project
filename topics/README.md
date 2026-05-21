@@ -1,11 +1,11 @@
 ---
-title: In-depth Topics
+title: In-depth topics
 nav_order: 6
 has_children: true
 permalink: /topics/
 ---
 
-# In-depth Topics
+# In-depth topics
 
 Chapter-length notes on individual topics that come up in the templates but
 don't fit cleanly into a README. Each file is a standalone reference —

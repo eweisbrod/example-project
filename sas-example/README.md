@@ -1,5 +1,5 @@
 ---
-title: SAS Examples
+title: SAS examples
 parent: In-depth topics
 nav_order: 99
 ---

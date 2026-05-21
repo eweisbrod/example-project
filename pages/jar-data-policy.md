@@ -1,5 +1,5 @@
 ---
-title: JAR Data Policy
+title: JAR data policy
 nav_order: 3
 ---
 

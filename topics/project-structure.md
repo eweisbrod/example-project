@@ -1,6 +1,6 @@
 ---
 title: Project structure
-parent: In-depth Topics
+parent: In-depth topics
 nav_order: 1
 ---
 

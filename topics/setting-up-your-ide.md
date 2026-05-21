@@ -1,6 +1,6 @@
 ---
 title: Setting up your IDE
-parent: In-depth Topics
+parent: In-depth topics
 nav_order: 3
 ---
 
