@@ -26,6 +26,11 @@ live; unlinked entries are placeholders for content I plan to add.
   Git vs. GitHub, the everyday commit/push/pull workflow, template
   repositories, branching for R&R revisions, tagging paper
   versions, `.gitignore` essentials, and a glossary.
+- **[Setting up your IDE](setting-up-your-ide.md)** — what an IDE
+  is and the popular ones, why an IDE beats Jupyter notebooks for
+  reproducible research code, how IDEs treat a folder as a project,
+  the source-control panels in RStudio and VS Code, per-editor
+  setup notes, ligature fonts, and AI-assistant integration.
 - **[Environment variables and the `.env` file](environment-variables.md)** —
   what an environment variable is, why the templates use `.env`
   instead of hardcoded paths, how each of R / Python / Stata / SAS
@@ -37,7 +42,7 @@ live; unlinked entries are placeholders for content I plan to add.
   a working SAS script (`002-merge-fdp-data.sas` from the consensus repo),
   and a walkthrough of using `%load_env` + `batch_run_sas()` for
   JAR-style logs.
-- **Setting up your IDE** — VS Code, RStudio, Cursor and similar
-  editors as "project-aware" tools: opening a folder as a project,
-  Git integration in each, RStudio's `.Rproj` and VS Code's
-  `.vscode/` folder, ligature fonts, AI-assistant integration.
+- **Python virtual environments with `venv` and `uv`** — what a
+  Python virtual environment is, why you need one per project, the
+  shift from manual `venv` to `uv` for the templates, and how the
+  IDE picks up the project's interpreter.
