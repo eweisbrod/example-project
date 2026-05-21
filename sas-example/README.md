@@ -1,6 +1,6 @@
 ---
 title: SAS Examples
-parent: Topics
+parent: In-depth topics
 nav_order: 99
 ---
 

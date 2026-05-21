@@ -1,6 +1,6 @@
 ---
 title: Environment variables and .env
-parent: Topics
+parent: In-depth topics
 nav_order: 1
 ---
 

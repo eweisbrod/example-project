@@ -1,6 +1,7 @@
 ---
 title: About AGENTS.md
-nav_order: 8
+parent: In-depth topics
+nav_order: 50
 ---
 
 # About AGENTS.md — AI Assistant Configuration

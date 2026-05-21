@@ -1,4 +1,6 @@
 > 📖 **Best viewed as rendered docs here:** <https://eweisbrod.github.io/example-project/>
+>
+> 📝 **If you use these materials, please cite as follows.** A formal citation will appear here once the companion paper is published in the *Journal of Open Source Education*. Until then, please link or attribute to <https://github.com/eweisbrod/example-project>.
 
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
@@ -17,12 +19,10 @@ The goal of this hub is to help researchers go from zero to a reproducible publi
 | Page | What's there |
 |---|---|
 | [Companion templates](pages/companion-templates.md) | The two GitHub template repos this hub points at and how they fit together. |
-| [Topics in depth](topics/) | Chapter-length notes on individual workflow topics — environment variables, planned chapters on WRDS credentials, AI agents in research, etc. Also houses the [SAS macros reference](sas-example/). |
 | [JAR Data and Code Sharing Policy](pages/jar-data-policy.md) | How `project-template` is structured to satisfy the *Journal of Accounting Research*'s data-and-code-sharing policy. |
 | [Prerequisites](pages/prerequisites.md) | Software (Git, R, Python, Stata) and account (WRDS, GitHub) requirements for using the templates. |
 | [Using a template](pages/using-a-template.md) | Step-by-step on spinning up your own copy of a template via GitHub's "Use this template" button. |
-| [Citing](pages/citing.md) | Attribution for using these materials. |
-| [About AGENTS.md](pages/agents-md.md) | What the `AGENTS.md` file in each repo is, why it's there, and how it interacts with `CLAUDE.md`. |
+| [In-depth topics](topics/) | Chapter-length notes — environment variables and `.env`, the AGENTS.md / AI-assistant conventions, the SAS macros reference, plus planned chapters on WRDS credentials, the raw/derived data split, and more. |
 | [Additional resources](pages/additional-resources.md) | Pointers to related books, course materials, and data sources. |
 | [Contributing](CONTRIBUTING.md) | How to file issues, suggest changes, or seek support across the three repos. |
 

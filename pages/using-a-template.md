@@ -1,6 +1,6 @@
 ---
 title: Using a template
-nav_order: 6
+nav_order: 5
 ---
 
 # Using a template
