@@ -42,23 +42,24 @@ Each artifact lives on a very different timescale and benefits from different st
 
 The temptation when starting a project is to put everything in one folder. Don't.
 
-- **Code belongs in Git / GitHub.** Code is plain text that benefits enormously from line-by-line version history, branching for alternative specifications, and the off-site backup plus replication-package archival GitHub provides for free. If "Git" or "GitHub" are new terms — most first-time PhD-student readers haven't used them as anything but a place to download other people's code — see [Git and GitHub for research projects](git-and-github.md), which covers what they are and the everyday commit/push/pull workflow. The rest of this section assumes code lives in a Git repo on GitHub.
+- **Code belongs in Git / GitHub.** Code is plain text that benefits enormously from line-by-line version history, branching for alternative specifications, and the off-site backup and searchability GitHub provides for free. If "Git" or "GitHub" are new terms see [Git and GitHub for research projects](git-and-github.md), which covers what they are and the everyday commit/push/pull workflow. The rest of this section assumes code lives in a Git repo on GitHub.
 - **Git treats large binaries badly.** A 4 GB `.parquet` committed to git balloons the repo size, slows every `clone` and `pull`, and never compresses across versions. Cloud-sync handles big binaries gracefully; git fights you over them.
-- **Data has a different lifecycle than code.** Code changes line-by-line over months; raw data files are usually written once and read many times. Version control for code matters; version control for data is a different problem, mostly handled by date-stamping filenames (see [Naming files](#naming-files)).
+- **Sensitive or restricted data has different storage requirements.** Some data can't legally live in regular cloud sync: human-subjects data under IRB protocol, restricted-use Census microdata, certain proprietary feeds whose terms prohibit re-sharing. For these cases the data folder may need to sit on an institutional secure server, an encrypted local volume, or a special-purpose enclave instead of Dropbox or OneDrive. The code-data separation still works the same way — your `.env` just points `RAW_DATA_DIR` at the secure location, and the code stays in Git on GitHub as usual.
 - **Replication packages are easier to assemble.** When you ship code to a journal, you ship just the contents of git. The data goes in a separate archive (or stays restricted, with a sample-identifier file as the bridge). Mixing the two in one folder forces you to disentangle them later.
-- **Collaboration scales differently.** A coauthor can clone your repo and verify it builds without needing your 80 GB of WRDS pulls. They run `1-download-data.R` against their own credentials to populate their own `RAW_DATA_DIR`.
+- **Your IDE treats the project folder as a unit.** Modern editors — VS Code, RStudio, Cursor — open a folder and treat it as a "project": they set the working directory there, show its files in the explorer pane, wire up Git integration against the repo at the folder's root, and run scripts relative to it. Keeping code *inside* the project folder and data *outside* it gives the IDE a tight, focused view of just the source you're editing — not 80 GB of `.sas7bdat` files cluttering the file tree. A future *Setting up your IDE* topic on this site will cover the per-editor specifics (ligature fonts, RStudio's `.Rproj`, VS Code's `.vscode/` folder, AI-assistant integration, etc.).
+
 
 ## Why the local clone shouldn't be inside Dropbox
 
 This is a specific gotcha worth flagging: **do not put your local git repository inside Dropbox** (or OneDrive, or Google Drive Desktop, etc.).
 
-Git and cloud-sync clients both watch the filesystem for changes. When they fight over the `.git/` folder — Dropbox trying to sync a file while git is mid-write to its packed objects — repositories silently corrupt. The fix when it happens is "re-clone from GitHub and lose any uncommitted work" — fine, but annoying, and the failure mode often shows up days after the corruption began.
+Git and cloud-sync clients both watch the filesystem for changes. When they fight over the `.git/` folder — Dropbox trying to sync a file while git is mid-write to its packed objects — repositories silently corrupt. 
 
 The clean separation:
 
-- **Code** in `C:/_git/your-project/` (Windows) or `~/_git/your-project/` (Mac/Linux). Standard local disk, no cloud sync watching it.
-- **Data** in `D:/Dropbox/your-project/raw/` and `D:/Dropbox/your-project/derived/`. Dropbox-synced.
-- **`.env`** in the code folder, pointing at the Dropbox paths.
+- **Code** within a git repository folder somewhere like `C:/_git/your-project/` (Windows) or `~/_git/your-project/` (Mac/Linux). Standard local disk, no cloud sync watching it. The template keeps actual scripts in a src/ subfolder within the repository root folder.
+- **Data** in `D:/Dropbox/your-project/data/raw/` and `D:/Dropbox/your-project/data/derived/`. Dropbox-synced.
+- **`.env`** in the repository root folder, pointing at the Dropbox paths. Most modern IDEs will open the project root folder as the working directory.
 
 Advanced users with strong opinions sometimes put code in cloud sync — git+Dropbox interaction is finicky but not catastrophic if you know what you're doing. For a PhD student starting their first project, just don't.
 

@@ -37,3 +37,7 @@ live; unlinked entries are placeholders for content I plan to add.
   a working SAS script (`002-merge-fdp-data.sas` from the consensus repo),
   and a walkthrough of using `%load_env` + `batch_run_sas()` for
   JAR-style logs.
+- **Setting up your IDE** — VS Code, RStudio, Cursor and similar
+  editors as "project-aware" tools: opening a folder as a project,
+  Git integration in each, RStudio's `.Rproj` and VS Code's
+  `.vscode/` folder, ligature fonts, AI-assistant integration.
