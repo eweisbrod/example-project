@@ -14,7 +14,7 @@ An academic research project is made up of several distinct artifacts, each with
 
 A project also accumulates supporting artifacts: papers collected for the literature review, working memos between coauthors, intermediate outputs that never make it into the published paper, presentation slides, etc. Those don't fit cleanly into any single category and are mostly stored wherever feels natural — often alongside the data in a cloud-sync folder.
 
-This chapter focuses on the three main pieces — **code, data, and manuscript** — and how to organize them with reproducibility in mind. The structure these materials envision uses **four storage locations at once**: a GitHub repository for code, a local clone on your computer where you actually work, a cloud-sync folder (Dropbox / OneDrive / etc.) for data and supporting artifacts, and Overleaf for the LaTeX manuscript if you use one. This convention isn't the only way to organize a project — it's the one the templates throughout this hub are designed around — but it scales cleanly from a first PhD paper to a multi-coauthor R&R.
+This chapter focuses on the three main pieces — **code, data, and manuscript** — and how to organize them with reproducibility in mind. The template materials envision a **four location structure**: a GitHub repository for code, a local clone on your computer where you actually work, a cloud-sync folder (Dropbox / OneDrive / etc.) for data and supporting artifacts, and Overleaf for the LaTeX manuscript if you use one. This convention isn't the only way to organize a project — it's the one the templates throughout this hub are designed around — but it scales cleanly from a first PhD paper to a multi-coauthor R&R.
 
 <details open markdown="block">
 <summary>On this page</summary>
@@ -30,19 +30,19 @@ Each artifact lives on a very different timescale and benefits from different st
 
 | Lives in | What it holds | Why |
 |---|---|---|
-| **GitHub** (the remote repo) | Code, scripts, configuration templates (`.example-env`), the README, `AGENTS.md` / `CLAUDE.md`. *If you don't use Overleaf, the LaTeX paper source goes here too.* | Git is built for line-by-line versioning of small text files. GitHub adds collaboration, issues, and replication-package archival. |
+| **GitHub** (the remote repo) | Code, scripts, configuration templates (`.example-env`), the README, `AGENTS.md` / `CLAUDE.md`. *If you don't use Overleaf, the LaTeX paper source goes here too.* | Git is built for line-by-line versioning of small text files. GitHub adds collaboration, issues, and other tools. |
 | **Local clone** (a folder on your disk, e.g. `C:/_git/your-project/`) | A working copy of the GitHub repo, plus your local `.env` with machine-specific paths, plus the `log/` directory of execution logs. | This is where you actually work. The clone syncs to GitHub via `git push` and `git pull`. |
 | **Cloud sync** (Dropbox / OneDrive / Google Drive) | Raw and derived data, the literature collection, working memos, intermediate outputs. *If you use MS Word for the manuscript instead of LaTeX, the `.docx` lives here.* | Data files are too big and too binary for git. Cloud-sync clients handle them well and share them across collaborators without polluting git history. |
 | **Overleaf** (or another LaTeX-collaboration tool) | The LaTeX manuscript source (`main.tex`) and the bibliography (`.bib`), if you use Overleaf. Has its own per-edit version history with Word-style real-time multi-author editing. | Lets coauthors edit the LaTeX in a browser without each installing a LaTeX distribution. Can optionally sync back to a GitHub repo as a backup, but the canonical copy is Overleaf-side. |
 
 **Where the manuscript actually lives is a tool decision**, not a layout decision. LaTeX-via-Overleaf users keep it in Overleaf (location 4). LaTeX-without-Overleaf users keep `.tex` files in git alongside the code (location 1). MS Word users keep `.docx` in cloud sync (location 3). The [LaTeX-vs-Word section below](#the-manuscript-latexoverleaf-vs-microsoft-word) walks through the tradeoffs of that choice.
 
-The structural rule: **code in git, data in cloud sync, manuscript wherever the writing tool keeps it, and the local clone references the data folder via `.env`**. The same code runs on every collaborator's machine because each has their own `.env` pointing at their own copy of the data ([Environment variables and .env](environment-variables.md) covers the mechanics).
 
 ## Why code and data must be separate
 
 The temptation when starting a project is to put everything in one folder. Don't.
 
+- **Code belongs in Git / GitHub.** Code is plain text that benefits enormously from line-by-line version history, branching for alternative specifications, and the off-site backup plus replication-package archival GitHub provides for free. If "Git" or "GitHub" are new terms — most first-time PhD-student readers haven't used them as anything but a place to download other people's code — see [Git and GitHub for research projects](git-and-github.md), which covers what they are and the everyday commit/push/pull workflow. The rest of this section assumes code lives in a Git repo on GitHub.
 - **Git treats large binaries badly.** A 4 GB `.parquet` committed to git balloons the repo size, slows every `clone` and `pull`, and never compresses across versions. Cloud-sync handles big binaries gracefully; git fights you over them.
 - **Data has a different lifecycle than code.** Code changes line-by-line over months; raw data files are usually written once and read many times. Version control for code matters; version control for data is a different problem, mostly handled by date-stamping filenames (see [Naming files](#naming-files)).
 - **Replication packages are easier to assemble.** When you ship code to a journal, you ship just the contents of git. The data goes in a separate archive (or stays restricted, with a sample-identifier file as the bridge). Mixing the two in one folder forces you to disentangle them later.
