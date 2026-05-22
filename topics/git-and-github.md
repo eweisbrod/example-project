@@ -10,6 +10,11 @@ Version control is one of the highest-ROI habits a researcher can pick up. It le
 
 If you're brand new to Git, the canonical introduction is Jenny Bryan's [*Happy Git and GitHub for the useR*](https://happygitwithr.com/). It covers installation, RStudio integration, and the mechanics of every Git operation in more depth than this chapter does. The chapter below assumes you've gotten through Happy Git's setup (or equivalent) and focuses on the conventions specific to running a reproducible research project on top.
 
+{: .tip-title }
+> Let an AI assistant run the Git commands
+>
+> One of the lowest-friction ways to use an AI coding assistant (Claude Code, GitHub Copilot, Cursor) is to hand it the routine Git operations: *"commit this with a clear message and push,"* or *"pull the latest and summarize what changed."* The assistant runs the commands for you and reports back. You still need to understand *what* commit / push / pull / branch actually do — that's what this chapter is for — but the day-to-day mechanics, and remembering the exact flags, can be delegated.
+
 <details open markdown="block">
 <summary>On this page</summary>
 
