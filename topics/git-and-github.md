@@ -28,7 +28,7 @@ If you're brand new to Git, the canonical introduction is Jenny Bryan's [*Happy 
 These two get conflated constantly. They're related but distinct:
 
 - **Git** is the version-control system: software that runs on your computer and tracks changes to files. Every Git operation (commit, branch, merge, diff) happens locally. You can use Git without an internet connection. You can use Git without GitHub.
-- **GitHub** is a web service that hosts Git repositories on the internet. It adds collaboration features Git doesn't have by itself: issues, pull requests, project pages, GitHub Actions for CI, and a UI for browsing repos in a browser. GitHub competitors exist (GitLab, Bitbucket); they all do roughly the same thing.
+- **GitHub** is a web service that hosts Git repositories on the internet. It adds collaboration features Git doesn't have by itself: issues, pull requests, project pages, GitHub Actions, and a UI for browsing repos in a browser. GitHub competitors exist (GitLab, Bitbucket); they all do roughly the same thing.
 
 A typical research project uses both: Git locally to track day-to-day changes, GitHub as the canonical remote copy that lives in the cloud and that coauthors `pull` from. The relationship is the same as a Dropbox folder backed up to dropbox.com — you do work locally, then sync the result to a shared remote.
 
@@ -36,11 +36,17 @@ A useful analogy: **`git clone` is to a GitHub repo what installing Dropbox on a
 
 ## Why use them for research
 
-- **Reproducibility on demand.** Every commit is a snapshot of the code at a moment in time. If a reviewer asks "what did the analysis look like before you added that control?" you can answer with a commit hash, not a guess.
-- **No more `analysis_v3_FINAL_jw_edits.R`.** Git replaces filename-version sprawl with one file per script and a commit history.
+- **Reproducibility on demand.** Every commit is a snapshot of the code at a moment in time that can be referred (or rolled) back to as needed. 
+- **No more `analysis_v3_FINAL_ehw_edits.R`.** Git replaces filename-version sprawl with one file per script and a commit history.
 - **Coauthor collaboration without overwriting.** Two collaborators can edit different scripts (or even different sections of the same script) and Git merges the changes. Compare to emailing `.R` files back and forth.
-- **Replication packages.** When you ship to JAR / RFS / JFE / a JOSE submission, the replication package *is* the repo. Tag a release at submission time and a reviewer downloads exactly what you ran.
+- **Replication packages.** When you ship to a journal, the replication package *is* the repo. Tag a release at submission time and a reviewer downloads exactly what you ran.
 - **A free off-site backup.** Your laptop dies; you `git clone` to a new one and you're back where you started.
+
+{: .tip-title }
+> Private Repositories
+>
+> Github offers private repos that can be shared with specific coauthors or collaborators for early stage projects that are not ready to be shared publicly. Clean code can later be posted in a public repository after publication. 
+
 
 ## The everyday workflow
 
@@ -82,11 +88,11 @@ Future-you reads these messages when answering reviewer questions six months lat
 
 You can drive Git from three places, and most researchers settle on a mix:
 
-- **The RStudio Git pane** (top-right tab) — point-and-click for `commit`, `push`, `pull`, `diff`. Best for everyday committing while you're already in RStudio. Comfortable for people new to Git.
+- **The RStudio or VS-Code Git pane** (top-right tab) — point-and-click for `commit`, `push`, `pull`, `diff`. Best for everyday committing while you're already in your IDE. Comfortable for people new to Git.
 - **The terminal** (`git` on the command line) — full power, all operations available. Best for branching, merging, resolving conflicts, anything beyond the basics. The interface most documentation and Stack Overflow answers assume.
-- **GitHub Desktop** (separate app) — point-and-click, polished UI, works outside RStudio. Good middle ground if you don't use RStudio or want a dedicated Git client.
+- **GitHub Desktop** (separate app) — point-and-click, polished UI. Good middle ground if you don't use a modern IDE or want a dedicated Git client.
 
-A common pattern: **RStudio Git pane** for routine commits during a coding session; **terminal** for `git log`, `git branch`, `git merge`, conflict resolution, anything weird. Don't feel obligated to commit to one interface — they're working on the same underlying repo, so it doesn't matter which one you used five minutes ago.
+A common pattern: **IDE Git pane** for routine commits during a coding session; **terminal** for `git log`, `git branch`, `git merge`, conflict resolution, anything weird. Don't feel obligated to commit to one interface — they're working on the same underlying repo, so it doesn't matter which one you used five minutes ago.
 
 ## Template repositories (the "Use this template" button)
 
@@ -152,11 +158,10 @@ See [Project structure for research](project-structure.md) for the broader code-
 
 A Git **branch** is a parallel line of development. You can experiment on a branch without disturbing the main work, then either merge the result back in or throw the branch away. Branches are cheap — Git just bookmarks a commit and lets you grow a separate history from there.
 
-Two specific patterns are unusually high-leverage for research:
+Example of branching use case for research:
 
 - **Alternative-specification branches.** A reviewer asks "what if you cluster differently?" Create `revisions-r1/cluster-by-firmyear`, do the alternative, commit. If it survives the review, merge it. If not, the branch lives in history as evidence you tried.
-- **R&R revision branches.** Each round of revision gets its own branch (`revisions-r1`, `revisions-r2`). The base `main` branch keeps the originally-submitted state; the revision branch holds the requested changes. When the revision is accepted, merge the branch into `main` and tag the result.
-
+- 
 The everyday commands:
 
 ```bash
@@ -181,11 +186,13 @@ git tag -a v2-accepted -m "Accepted version"
 git push --tags
 ```
 
-When the paper is accepted, tag the final state (`v1-jar-accepted` or similar) and point the journal's replication-package URL at that tag. Anyone replicating the published paper downloads exactly that snapshot, not a moving target.
+When the paper is accepted, tag the final state (`v1-jar-accepted` or similar) and point the journal's replication-package URL at that tag. Anyone replicating the published paper downloads exactly that snapshot, not a moving target. Alternately you can create a new clean public repository with only the final code that you are ready to share.
 
 GitHub's UI also exposes tags as **Releases** with optional attached binaries — useful if you want to bundle the final data files alongside the code at acceptance time.
 
 ## Collaboration: issues, discussions, pull requests
+
+**\[I don't really use these in my research but Claude thinks you might so here is an overview\]** 
 
 GitHub's collaboration features layer on top of the basic Git workflow:
 
