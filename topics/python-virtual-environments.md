@@ -40,7 +40,7 @@ A Python virtual environment is an isolated folder containing its own Python int
 
 The R analog is **`renv`** — same job for R projects, captures the exact set of installed package versions per project.
 
-The contrast that makes virtual environments necessary: by default `pip install pandas` installs into the system-wide Python, where every project on the machine sees it. Two projects that need different `pandas` versions can't coexist without one environment per project.
+The contrast that makes virtual environments necessary: by default `pip install pandas` installs into the system-wide Python, where every *program* on the machine sees it — including system utilities and other applications that use Python internally for things that have nothing to do with data science (OS package managers, GUI apps, build tools, etc.). Two projects that need different `pandas` versions can't coexist without one environment per project, and a careless global install can break an unrelated tool you didn't know was Python-based.
 
 ## Why a research project needs one
 
