@@ -39,7 +39,7 @@ All of these install a Python; some install several at once. New users routinely
 
 A Python virtual environment is an isolated folder containing its own Python interpreter and its own copy of any packages you install. Two projects with different virtual environments can use completely different package versions without interfering with each other. The same project on two different machines can recreate the same environment from a lockfile, so coauthors and replicators see identical behavior.
 
-{: .note-title }
+{: .tip-title }
 > For R users: the renv analog
 >
 > The closest R analog to a Python virtual environment is **`renv`** — same idea, captures the exact set of installed package versions per project in a lockfile. But R users can mostly skip it: the typical R workflow leans on the global `install.packages()` model described above and trusts that packages are backwards-compatible enough to leave alone between projects. Python users can't really make that bet — global pip-installs have broader consequences (see the next paragraph).
