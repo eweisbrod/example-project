@@ -39,12 +39,12 @@ All of these install a Python; some install several at once. New users routinely
 
 A Python virtual environment is an isolated folder containing its own Python interpreter and its own copy of any packages you install. Two projects with different virtual environments can use completely different package versions without interfering with each other. The same project on two different machines can recreate the same environment from a lockfile, so coauthors and replicators see identical behavior.
 
+The contrast that makes virtual environments necessary in Python — and more important than analogous tools in other research languages — is that by default `pip install pandas` installs into the system-wide Python, where every *program* on the machine sees it. That includes system utilities and other applications that use Python internally for things that have nothing to do with data science (OS package managers, GUI apps, build tools, etc.). Two projects that need different `pandas` versions can't coexist without one environment per project, and a careless global install can break an unrelated tool you didn't know was Python-based.
+
 {: .tip-title }
 > For R users: the renv analog
 >
-> The closest R analog to a Python virtual environment is **`renv`** — same idea, captures the exact set of installed package versions per project in a lockfile. But R users can mostly skip it: the typical R workflow leans on the global `install.packages()` model described above and trusts that packages are backwards-compatible enough to leave alone between projects. Python users can't really make that bet — global pip-installs have broader consequences (see the next paragraph).
-
-The contrast that makes virtual environments necessary: by default `pip install pandas` installs into the system-wide Python, where every *program* on the machine sees it — including system utilities and other applications that use Python internally for things that have nothing to do with data science (OS package managers, GUI apps, build tools, etc.). Two projects that need different `pandas` versions can't coexist without one environment per project, and a careless global install can break an unrelated tool you didn't know was Python-based.
+> The closest R analog to a Python virtual environment is **`renv`** — same idea, captures the exact set of installed package versions per project in a lockfile. But R users can mostly skip it: the typical R workflow leans on the global `install.packages()` model described above and trusts that packages are backwards-compatible enough to leave alone between projects. Python users can't really make that bet — global pip-installs have broader consequences.
 
 ## Why a research project needs one
 
