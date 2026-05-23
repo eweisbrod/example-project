@@ -155,7 +155,7 @@ The `batch_run()` helper in `utils.py` internally invokes Python through a subpr
 
 VS Code-family editors and PyCharm need to be told which Python interpreter to use for a project. Point them at the venv `uv` created (typically `.venv/bin/python` on macOS / Linux or `.venv/Scripts/python.exe` on Windows):
 
-- **VS Code / Cursor / Positron:** click the Python interpreter indicator in the bottom-right status bar → "Enter interpreter path" → pick `.venv/bin/python` (or its Windows equivalent). The setting `python.defaultInterpreterPath` in `.vscode/settings.json` makes this stick across collaborators when committed.
+- **VS Code / Cursor / Positron:** click the Python interpreter indicator in the bottom-right status bar → "Enter interpreter path" → pick `.venv/bin/python` (or its Windows equivalent).
 - **PyCharm:** *Settings → Project → Python Interpreter → Add Local Interpreter → Existing → point at `.venv/bin/python`*.
 
 Once the interpreter is set, the editor's IntelliSense / autocomplete, debugger, and integrated terminal all use the project's venv automatically.
