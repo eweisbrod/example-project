@@ -37,9 +37,13 @@ All of these install a Python; some install several at once. New users routinely
 
 ## What's a virtual environment?
 
-A Python virtual environment is an isolated folder containing its own Python interpreter and its own copy of any packages you install. Two projects with different virtual environments can use completely different package versions without interfering with each other. The same project on two different machines can recreate the same environment from a lockfile, so coauthors and replicators see identical behavior.
+A Python virtual environment is an isolated folder containing its own Python interpreter and its own copy of any packages you install into it. Anything done inside the venv stays inside the venv; the system Python on your machine is left alone.
 
-The contrast that makes virtual environments necessary in Python — and more important than analogous tools in other research languages — is that by default `pip install pandas` installs into the system-wide Python, where every *program* on the machine sees it. That includes system utilities and other applications that use Python internally for things that have nothing to do with data science (OS package managers, GUI apps, build tools, etc.). Two projects that need different `pandas` versions can't coexist without one environment per project, and a careless global install can break an unrelated tool you didn't know was Python-based.
+The reason isolation matters more for Python than for R, Stata, or SAS is that **Python is a general-purpose programming language**, not just a research tool. R packages, Stata `.ado` files, and SAS macros only affect their own language — installing them doesn't touch anything else on your computer. Python is different: modern computers use Python under the hood for system utilities, build tools, GUI apps, package managers, and lots of other things that have nothing to do with research. When `pip install pandas` drops a package into the system-wide Python, it lands in the same install those other programs may be using, and a version bump there can break an unrelated tool you didn't know was Python-based.
+
+There's a related practical problem: on many managed machines (university IT, corporate laptops, etc.) the system Python is deliberately locked down for exactly that reason. `pip install` fails with a permissions error because you can't write to it without admin rights you don't have anyway.
+
+A virtual environment sidesteps both issues — your project's packages live in a folder you own, separate from the system Python and from anything else on the machine. Per-project isolation also makes it possible to pin exact dependency versions for replicability, which the next section gets into.
 
 {: .tip-title }
 > For R users: the renv analog
