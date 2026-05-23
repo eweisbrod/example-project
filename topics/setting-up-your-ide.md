@@ -6,7 +6,7 @@ nav_order: 3
 
 # Setting up your IDE
 
-An integrated development environment (IDE) is the editor you'll spend most of your research-coding hours in. Picking one and configuring it well is a small upfront investment with significant ongoing payoff — fewer broken filesystems, fewer "where am I?" moments, fewer mistakes that only surface when you run a script end-to-end. This chapter covers what an IDE is, why a research project benefits from one over plainer alternatives (and over Jupyter notebooks), the project-folder mental model modern IDEs share, and per-editor setup notes for the editors most common in this hub's audience.
+An integrated development environment (IDE) is the editor you'll spend most of your research-coding hours in. Picking one and configuring it well is a small upfront investment with significant ongoing payoff — fewer broken filesystems, fewer "where am I?" moments, fewer mistakes that only surface when you run a script end-to-end. This chapter covers what an IDE is, why a research project benefits from one over plainer alternatives (and over Jupyter notebooks), the project-folder mental model modern IDEs share, and per-editor setup notes for **RStudio and the VS Code family** — the editors most empirical researchers reach for.
 
 <details open markdown="block">
 <summary>On this page</summary>
@@ -27,9 +27,9 @@ Popular IDEs you'll encounter in academic and industry coding:
 - **[Cursor](https://www.cursor.com/)** — a fork of VS Code with AI-first features built in (Cursor Agent, Tab completion, inline edits). Same UX as VS Code; adds Anthropic / OpenAI integration.
 - **[Positron](https://positron.posit.co/)** — Posit's next-generation data-science IDE, also a VS Code fork. Built specifically for R and Python with an RStudio-style panel layout (console, Plots, Environment) on top of a VS Code core. Worth watching if you split your time between R and Python.
 - **[PyCharm](https://www.jetbrains.com/pycharm/)** — by JetBrains. Heavyweight, Python-specific. Free Community edition; Pro is paid (free for academic use via JetBrains' education program).
-- **[Spyder](https://www.spyder-ide.org/)** — open-source Python IDE shipped with Anaconda. MATLAB-like layout. Less common in this hub's audience.
+- **[Spyder](https://www.spyder-ide.org/)** — open-source Python IDE shipped with Anaconda. MATLAB-like layout. Less common in business-school empirical work.
 
-For research code in this hub's audience, the realistic picks are **RStudio** (for R-heavy work) and **VS Code / Cursor / Positron** (for polyglot or Python-heavy work). Stata users mostly use Stata's own IDE, which already does most of what this chapter describes.
+Among empirical researchers in business schools, the realistic picks are **RStudio** (for R-heavy work) and **VS Code / Cursor / Positron** (for polyglot or Python-heavy work). Stata users mostly use Stata's own IDE, which already does most of what this chapter describes.
 
 ## Why use an IDE — and why not a notebook
 
