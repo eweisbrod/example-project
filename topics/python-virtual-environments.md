@@ -26,8 +26,9 @@ The contrast that makes virtual environments necessary: by default `pip install 
 
 ## Why a research project needs one
 
-Three concrete failure modes that an environment per project prevents:
+Concrete reasons an environment per project matters:
 
+- **You may not have permission to install packages system-wide.** On many university-managed machines, the system Python is locked down — `pip install pandas` fails with a permissions error because you can't write to the system `site-packages` directory without IT involvement. A virtual environment is a per-user folder you own, so you can install whatever you want into it without admin rights or a support ticket. (For the same reason, the `uv` installer is designed to land in your user directory rather than a system location — see [Installing uv](#installing-uv) below.)
 - **A new project breaks an old one.** Project A used `pandas==1.5` for two years. You start project B and `pip install pandas` upgrades to 3.0 globally. Running project A's pipeline now produces subtly different numbers because the pandas API changed. With per-project environments, A still sees 1.5 while B sees 3.0.
 - **A reviewer can't reproduce your results.** You ran your analysis with `numpy==1.24.3`. A reviewer installs numpy fresh in 2027 and gets `numpy==2.5`. Their replication of your numbers fails for reasons neither of you understands. A committed lockfile makes the exact versions explicit and reproducible.
 - **Cross-machine drift between coauthors.** You and your coauthor both "have pandas installed" but actually have different versions, and the same script produces different output. Per-project environments populated from the lockfile make this impossible.
