@@ -6,7 +6,7 @@ nav_order: 4
 
 # Python virtual environments with `venv` and `uv`
 
-If you've come to Python from R, you might wonder why these templates make such a fuss about virtual environments and a tool called `uv`. R users typically install packages globally with `install.packages()` and call it done. Python is messier — global installs cause real problems in research projects, and the standard tools (`venv`, `pip`, `pipx`, `pyenv`, `conda`, `poetry`, …) all do overlapping pieces of the same job. This chapter explains what a virtual environment is, why a research project needs one, and why the templates standardize on `uv` instead of any of the older tools.
+This chapter explains what a Python virtual environment is, why a research project needs one, and why the templates standardize on `uv` for managing Python interpreters and packages — instead of any of the half-dozen older tools that solve overlapping pieces of the same problem.
 
 <details open markdown="block">
 <summary>On this page</summary>
@@ -15,6 +15,24 @@ If you've come to Python from R, you might wonder why these templates make such 
 {:toc}
 
 </details>
+
+## How Python's tooling differs from R, Stata, and SAS
+
+The reason virtual environments feel like a hurdle to Python newcomers is that Python's relationship with its tooling is unlike what you're used to in the other languages researchers use:
+
+- **R.** You install R (the language) and RStudio (the IDE) as two separate things, but R disappears into the background once RStudio is set up. Packages install globally via `install.packages()` and live in a user-writable directory by default. You rarely think about "which R am I running" because RStudio handles it.
+- **Stata** and **SAS.** Even more bundled — you install one thing, and the language, the editor, and the package manager are rolled together. There's no "where's the Stata interpreter" question because Stata *is* the thing you opened.
+- **Python.** The language and the editor are genuinely separate, and you assemble them yourself. The IDE (VS Code, Cursor, Positron, PyCharm) is just an editor — it doesn't *run* Python; it shells out to whichever Python interpreter you point it at. Choosing which Python and where it lives is your job. (See [Setting up your IDE](setting-up-your-ide.md) for the editor side of the picture; the rest of this chapter is the Python-runtime side.)
+
+Adding to the confusion, "install Python" doesn't have one obvious answer. You could:
+
+- Download the installer from [python.org](https://www.python.org/).
+- Install [Anaconda](https://www.anaconda.com/) or Miniconda — a data-science bundle with its own package manager and its own non-PyPI package set.
+- Let VS Code's Python extension prompt you to install one.
+- Let `uv` download and manage Python interpreters for you on demand.
+- Get one via Homebrew (macOS) or your system package manager (Linux).
+
+All of these install a Python; some install several at once. New users routinely end up with three or four Python interpreters on the same machine and no idea which one their script is actually running against. The point of this chapter is to give you one clear path — install `uv`, let it handle everything else — and to explain the underlying concepts (interpreters, virtual environments, lockfiles) so the choice is informed rather than ritualistic.
 
 ## What's a virtual environment?
 
