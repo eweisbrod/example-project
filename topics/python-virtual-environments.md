@@ -75,8 +75,6 @@ The templates standardize on **`uv`** because it replaces nearly all of the olde
 - Reads and writes the standard `pyproject.toml` plus a `uv.lock` lockfile (no proprietary format).
 - ~10–100× faster than the older tools — Rust-based, parallel installs.
 
-[Astral](https://astral.sh/) (the company behind `uv` and the makers of the [Ruff](https://docs.astral.sh/ruff/) linter) released `uv` in early 2024 and it's quickly become the modern standard. If you're starting a Python project now, `uv` is the cleanest pick.
-
 ## Installing uv
 
 One-line install per the [official instructions](https://docs.astral.sh/uv/getting-started/installation/):
