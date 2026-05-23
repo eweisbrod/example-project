@@ -31,6 +31,7 @@ Adding to the confusion, "install Python" doesn't have one obvious answer. You c
 - Let VS Code's Python extension prompt you to install one.
 - Let `uv` download and manage Python interpreters for you on demand.
 - Get one via Homebrew (macOS) or your system package manager (Linux).
+- **On macOS**, there's also a Python pre-installed with the operating system — **don't use that one** for your own work. Apple uses it for internal system tooling, may reset it in OS updates, and a careless `pip install` into it can break Apple-provided tools. Install a separate Python (any of the options above) for your own projects and leave the system one alone.
 
 All of these install a Python; some install several at once. New users routinely end up with three or four Python interpreters on the same machine and no idea which one their script is actually running against. The point of this chapter is to give you one clear path — install `uv`, let it handle everything else — and to explain the underlying concepts (interpreters, virtual environments, lockfiles) so the choice is informed rather than ritualistic.
 
@@ -38,7 +39,7 @@ All of these install a Python; some install several at once. New users routinely
 
 A Python virtual environment is an isolated folder containing its own Python interpreter and its own copy of any packages you install. Two projects with different virtual environments can use completely different package versions without interfering with each other. The same project on two different machines can recreate the same environment from a lockfile, so coauthors and replicators see identical behavior.
 
-The R analog is **`renv`** — same job for R projects, captures the exact set of installed package versions per project.
+The closest R analog is **`renv`** — same idea, captures the exact set of installed package versions per project in a lockfile. But R users can mostly skip it: the typical R workflow leans on the global `install.packages()` model described above and trusts that packages are backwards-compatible enough to leave alone between projects. Python users can't really make that bet — global pip-installs have broader consequences (next paragraph).
 
 The contrast that makes virtual environments necessary: by default `pip install pandas` installs into the system-wide Python, where every *program* on the machine sees it — including system utilities and other applications that use Python internally for things that have nothing to do with data science (OS package managers, GUI apps, build tools, etc.). Two projects that need different `pandas` versions can't coexist without one environment per project, and a careless global install can break an unrelated tool you didn't know was Python-based.
 
