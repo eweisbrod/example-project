@@ -46,7 +46,7 @@ Modern IDEs are organized around the assumption that work happens inside one fol
 - **Sets the working directory** to that folder. Relative paths in scripts resolve against it — `source("src/utils.R")` works without `setwd()`.
 - **Shows the folder's contents** in a file explorer in the sidebar. Other folders on your computer aren't visible unless you explicitly open them.
 - **Looks at `.git/`** (if any) and wires up a source-control panel for that repo. Commits, push/pull, diff, branch — all without leaving the editor.
-- **Reads project-level editor settings** if any are present (RStudio's `.Rproj`, VS Code's `.vscode/settings.json`). These hold things like default tab width, line endings, build type, and interpreter paths. They're user-specific preferences; the templates gitignore them so one collaborator's editor choice isn't imposed on the rest.
+- **Reads project-level editor settings** if any are present (RStudio's `.Rproj`, VS Code's `.vscode/settings.json`). The templates gitignore all of these so users can pick whatever IDE they prefer.
 
 This is the direct payoff for the layout described in [Project structure for research](project-structure.md). When that chapter says "the project root is the folder you cloned," it means the folder you'll open in your IDE — they're the same folder. The IDE's mental model and the on-disk project structure reinforce each other: one folder, one repo, one project, one working directory.
 
@@ -70,11 +70,12 @@ When you click *File → New Project → Existing Directory* on a folder, RStudi
 - Git pane wired up to the `.git/` repo at the root.
 - Panel layout and editor state remembered per-project.
 
-The `.Rproj` file itself is small (a few key-value lines for build type, default encoding, line endings, indent settings, etc.). The templates gitignore `*.Rproj` — the hub's materials are polyglot, and committing one user's `.Rproj` pushes RStudio-specific editor preferences on coauthors who may not even be using RStudio. Each user who opens the folder in RStudio gets their own local `.Rproj` created automatically; nothing is committed.
+The `.Rproj` file holds RStudio-specific project settings (build type, line endings, indent width, etc.), and `.Rproj.user/` is the per-machine session state (panel layout, file history). FYI the templates gitignore both.
 
-`.Rproj.user/` is a different story — it's the per-machine session state (panel layout, file history, source cache). Gitignore it. The templates' `.gitignore` already does.
+Two RStudio global settings worth fixing once on a fresh install:
 
-One more setting worth fixing the first time you install RStudio: turn off "Restore .RData on startup" and "Save workspace to .RData on exit" under *Tools → Global Options → General*. The default behavior loads in-memory variables from your last session, which is the easiest way to have variables in scope that aren't defined anywhere in your code. Bad for reproducibility. The "Never" / unchecked settings force you to re-run scripts to repopulate state, which is what you want.
+- **Turn off "Restore .RData on startup" and "Save workspace to .RData on exit"** under *Tools → Global Options → General*. The default behavior loads in-memory variables from your last session, which is the easiest way to have variables in scope that aren't defined anywhere in your code — bad for reproducibility. Unchecking the boxes (and setting "Save workspace" to "Never") forces you to re-run scripts to repopulate state, which is what you want.
+- **Check "Use native pipe operator"** under *Tools → Global Options → Code → Editing*. This makes the *Ctrl+Shift+M* shortcut insert R's native pipe `|>` (added in R 4.1) instead of magrittr's `%>%`. The R code throughout this hub uses native pipe; matching the keyboard shortcut avoids accidentally re-introducing a magrittr dependency.
 
 ## VS Code, Cursor, and Positron specifics
 
@@ -86,7 +87,7 @@ Project-level settings live in a `.vscode/` folder at the project root:
 - **`.vscode/extensions.json`** — recommended extensions for the project. When a collaborator opens the folder, VS Code prompts them to install anything in this list they don't already have. Good for ensuring everyone has the R extension, Python extension, LaTeX Workshop, etc.
 - **`.vscode/launch.json`** — debugger configurations, if you use the integrated debugger.
 
-The templates gitignore the entire `.vscode/` folder — same logic as the `.Rproj` decision. For a polyglot project, committing VS Code's configuration pushes that editor's conventions on collaborators who may be using RStudio, Positron, or anything else. Each user's `.vscode/` is created locally when they open the folder; nothing is committed.
+FYI the templates gitignore the entire `.vscode/` folder, same reasoning as the `.Rproj` decision above.
 
 For R-in-VS Code, install the [REditorSupport R extension](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r). For Python, install Microsoft's [official Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python). For LaTeX, install [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop). Cursor and Positron ship most of these pre-wired.
 
@@ -121,7 +122,7 @@ Whichever you pick, configure AGENTS.md once in your project root and the assist
 ## Common gotchas
 
 - **Opening a subfolder instead of the project root.** If your IDE doesn't see `.git/`, `.env`, or your README, you probably opened `src/` instead of the repo root. *File → Open Folder* on the parent.
-- **RStudio's "Restore .RData on startup."** Default off in recent versions, but if it's on, RStudio saves your in-memory variables to disk and re-loads them next session. Breaks reproducibility — you can have variables defined that aren't anywhere in your code. *Tools → Global Options → General* → uncheck both ".RData" boxes, set "Save workspace to .RData" to "Never."
+- **RStudio's ".RData" settings.** See the RStudio specifics section above; the short version is uncheck "Restore .RData on startup" / "Save workspace on exit," and check "Use native pipe operator."
 - **Python interpreter not matching your `uv` environment.** If you're using `uv` for Python (recommended throughout the templates), point VS Code / Cursor / Positron's Python extension at the venv `uv` created. The bottom-right status bar shows the current interpreter; click to switch. (A planned *Python virtual environments with venv and uv* topic on this site will cover this in more detail.)
 - **`.Rproj.user/` accidentally committed.** Session state, not portable. Gitignore it. The templates already do.
 - **Terminal opens in the wrong directory.** Some IDEs default the integrated terminal to your home directory rather than the project root. Check the IDE's terminal settings — VS Code has `terminal.integrated.cwd`; RStudio's terminal honors the project root by default.
