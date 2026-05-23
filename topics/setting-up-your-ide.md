@@ -101,6 +101,8 @@ Popular choices, all free:
 - **[JetBrains Mono](https://www.jetbrains.com/mono/)** — JetBrains' open-source ligature font. Designed for long reading sessions.
 - **[Cascadia Code](https://github.com/microsoft/cascadia-code)** — Microsoft's, ships with Windows 11. Both regular and ligature variants.
 
+Each of these also has a **Nerd Font variant** at [nerdfonts.com](https://www.nerdfonts.com/) that adds ~10,000 extra icon glyphs (file-type icons, Git symbols, powerline arrows) on top of the same ligature behavior. Useful if you also customize your terminal prompt (oh-my-posh, starship) or use TUI tools like LazyGit that draw with icons; for plain editor use the regular variants are enough. Look for the `NF` suffix in the family name (e.g., `JetBrainsMono NF`) once installed, or `NFM` for the strictly-monospaced terminal variant.
+
 Install the font system-wide, then set it as your editor's default:
 
 - **RStudio**: *Tools → Global Options → Appearance → Editor font*.
