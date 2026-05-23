@@ -27,6 +27,9 @@
 .Rproj.user/
 *.Rproj
 
+# VS Code / Cursor / Positron (editor-specific config, kept user-local)
+.vscode/
+
 
 # produced vignettes
 vignettes/*.html

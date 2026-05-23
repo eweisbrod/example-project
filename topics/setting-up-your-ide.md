@@ -46,7 +46,7 @@ Modern IDEs are organized around the assumption that work happens inside one fol
 - **Sets the working directory** to that folder. Relative paths in scripts resolve against it — `source("src/utils.R")` works without `setwd()`.
 - **Shows the folder's contents** in a file explorer in the sidebar. Other folders on your computer aren't visible unless you explicitly open them.
 - **Looks at `.git/`** (if any) and wires up a source-control panel for that repo. Commits, push/pull, diff, branch — all without leaving the editor.
-- **Reads project-level editor settings** if any are present (RStudio's `.Rproj`, VS Code's `.vscode/settings.json`). These hold things like default tab width, line endings, build type, and interpreter paths. They're typically user-specific preferences rather than something to standardize across collaborators — see the per-IDE sections below for which of these are reasonable to commit and which are better gitignored.
+- **Reads project-level editor settings** if any are present (RStudio's `.Rproj`, VS Code's `.vscode/settings.json`). These hold things like default tab width, line endings, build type, and interpreter paths. They're user-specific preferences; the templates gitignore them so one collaborator's editor choice isn't imposed on the rest.
 
 This is the direct payoff for the layout described in [Project structure for research](project-structure.md). When that chapter says "the project root is the folder you cloned," it means the folder you'll open in your IDE — they're the same folder. The IDE's mental model and the on-disk project structure reinforce each other: one folder, one repo, one project, one working directory.
 
@@ -70,7 +70,7 @@ When you click *File → New Project → Existing Directory* on a folder, RStudi
 - Git pane wired up to the `.git/` repo at the root.
 - Panel layout and editor state remembered per-project.
 
-The `.Rproj` file itself is small (a few key-value lines for build type, default encoding, line endings, indent settings, etc.). Whether to commit it is a judgment call. Many R projects do — it's a long-standing convention, and a coauthor who clones the repo and double-clicks the `.Rproj` gets the project open immediately. But most of its contents are personal editor preferences (tab width, line endings, panel-layout cues), and a reasonable case can also be made for gitignoring it so each collaborator gets their own settings without yours pushed on them. Pick a position per project; either works.
+The `.Rproj` file itself is small (a few key-value lines for build type, default encoding, line endings, indent settings, etc.). The templates gitignore `*.Rproj` — the hub's materials are polyglot, and committing one user's `.Rproj` pushes RStudio-specific editor preferences on coauthors who may not even be using RStudio. Each user who opens the folder in RStudio gets their own local `.Rproj` created automatically; nothing is committed.
 
 `.Rproj.user/` is a different story — it's the per-machine session state (panel layout, file history, source cache). Gitignore it. The templates' `.gitignore` already does.
 
@@ -86,7 +86,7 @@ Project-level settings live in a `.vscode/` folder at the project root:
 - **`.vscode/extensions.json`** — recommended extensions for the project. When a collaborator opens the folder, VS Code prompts them to install anything in this list they don't already have. Good for ensuring everyone has the R extension, Python extension, LaTeX Workshop, etc.
 - **`.vscode/launch.json`** — debugger configurations, if you use the integrated debugger.
 
-Of these three, **`.vscode/extensions.json` is the most defensible to commit** — it just signals "this project benefits from these extensions" without imposing any specific editor behavior. `settings.json` is mostly personal preference (tab width, default formatter, color theme) and most projects gitignore it; the exception is when a single shared value genuinely matters for the project (e.g., a Python interpreter path that has to match the project's venv). `launch.json` is per-user debugger state and is almost always gitignored.
+The templates gitignore the entire `.vscode/` folder — same logic as the `.Rproj` decision. For a polyglot project, committing VS Code's configuration pushes that editor's conventions on collaborators who may be using RStudio, Positron, or anything else. Each user's `.vscode/` is created locally when they open the folder; nothing is committed.
 
 For R-in-VS Code, install the [REditorSupport R extension](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r). For Python, install Microsoft's [official Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python). For LaTeX, install [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop). Cursor and Positron ship most of these pre-wired.
 
@@ -112,7 +112,7 @@ If you use an AI coding assistant — GitHub Copilot, Cursor's built-in agent, C
 The IDE-side picture:
 
 - **GitHub Copilot** works in both RStudio (built-in option in recent versions; see *Tools → Global Options → Copilot*) and VS Code (the official Copilot extension). Free monthly token budget for students and academics via [GitHub Education](https://education.github.com/benefits).
-- **Cursor** has AI baked into the editor — Tab completion, inline edits, an Agent that can make multi-file changes. The best AI-first experience among VS Code-family editors. Free tier exists; paid tier removes rate limits.
+- **Cursor** has AI baked into the editor — Tab completion, inline edits, an Agent that can make multi-file changes. Free tier exists; paid tier removes rate limits.
 - **Claude Code** runs in a terminal but integrates with the editor through file watching and the [Claude Code VS Code extension](https://docs.anthropic.com/en/docs/claude-code/ide-integrations).
 - **Positron** has its own AI integrations developing rapidly; check [Positron's docs](https://positron.posit.co/) for current support.
 
