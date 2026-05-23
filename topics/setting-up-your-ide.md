@@ -31,21 +31,13 @@ Popular IDEs you'll encounter in academic and industry coding:
 
 Among empirical researchers in business schools, the realistic picks are **RStudio** (for R-heavy work) and **VS Code / Cursor / Positron** (for polyglot or Python-heavy work). Stata users mostly use Stata's own IDE, which already does most of what this chapter describes.
 
-## Why use an IDE — and why not a notebook
+## Why use an IDE
 
-Plain text editors (Notepad, Sublime Text, Vim) work for editing code, but they leave the plumbing to you: switching to a separate terminal to run a script, manually tracking the working directory, no integrated debugger, no Git pane. The friction is small for each step but compounds — you end up skipping things that ought to be habits.
+A few benefits over the main alternatives:
 
-A more pointed contrast for research code is **Jupyter notebooks**. Notebooks are fine for exploratory scratchwork; for the reproducible code that ends up in a paper's replication package, they have several specific problems that an IDE-driven script workflow avoids:
-
-- **Out-of-order execution.** A notebook's cells can be run in any order, any number of times, with state from anywhere in the notebook. The saved outputs reflect *whatever you last ran*, not necessarily the result of running cell 1 → cell N top-to-bottom. A reviewer cannot trust the displayed output without re-running the whole notebook themselves.
-- **Hidden state.** Variables defined in a cell you later deleted are still in memory until you restart the kernel. The notebook on disk and the live Python process disagree, and you only find out when something fails for reasons you can't reproduce.
-- **Diffs are JSON.** Notebooks are stored as JSON blobs that include cell outputs, execution counts, and metadata alongside the code. `git diff` on a `.ipynb` is unreadable. Tools like `nbdime` help, but it's strictly more friction than diffing a `.py` file.
-- **Mixed code and output bloats the file.** A notebook with a large embedded matplotlib figure is megabytes; the equivalent script with a separate output file is kilobytes. Repos with checked-in notebooks balloon quickly.
-- **The cell abstraction discourages modular code.** Cells reward small inline snippets; they make it slightly harder to define functions, write tests, or refactor across cells. For exploratory work that's fine; for code that has to run end-to-end without interactive intervention, scripts win.
-
-The IDE alternative — write `.R` / `.py` / `.do` / `.sas` scripts in the editor, run them through `Rscript` / `uv run` / `stata -b` / `sas -SYSIN` (or through the templates' `batch_run()` for a JAR-style log) — preserves the strengths of notebooks (interactive REPL, plot pane) while shedding the reproducibility weaknesses. The IDE's console and plot pane give you the interactive experience; the script-on-disk gives you the reproducible artifact.
-
-Notebooks aren't useless. They're great for prototyping and teaching. But the final code that runs your pipeline shouldn't be a notebook.
+- **Plain text editors (Notepad, Sublime, Vim).** An IDE bundles the file browser, terminal, debugger, Git pane, and language-aware completion you'd otherwise reach for separately. Less context-switching, faster iteration, fewer "where am I?" moments.
+- **Jupyter notebooks.** Notebooks shine for exploratory scratchwork. For code that ends up in a paper's replication package, scripts-in-an-IDE usually win on linear top-to-bottom execution, plain-text diffs in git, and modular structure — and the IDE's console + plot pane give you the interactive feel notebooks are loved for.
+- **Stata's and SAS's bundled IDEs.** Perfectly fine for single-language work. A polyglot IDE (VS Code, Cursor, Positron) wins when a project mixes languages — one window for Stata, SAS, R, Python, and LaTeX with a shared Git pane, terminal, and file explorer for the whole project.
 
 ## How an IDE understands "your project"
 
