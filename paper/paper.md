@@ -1,203 +1,103 @@
 ---
-title: 'example-project: A polyglot teaching template for reproducible empirical accounting and finance research'
+title: 'Reproducible Empirical Research in Accounting and Finance: An open-source teaching hub and template suite'
 tags:
   - accounting
   - finance
-  - reproducibility
   - empirical research
-  - WRDS
+  - reproducible research
   - R
   - Python
   - Stata
   - LaTeX
+  - WRDS
   - data and code sharing policy
 authors:
   - name: Eric H. Weisbrod
     orcid: 0000-0002-8814-250X
     affiliation: 1
 affiliations:
-  - name: University of Kansas, USA
+  - name: School of Business, University of Kansas, USA
     index: 1
-date: 30 April 2026
+date: 24 May 2026
 bibliography: paper.bib
 ---
 
 # Summary
 
-`example-project` is a teaching hub for empirical accounting and
-finance research. It pairs a JOSE paper (this document) and an
-introductory README with two companion template repositories that,
-together, walk a student or new researcher from raw data on a
-database server through to a publication-ready PDF:
+We present an open-source teaching hub and template suite for reproducible empirical research in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
-- [**`project-template`**](https://github.com/eweisbrod/project-template) — a research-pipeline template
-  shipping parallel **R** and **Python** implementations of every
-  numbered step (download, transform, figures, analyze/tables, data
-  provenance), plus a **Stata** implementation of the analyze/tables
-  step that reads the `.dta` written by either R or Python's
-  transform. At first run, the template asks the user to pick a
-  language combination (Full R, Full Python, Python + R, Python +
-  Stata, R + Stata, or all three) and prunes the irrelevant files;
-  the result is a clean single- or multi-language project skeleton
-  tailored to the user's stack.
-- [**`overleaf-template`**](https://github.com/eweisbrod/overleaf-template) — a LaTeX paper template
-  pre-wired to the table and figure files produced by
-  `project-template`. It also serves as a tutorial in academic LaTeX
-  use, demonstrating biblatex-chicago citations (in-text,
-  parenthetical, possessive, prefixed, and `et al.` forms),
-  cross-referenceable hypothesis and research-question environments,
-  and a section structure suitable for accounting and finance
-  journals.
+- [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
+- [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** and **Python**, plus a **Stata** implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
+- [**`overleaf-template`**](https://github.com/eweisbrod/overleaf-template) — a LaTeX manuscript template designed to consume the table and figure outputs of `project-template`, demonstrating `biblatex-chicago` citations, hypothesis-numbering conventions, and a section structure suitable for accounting and finance journals.
 
-The example analysis throughout the templates is a quarterly
-earnings-announcement event study using WRDS data
-[@bochkay2022roles]: unexpected earnings (UE) interacted
-with a same-sign indicator on the seasonal change in sales, regressed
-on three-day buy-and-hold abnormal returns. The same analysis is
-implemented in R, Python, and Stata in parallel for the analyze/tables
-step, against the same data, demonstrating cross-language consistency
-in the published tables.
+The running example throughout the materials is a quarterly earnings-announcement event study using data from Wharton Research Data Services (WRDS) [@bochkay2022roles]. Unexpected earnings, interacted with a same-sign indicator on the seasonal change in sales, are regressed on three-day buy-and-hold abnormal returns. The same regression is implemented in R, Python, and Stata in parallel to demonstrate cross-language consistency in the published tables. All materials are released under the Creative Commons Attribution 4.0 International (CC-BY-4.0) license, and the templates use GitHub's "Use this template" workflow so that instructors and individual researchers can spin up customized copies without forking.
 
 # Statement of Need
 
-Empirical accounting and finance research has a high coding floor.
-PhD students and junior faculty are expected to produce reproducible
-analyses across a stack of database access (typically WRDS), data
-manipulation, regression, and table/figure formatting tools — but
-formal training in this end-to-end workflow is uncommon. Most
-researchers learn by inheriting their advisor's scripts or piecing
-together tutorials. The result is often a tangle of ad-hoc files
-that runs once on the original analyst's machine and is difficult for
-collaborators (or referees) to reproduce.
+Empirical accounting and finance research depends on an interconnected stack of database access (typically WRDS), data manipulation, statistical modeling, and publication-grade table and figure formatting. Formal training in this end-to-end workflow is uncommon in business school doctoral programs, and most researchers in the field do not arrive with formal training in software engineering. Practitioners therefore typically inherit their advisor's scripts or assemble tutorials from disparate sources, with the common outcome that working analyses become difficult for collaborators, reviewers, or future replicators to reproduce.
 
-This gap matters especially now because top accounting and finance
-journals are formalizing data and code sharing policies modeled on
-norms long established in economics. The Journal of Accounting
-Research's Data and Code Sharing Policy [@JARpolicy], for example,
-asks authors to provide three artifacts at submission: (1) the code
-that converts raw data into the final analytical dataset and produces
-the reported tables and figures, (2) a comprehensive log file
-documenting the end-to-end execution of that code, and (3) the
-identifiers (e.g., `gvkey`, `permno`) of the observations comprising
-the final sample. Other accounting and finance journals (Journal of
-Financial Economics; Review of Financial Studies; Management Science;
-Accounting, Organizations and Society) have adopted comparable
-requirements. A new researcher writing their first replicable
-JAR-quality submission has to learn not just how to download CRSP
-returns and run a regression, but how to package the work as a
-reproducible artifact.
+This gap matters increasingly because accounting and finance journals are formalizing data and code sharing policies modeled on long-established norms in economics. The Journal of Accounting Research's Data and Code Sharing Policy [@JARpolicy] requires submitting authors to provide three artifacts: (1) the code that produces the analytical dataset and the reported tables and figures from raw inputs, (2) a comprehensive log file documenting end-to-end execution, and (3) identifiers of the observations comprising the final sample. Comparable requirements have been adopted at several other major journals in the field. A first-time submitter must therefore acquire not only the substantive skills of empirical research but the workflow skills required to package the research as a reproducible artifact suitable for journal-level scrutiny.
 
-`example-project` is designed around three observations that follow
-from this landscape:
+Existing pedagogical resources address parts of this gap. For example, @french2023r and @donoghue2022course cover R programming with applications to financial data. These resources tend to be single-language, focus on the estimation step rather than the surrounding workflow, and do not directly address the journal-policy artifacts. The materials presented here are designed to fill the remaining gap, with three distinguishing features:
 
-1. **Researchers don't write in only one language.** A typical
-   accounting or finance project involves at least two of R, Python,
-   and Stata, often inherited from coauthors or mandated by
-   collaborators. Existing teaching resources (e.g., @french2023r;
-   @donoghue2022course) tend to be single-language. The polyglot
-   template ships parallel R/Python/Stata implementations and lets
-   the user pick a working subset rather than committing to one
-   language. It also demonstrates cross-language consistency: a
-   regression run in `pyfixest` and `fixest` and `reghdfe` produces
-   the same numbers, and the template documents how to verify that.
+1. **Polyglot by design.** A typical accounting or finance project involves at least two of R, Python, and Stata, often inherited from coauthors or required by collaborators. The pipeline template ships parallel implementations in all three languages and allows the user to select any subset at setup. Cross-language consistency is verified by producing the same regression tables via `pyfixest`, `fixest` with `modelsummary`, and `reghdfe` with `estout`.
 
-2. **The journal-policy artifacts should be produced by the
-   pipeline, not added at submission time.** `project-template`
-   structures every pipeline run to emit a per-script log
-   (SAS-log–shaped, plain text, command + output interleaved across
-   all four supported languages — R produces `.Rout` files via
-   `R CMD BATCH`; Python produces `.log` files via an AST-walking
-   wrapper; Stata and SAS use their native `log using` /
-   `proc printto`). A final `005-data-provenance` step exports
-   sample-identifier files in both Parquet and CSV and prints an
-   inventory of every raw, derived, and output file with mtime,
-   size, and SHA256 hash. The resulting artifact set is what JAR
-   asks for, produced as a side effect of running the pipeline.
+2. **Journal-policy artifacts produced as a by-product of running the pipeline.** Every pipeline step emits a per-script log file in a uniform plain-text format across all supported languages, and a final provenance step exports sample-identifier files and a content-addressed (SHA256) inventory of every raw, derived, and output file. The resulting artifact set matches what major accounting and finance journals require at submission.
 
-3. **The "last mile" of formatting tables for a journal manuscript
-   is undertaught.** Most students can run a regression; far fewer
-   know how to produce a publication-grade `\begin{tabular}` block
-   with fixed-effect indicator rows, clustered standard errors,
-   significance stars, and consistent number formatting that matches
-   the conventions of accounting and finance journals.
-   `project-template` produces these tables in three frameworks
-   (`modelsummary`+`kableExtra` in R, `pyfixest`+`great_tables` in
-   Python, `reghdfe`+`estout` in Stata), and `overleaf-template`
-   shows how to drop the resulting `.tex` files into a
-   citation-ready manuscript.
+3. **Publication-grade table formatting.** Most graduate programs cover statistical estimation but undertrain the "last mile" of producing journal-quality tables with fixed-effect indicator rows, clustered standard errors, significance markers, and consistent number formatting. The templates produce these tables in all three languages and demonstrate how to integrate the resulting `.tex` files into a LaTeX manuscript via the companion `overleaf-template`.
 
-The intended audience is researchers building their first end-to-end
-empirical project: PhD students, junior faculty, and collaborators
-who need a starting skeleton rather than a finished course. The
-templates are GitHub template repositories and are designed to be
-used via the "Use this template" workflow: clone, customize,
-publish.
+The materials are designed both as a teaching resource for PhD students and early-career researchers building their first reproducible empirical project, and as a tested skeleton for experienced researchers who want to jumpstart new projects with reproducibility conventions and journal-policy artifacts in place.
 
-# Story of the Software
+# Target Audience and Learning Objectives
 
-The pipeline is organized as five numbered scripts that run in
-order. Each step has parallel implementations in the languages the
-user picked at setup time:
+The primary audience is PhD students and early-career researchers in accounting, finance, and adjacent business-school disciplines who are building their first reproducible empirical project. A secondary audience is experienced researchers seeking a tested project skeleton with reproducibility conventions already in place. No prior software-engineering training is assumed; the materials introduce the relevant conventions explicitly. After working through the hub and the companion templates, learners should be able to:
 
-1. `001-download-data` — connects to WRDS via the PostgreSQL endpoint,
-   pulls Compustat fundq, the CCM link table, CRSP stocknames, the
-   CRSP daily stock file, and the CRSP value-weighted index. Large
-   tables are streamed to parquet via a server-side cursor so peak
-   RAM stays bounded; small tables use the obvious read-and-write
-   pattern. A `skip_if_exists` default keeps the raw inputs immutable
-   on re-runs.
+* Structure an empirical research project across a Git repository, a local working clone, a cloud-synchronized data directory, and a LaTeX manuscript collaboration platform, with code, data, and manuscript artifacts separated cleanly.
+* Use Git and GitHub for everyday research workflows, including committing meaningful changes, branching for alternative specifications, tagging paper versions for journal submissions, and collaborating with coauthors via pull requests.
+* Configure a development environment with project-level configuration via a `.env` file, Python virtual environments via `uv`, OS-keyring storage of database credentials, and IDE conventions that travel across collaborators.
+* Implement a five-step empirical pipeline — WRDS data download, transformation, figures, analysis tables, and data-provenance reporting — in R, Python, Stata, or a working combination of the three.
+* Produce publication-grade tables in LaTeX, Word, and RTF formats from the same analysis code, integrated into a LaTeX manuscript suitable for journal submission.
+* Produce the artifact set required by major accounting and finance journals' data and code sharing policies, including per-script execution logs, sample-identifier files, and SHA256 file inventories.
+* Apply analogous conventions in SAS where required, using the reference macro library provided in the hub.
 
-2. `002-transform-data` — merges fundq with the CCM link and SIC
-   codes, constructs UE and the same-sign indicator, applies sample
-   filters, and joins event-window CRSP returns to compute
-   buy-and-hold abnormal returns (BHAR). DuckDB is used to query
-   the parquet files directly without loading the largest table
-   (CRSP daily, ~100M rows) into memory.
+# Content
 
-3. `003-figures` — produces five publication-ready figures
-   (industry-level same-sign frequency; size-quintile time series;
-   correlation heatmap; event-study CAR plot; year-by-year ERC with
-   confidence bands) using `ggplot2` in R and `plotnine` in Python.
+The hub repository contains seven in-depth topic chapters (Table 1), and the companion `project-template` ships a five-step empirical pipeline (Table 2). The `overleaf-template` provides a parallel LaTeX manuscript template wired to consume the outputs of `project-template`.
 
-4. `004-analyze-data` — produces a sample-selection table, a
-   frequency table by decade, descriptive statistics, a correlation
-   matrix, and the main regression table with cumulative fixed
-   effects. Outputs land in `output/` as `.tex` files for LaTeX,
-   `.docx` for Word (R), and `.rtf` for Word (Stata). A
-   `-r` / `-py` / `-stata` filename suffix lets the same analysis be
-   produced and inspected side-by-side across languages.
+Table: In-depth topic chapters in `example-project`.
 
-5. `005-data-provenance` — exports the sample-identifier file (gvkey,
-   permno, rdq, datadate, fyearq, fqtr) in both parquet and CSV and
-   prints an inventory of `RAW_DATA_DIR`, `DATA_DIR`, and
-   `OUTPUT_DIR` with mtime, size, and SHA256 hash. Together with
-   the per-script logs, this satisfies the JAR policy artifact set.
+| Chapter | Content |
+|---:|---|
+| Project structure | Storage locations (GitHub, local clone, cloud sync, Overleaf); separation of code, data, and manuscript; folder layout and file-naming conventions. |
+| Git and GitHub | Version control workflow for research; commit, branch, and tag conventions; `.gitignore` essentials; collaboration via pull requests. |
+| Setting up your IDE | Editor selection across RStudio, VS Code, Cursor, and Positron; per-IDE configuration; AI-assistant integration; programming-font selection. |
+| Python virtual environments | Distinction between Python and other research languages; system-conflict and permissions concerns; the `uv` tool for environment and dependency management. |
+| Environment variables and `.env` | Project-level configuration shared across R, Python, Stata, and SAS; credentials stored in the operating-system keyring rather than in plain text. |
+| About `AGENTS.md` | Conventions for providing project context to AI coding assistants such as Claude Code, GitHub Copilot, and Cursor. |
+| SAS macros | A reference SAS macro library (`MACROS.sas`) and a working example pipeline script demonstrating `%load_env` and integration with the templates' `batch_run_sas()` workflow. |
 
-A `run-all.{R,py}` master script chains the steps via a small
-`batch_run()` helper that spawns each script in a fresh child
-process and writes a `log/<script>.{Rout,log}` file in the
-SAS-log–shaped format that journal reviewers familiar with SAS or
-Stata logs recognize at a glance. When the user picked a
-Stata-inclusive combo at setup, the .do file is still on disk and
-`run-all` calls it via `batch_run_stata()`; otherwise that step is
-skipped automatically.
+Table: Pipeline steps in `project-template`.
 
-The setup itself is a `project_setup()` function in `utils.{R,py}`,
-called at the top of `001-download-data.{R,py}`. On a fresh clone (no
-`.env` file yet) it walks the user through choosing a language
-combination, entering data and output directories, storing WRDS
-credentials in the OS keyring (Windows Credential Manager / macOS
-Keychain), and optionally pruning the files for the languages they
-didn't pick. On every subsequent run it sees `.env` on disk and
-returns immediately. Setup is therefore not a separate step the
-user has to remember to run; it happens the first time they execute
-the pipeline.
+| Step | Content | Languages |
+|---:|---|---|
+| 001 Download data | Pulls Compustat fundamentals, CRSP returns, and CCM link tables from WRDS; streams large tables via server-side cursors to bounded-memory parquet files. | R, Python |
+| 002 Transform data | Constructs analytical variables, applies sample filters, and computes event-window buy-and-hold abnormal returns. | R, Python |
+| 003 Figures | Produces five publication-grade figures via `ggplot2` in R and `plotnine` in Python. | R, Python |
+| 004 Analyze data | Produces a sample-selection table, descriptive statistics, a correlation matrix, and a main regression table with fixed effects, exported as LaTeX, Word, and RTF. | R, Python, Stata |
+| 005 Data provenance | Exports the sample-identifier file in Parquet and CSV; computes SHA256 hashes for every raw, derived, and output file. | R, Python |
+
+A `run-all.{R,py}` orchestrator chains the steps via a `batch_run()` helper that spawns each script in a fresh child process and writes a uniform plain-text log. When the user has selected a Stata-inclusive language combination, the orchestrator additionally invokes the Stata analysis-and-tables script via a `batch_run_stata()` helper that produces a log of the same shape. The resulting per-script logs, together with the outputs of step 005, constitute the artifact set required by major accounting and finance journals' data and code sharing policies.
+
+# Use in the Classroom
+
+The materials are designed for use in graduate-level empirical methods courses and in independent doctoral study. A recommended sequence is to assign the in-depth topic chapters as preparatory reading, have students spin up a personal copy of `project-template` via the GitHub "Use this template" workflow, and complete the pipeline using their selected language combination. A capstone exercise extends the pipeline with an alternative specification on a Git branch and produces a journal-quality manuscript draft using `overleaf-template`. The CC-BY-4.0 license permits instructors at other institutions to adapt and redistribute the materials with attribution.
+
+# Conclusion
+
+The hub and template suite presented here provide a starting point for reproducible empirical research in accounting and finance, with conventions and artifact production aligned with the data and code sharing policies adopted by major journals in the field. The polyglot design accommodates the multi-language reality of contemporary accounting and finance research, and the materials are designed to be useful both as classroom resources and as a tested skeleton for new research projects.
 
 # Acknowledgements
 
-This template builds on code originally developed for
-@bochkay2022roles and @weisbrod2019stockholders. The author thanks
-PhD students and colleagues who have used and given feedback on
-earlier versions of these materials.
+The author thanks doctoral students and colleagues who have used and provided feedback on earlier versions of these materials. The example analysis was developed alongside @bochkay2022roles, and elements of the project structure draw on conventions developed in @weisbrod2019stockholders.
 
 # References
