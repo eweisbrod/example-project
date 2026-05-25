@@ -27,8 +27,8 @@ bibliography: paper.bib
 Example-project is an open-source teaching hub and template suite for reproducible empirical research, primarily targetting business school researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
 - [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
-- [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** and **Python**, plus a **Stata** implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
-- [**`overleaf-template`**](https://github.com/eweisbrod/overleaf-template) — a LaTeX manuscript template designed to consume the table and figure outputs of `project-template`, demonstrating `biblatex-chicago` citations, hypothesis-numbering conventions, and a section structure suitable for accounting and finance journals.
+- [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** [@RCoreTeam] and **Python**, plus a **Stata** [@Stata] implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
+- [**`overleaf-template`**](https://github.com/eweisbrod/overleaf-template) — a LaTeX manuscript template designed to consume the table and figure outputs of `project-template`, configured for use with [Overleaf](https://www.overleaf.com/) for real-time multi-author editing, and demonstrating `biblatex-chicago` citations, hypothesis-numbering conventions, and a section structure suitable for accounting and finance journals.
 
 The running example throughout the materials is a quarterly earnings-announcement event study using data from Wharton Research Data Services (WRDS) [@wrds]. Unexpected earnings, interacted with a same-sign indicator on the seasonal change in sales, are regressed on three-day buy-and-hold abnormal returns. The same regression is implemented in R, Python, and Stata in parallel to demonstrate cross-language consistency in the published tables. All materials are released under the Creative Commons Attribution 4.0 International (CC-BY-4.0) license, and the templates use GitHub's "Use this template" workflow so that instructors and individual researchers can spin up customized copies without forking.
 
@@ -40,7 +40,7 @@ At the same time, business school journals in fields such as accounting and fina
 
 Existing pedagogical resources address parts of this gap. For example, @french2023r and @donoghue2022course cover R programming with applications to financial data. These resources tend to be single-language, focus on the estimation step rather than the surrounding workflow, and do not directly address the journal-policy artifacts. The materials presented here are designed to fill the remaining gap, with three distinguishing features:
 
-1. **Polyglot by design.** Research projects in accounting and finance often involve combinations of R, Python, SAS and Stata code. For example, some researchers use one language to collect and manipulate data, while using a second language to analyze the data and prepare tables. The pipeline template ships parallel implementations in three languages and allows the user to select any subset at setup. Cross-language consistency is verified by producing the same regression tables via `pyfixest` in Python, `fixest` with `modelsummary` in R, and `reghdfe` with `estout` in Stata.
+1. **Polyglot by design.** Research projects in accounting and finance often involve combinations of R, Python, SAS and Stata code. For example, some researchers use one language to collect and manipulate data, while using a second language to analyze the data and prepare tables. The pipeline template ships parallel implementations in three languages and allows the user to select any subset at setup. Cross-language consistency is verified by producing the same regression tables via `pyfixest` [@pyfixest] in Python, `fixest` [@fixest] with `modelsummary` [@modelsummary] in R, and `reghdfe` [@reghdfe] with `estout` [@estout] in Stata.
 
 2. **Journal-policy artifacts produced as a by-product of running the pipeline.** Every pipeline step emits a per-script log file in a uniform plain-text format across all supported languages, and a final provenance step exports sample-identifier files and a content-addressed (SHA256) inventory of every raw, derived, and output file. The resulting artifact set matches what major accounting and finance journals require at submission.
 
@@ -54,11 +54,11 @@ The primary audience is PhD students and early-career researchers in accounting,
 
 * Structure an empirical research project across a Git repository, a local working clone, a cloud-synchronized data directory, and a LaTeX manuscript collaboration platform, with code, data, and manuscript artifacts separated cleanly.
 * Use Git and GitHub for everyday research workflows, including committing meaningful changes, branching for alternative specifications, tagging paper versions for journal submissions, and collaborating with coauthors via pull requests.
-* Configure a development environment with project-level configuration via a `.env` file, Python virtual environments via `uv`, OS-keyring storage of database credentials, and IDE conventions that travel across collaborators.
+* Configure a development environment with project-level configuration via a `.env` file, Python virtual environments via `uv` [@uv], OS-keyring storage of database credentials, and IDE conventions that travel across collaborators.
 * Implement a five-step empirical pipeline — WRDS data download, transformation, figures, analysis tables, and data-provenance reporting — in R, Python, Stata, or a working combination of the three.
 * Produce publication-grade tables in LaTeX, Word, and RTF formats from the same analysis code, integrated into a LaTeX manuscript suitable for journal submission.
 * Produce the artifact set required by major accounting and finance journals' data and code sharing policies, including per-script execution logs, sample-identifier files, and SHA256 file inventories.
-* Apply analogous conventions in SAS where required, using the reference macro library provided in the hub.
+* Apply analogous conventions in **SAS** [@SAS] where required, using the reference macro library provided in the hub.
 
 # Content
 
@@ -82,7 +82,7 @@ Table: Pipeline steps in `project-template`.
 |---:|---|---|
 | 001 Download data | Pulls Compustat fundamentals, CRSP returns, and CCM link tables from WRDS; streams large tables via server-side cursors to bounded-memory parquet files. | R, Python |
 | 002 Transform data | Constructs analytical variables, applies sample filters, and computes event-window buy-and-hold abnormal returns. | R, Python |
-| 003 Figures | Produces five publication-grade figures via `ggplot2` in R and `plotnine` in Python. | R, Python |
+| 003 Figures | Produces five publication-grade figures via `ggplot2` [@ggplot2] in R and `plotnine` [@plotnine] in Python. | R, Python |
 | 004 Analyze data | Produces a sample-selection table, descriptive statistics, a correlation matrix, and a main regression table with fixed effects, exported as LaTeX, Word, and RTF. | R, Python, Stata |
 | 005 Data provenance | Exports the sample-identifier file in Parquet and CSV; computes SHA256 hashes for every raw, derived, and output file. | R, Python |
 
