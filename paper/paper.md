@@ -71,9 +71,9 @@ Table: In-depth topic chapters in `example-project`.
 |---:|---|
 | Project structure | Storage locations (GitHub, local clone, cloud sync, Overleaf); separation of code, data, and manuscript; folder layout and file-naming conventions. |
 | Git and GitHub | Version control workflow for research; commit, branch, and tag conventions; `.gitignore` essentials; collaboration via pull requests. |
-| Setting up your IDE | Editor selection across RStudio, VS Code, Cursor, and Positron; per-IDE configuration; AI-assistant integration |
+| Setting up your IDE | Editor selection across RStudio, VS Code, Cursor, and Positron; per-IDE configuration; AI-assistant integration. |
 | Python virtual environments | Distinction between Python and other research languages; system-conflict and permissions concerns; the `uv` tool for environment and dependency management. |
-| Environment variables and `.env` | Project-level configuration shared across R, Python, Stata, and SAS |
+| Environment variables and `.env` | Project-level configuration shared across R, Python, Stata, and SAS. |
 | About `AGENTS.md` | Conventions for providing project context to AI coding assistants such as Claude Code, GitHub Copilot, and Cursor. |
 | SAS macros | A reference SAS macro library (`MACROS.sas`) and a working example pipeline script demonstrating `%load_env` and integration with the templates' `batch_run_sas()` workflow. |
 
