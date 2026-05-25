@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite them as below."
+title: "example-project: A Reproducible Empirical Research Template"
+abstract: "An open-source teaching hub and template suite for reproducible empirical research, primarily targeting empirical business researchers in accounting and finance. Pairs with companion repositories project-template (the research pipeline) and overleaf-template (the LaTeX manuscript)."
+authors:
+  - family-names: Weisbrod
+    given-names: Eric H.
+    orcid: "https://orcid.org/0000-0002-8814-250X"
+    affiliation: "School of Business, University of Kansas"
+type: software
+license: CC-BY-4.0
+url: "https://github.com/eweisbrod/example-project"
+repository-code: "https://github.com/eweisbrod/example-project"
+keywords:
+  - reproducible research
+  - empirical research
+  - accounting
+  - finance
+  - R
+  - Python
+  - Stata
+  - SAS
+  - WRDS
+  - data and code sharing policy
+  - JAR
+  - teaching materials
