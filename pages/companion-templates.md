@@ -15,3 +15,8 @@ Pick the template that matches what you're building. Both are GitHub template re
 The two are designed to be used together: `project-template` writes `.tex` files into its `OUTPUT_DIR`, and `overleaf-template`'s `main.tex` reads them via `\input{}`. They share the same `.env` / `keyring` conventions so figures and tables produced by one slot into the other without configuration.
 
 For information on reporting issues, contributing fixes or improvements, or seeking support, see [Contributing](../CONTRIBUTING.md).
+
+
+## A real-world example
+
+For a glimpse of what a finished project built on these conventions looks like, see [Larocque, Watkins, and Weisbrod (forthcoming)](https://doi.org/10.1111/1475-679x.70072), "Consensus? An Examination of Differences in Earnings Information Across Forecast Data Providers" (*Journal of Accounting Research*, in production). The paper's public [companion repository on GitHub](https://github.com/eweisbrod/consensus) applies the same patterns the templates here demonstrate, across a multi-language (R, Stata, SAS) production project that satisfies JAR's [Data and Code Sharing Policy](jar-data-policy.md).
