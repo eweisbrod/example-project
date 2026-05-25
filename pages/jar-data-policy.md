@@ -15,7 +15,20 @@ This template is designed to satisfy the *Journal of Accounting Research*'s [Dat
 
 - The pipeline splits raw WRDS pulls (`RAW_DATA_DIR`) from derived data (`DATA_DIR`). A replication run can re-execute scripts 2-4 against the original researcher's preserved raw inputs without hitting WRDS.
 - Every pipeline step produces a **per-script log in the SAS-log style** — every command echoed, output interleaved, plain text. R steps go through `batch_run()` (an `R CMD BATCH` wrapper in `utils.R`); Python steps go through an equivalent `batch_run()` in `utils.py` that subprocesses through an AST-based echo wrapper; Stata's native `log using` and SAS's native `proc printto` produce the same shape. All four supported languages emit visually consistent logs.
-- The `005-data-provenance.{R,py}` step exports `sample-identifiers.{parquet,csv}` (gvkey, permno, rdq, datadate, fyearq, fqtr) and prints SHA256 hashes for every raw, derived, and output file. That step's own `.Rout` / `.log` is the project's content-addressed provenance record.
+- The `005-data-provenance.{R,py}` step exports `sample-identifiers.{parquet,csv}` (gvkey, permno, rdq, datadate, fyearq, fqtr) into the template's `provenance/` folder and prints SHA256 hashes for every raw, derived, and output file. That step's own `.Rout` / `.log` is the project's content-addressed provenance record. The data files are gitignored by default so the template stays clean as it is passed around; submitters force-add the artifacts they want to ship with `git add -f provenance/sample-identifiers.csv`.
+
+
+## Reference sample for exact-match replication
+
+For users who want to confirm an exact-row match against the author's
+own run of the template, a reference copy of `sample-identifiers.csv`
+lives in this hub's [`provenance/`](../provenance/) folder. After
+running `project-template` end-to-end against your own WRDS access,
+diff your `project-template/provenance/sample-identifiers.csv`
+against the file in the hub — matching row counts and identifier sets
+confirm your build is reproducing the author's; mismatches point at
+where in the pipeline your raw data, sample filters, or merge keys
+diverge.
 
 
 ## A real-world example
