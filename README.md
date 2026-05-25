@@ -27,9 +27,9 @@ An example of an accepted paper using the tools from these examples to prepare a
 |---|---|
 | [Companion templates](pages/companion-templates.md) | The two GitHub template repos this hub points at and how they fit together. |
 | [JAR Data and Code Sharing Policy](pages/jar-data-policy.md) | How `project-template` is structured to satisfy the *Journal of Accounting Research*'s data-and-code-sharing policy. |
-| [Reference sample identifiers](provenance/) | The author's own `sample-identifiers.csv` from a run of `project-template`, for replicators who want to confirm an exact-row match. |
 | [Prerequisites](pages/prerequisites.md) | Software (Git, R, Python, Stata) and account (WRDS, GitHub) requirements for using the templates. |
 | [Using a template](pages/using-a-template.md) | Step-by-step on spinning up your own copy of a template via GitHub's "Use this template" button. |
+| [Provenance folder](provenance/) | The author's own `sample-identifiers.csv` from a run of `project-template`, for replicators who want to confirm an exact-row match. Kept in the hub (not in the template) so the template stays clean. |
 | [In-depth topics](topics/) | Chapter-length notes — project structure for research, Git and GitHub, environment variables and `.env`, the AGENTS.md / AI-assistant conventions, the SAS macros reference, plus planned chapters on WRDS credentials and the raw/derived data split. |
 | [Additional resources](pages/additional-resources.md) | Pointers to related books, course materials, and data sources. |
 | [Contributing](CONTRIBUTING.md) | How to file issues, suggest changes, or seek support across the three repos. |

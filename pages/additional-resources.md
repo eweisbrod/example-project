@@ -1,6 +1,6 @@
 ---
 title: Additional resources
-nav_order: 7
+nav_order: 8
 ---
 
 # Additional resources

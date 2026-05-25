@@ -1,8 +1,22 @@
-# provenance/
+---
+title: Provenance folder
+nav_order: 6
+---
+
+# Provenance folder
 
 Reference copy of the sample-identifier file from the author's own
 pipeline run, provided so replicators can confirm an exact-row match
 against their own re-run of [`project-template`](https://github.com/eweisbrod/project-template).
+
+This reference file lives in the hub repo rather than in
+`project-template` so the template stays reusable: people who clone
+or "Use this template" from `project-template` shouldn't have to
+remember to delete a sample-id file tied to the author's specific
+WRDS pull before adapting the skeleton to their own project. The
+hub's role is to host project-specific artifacts (this paper's
+reference data, the JOSE paper, the SAS reference macros); the
+template's role is to ship clean, project-agnostic code.
 
 ## Files
 
@@ -22,6 +36,8 @@ filters, or merge keys diverge from the author's.
 
 A small Python or R diff is enough — for example:
 
+**Python:**
+
 ```python
 import pandas as pd
 mine = pd.read_csv("project-template/provenance/sample-identifiers.csv")
@@ -30,6 +46,8 @@ print(f"Mine: {len(mine):,}  Reference: {len(ref):,}")
 print(f"Common keys: {len(set(mine['gvkey']) & set(ref['gvkey'])):,}")
 ```
 
+**R:**
+
 ```r
 mine <- read.csv("project-template/provenance/sample-identifiers.csv")
 ref  <- read.csv("example-project/provenance/sample-identifiers.csv")
@@ -37,13 +55,6 @@ cat(sprintf("Mine: %s  Reference: %s\n",
             format(nrow(mine), big.mark = ","),
             format(nrow(ref),  big.mark = ",")))
 ```
-
-## Why CSV, not parquet?
-
-CSV opens in every language and most spreadsheets. The parquet version
-in `project-template/provenance/` is the same data — use whichever
-your tooling prefers. Only the CSV is committed here to keep this
-hub repo small and human-readable.
 
 ## How this file was produced
 
