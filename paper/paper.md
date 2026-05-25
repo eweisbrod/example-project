@@ -98,6 +98,6 @@ The hub and template suite presented here provide a starting point for reproduci
 
 # Acknowledgements
 
-The author thanks doctoral students and colleagues who have used and provided feedback on earlier versions of these materials. The example analysis was developed alongside @bochkay2022roles, and elements of the project structure draw on conventions developed in @weisbrod2019stockholders.
+The author thanks doctoral students and colleagues who have used and provided feedback on earlier versions of these materials. The example analysis was developed alongside @bochkay2022roles, elements of the project structure draw on conventions developed in @weisbrod2019stockholders, and the conventions documented here have been exercised in production research in @larocqueconsensus, whose public companion repository at <https://github.com/eweisbrod/consensus> is referenced throughout the hub as a real-world example.
 
 # References
