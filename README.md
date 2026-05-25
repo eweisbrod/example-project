@@ -1,6 +1,6 @@
 > 📖 **Best viewed as rendered docs here:** <https://eweisbrod.github.io/example-project/>
 >
-> 📝 **If you use these materials, please cite as follows.** A formal citation will appear here once the companion paper is published in the *Journal of Open Source Education*. Until then, please link or attribute to <https://github.com/eweisbrod/example-project>.
+> 📝 **If you use these materials, please cite as follows.** A formal citation will appear here once the companion paper is published. Until then, please link or attribute to <https://github.com/eweisbrod/example-project>.
 
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 

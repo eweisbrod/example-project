@@ -28,7 +28,7 @@ bibliography: paper.bib
 
 `example-project` is an open-source teaching hub and template suite for reproducible empirical research, primarily targeting empirical business researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
-- [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
+- [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a **SAS** [@SAS] macro reference for projects that retain SAS code.
 - [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** [@RCoreTeam] and **Python**, plus a **Stata** [@Stata] implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
 - [**`overleaf-template`**](https://github.com/eweisbrod/overleaf-template) — a LaTeX manuscript template designed to consume the table and figure outputs of `project-template`, configured for use with [Overleaf](https://www.overleaf.com/) for real-time multi-author editing, and demonstrating `biblatex-chicago` citations, hypothesis-numbering conventions, and a section structure suitable for journals.
 
@@ -59,7 +59,7 @@ The primary audience is PhD students and early-career researchers building their
 * Implement a five-step empirical pipeline — WRDS data download, transformation, figures, analysis tables, and data-provenance reporting — in R, Python, Stata, or a working combination of the three.
 * Produce publication-grade tables in LaTeX, Word, and RTF formats from the same analysis code, integrated into a LaTeX manuscript suitable for journal submission.
 * Produce the artifact set required by academic journals' data and code sharing policies, including per-script execution logs, sample-identifier files, and SHA256 file inventories.
-* Apply analogous conventions in **SAS** [@SAS] where required, using the reference macro library provided in the hub.
+* Apply analogous conventions in SAS where required, using the reference macro library provided in the hub.
 
 # Content
 
