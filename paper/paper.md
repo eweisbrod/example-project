@@ -1,5 +1,5 @@
 ---
-title: 'Example-project: A Reproducible Empirical Research Template'
+title: '`example-project`: A Reproducible Empirical Research Template'
 tags:
   - accounting
   - finance
@@ -24,7 +24,7 @@ bibliography: paper.bib
 
 # Summary
 
-Example-project is an open-source teaching hub and template suite for reproducible empirical research, primarily targetting business school researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
+`example-project` is an open-source teaching hub and template suite for reproducible empirical research, primarily targetting business school researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
 - [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
 - [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** [@RCoreTeam] and **Python**, plus a **Stata** [@Stata] implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
