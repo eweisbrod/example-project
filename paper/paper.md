@@ -9,6 +9,7 @@ tags:
   - R
   - Python
   - Stata
+  - SAS
   - LaTeX
   - WRDS
   - data and code sharing policy
@@ -25,7 +26,7 @@ bibliography: paper.bib
 
 # Summary
 
-`example-project` is an open-source teaching hub and template suite for reproducible empirical research, primarily targeting empirical business researchers, with a particular focus on accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
+`example-project` is an open-source teaching hub and template suite for reproducible empirical research, primarily targeting empirical business researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
 - [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
 - [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** [@RCoreTeam] and **Python**, plus a **Stata** [@Stata] implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
@@ -35,19 +36,18 @@ The running example throughout the materials is a quarterly earnings-announcemen
 
 # Statement of Need
 
-Empirical business research depends on an interconnected stack of database access (typically WRDS), data manipulation, statistical modeling, and publication-grade table and figure formatting. Formal training in this end-to-end workflow is uncommon in business school doctoral programs, and most researchers in the field do not arrive with formal training in computer science or software development. 
+Empirical business research depends on an interconnected stack of database access (typically WRDS), data manipulation, statistical modeling, and publication-grade table and figure formatting. Formal training in this end-to-end workflow is uncommon in business school doctoral programs, and most researchers in the field arrive with no training in computer science or software development. 
 
-At the same time, academic journals in business research are beginning to formalize data and code sharing policies modeled on established norms in economics. For example, the 2024 update to the *Journal of Accounting Research's* Data and Code Sharing Policy [@JARpolicy] requires submitting authors to provide three artifacts: (1) the code that produces the analytical dataset and the reported tables and figures from raw inputs, (2) a comprehensive log file documenting end-to-end execution, and (3) identifiers of the observations comprising the final sample. Comparable requirements have been adopted at several other major journals in the field. Prospective authors must therefore learn not only the substantive skills for conducting empirical research but the workflow skills required to package the research pipeline as a reproducible artifact suitable for journal-level scrutiny.
+At the same time, academic journals in business fields are beginning to formalize data and code sharing policies modeled on established norms in economics. For example, the 2024 update to the *Journal of Accounting Research's* Data and Code Sharing Policy [@JARpolicy] requires submitting authors to provide three artifacts: (1) the code that produces the analytical dataset and the reported tables and figures from raw inputs, (2) a comprehensive log file documenting end-to-end execution, and (3) identifiers of the observations comprising the final sample. Comparable requirements have been adopted at several other major journals in the field. Prospective authors must therefore learn not only the substantive skills for conducting empirical research but the workflow skills required to document and package the research pipeline in compliance with modern journal policies.
 
 Existing pedagogical resources address parts of this gap. For example, @french2023r and @donoghue2022course cover R programming with applications to financial data. These resources tend to be single-language, focus on the estimation step rather than the surrounding workflow, and do not directly address the journal-policy artifacts. The materials presented here are designed to fill the remaining gap, with three distinguishing features:
 
-1. **Polyglot by design.** Empirical business research projects often involve combinations of R, Python, SAS and Stata code. For example, some researchers use one language to collect and manipulate data, while using a second language to analyze the data and prepare tables. The pipeline template ships parallel implementations in three languages and allows the user to select any subset at setup. Cross-language consistency is verified by producing the same regression tables via `pyfixest` [@pyfixest] in Python, `fixest` [@fixest] with `modelsummary` [@modelsummary] in R, and `reghdfe` [@reghdfe] with `estout` [@estout] in Stata.
+1. **Polyglot by design.** Empirical business research projects often involve combinations of R, Python, SAS and Stata code. For example, some researchers use one language to collect and manipulate data, while using a second language to analyze the data and prepare tables. The `project-template` ships parallel implementations in three languages and allows the user to select any subset at setup. Cross-language consistency is verified by producing the same regression tables via `pyfixest` [@pyfixest] in Python, `fixest` [@fixest] with `modelsummary` [@modelsummary] in R, and `reghdfe` [@reghdfe] with `estout` [@estout] in Stata.
 
 2. **Journal-policy artifacts produced as a by-product of running the pipeline.** Every pipeline step emits a per-script log file in a uniform plain-text format across all supported languages, and a final provenance step exports sample-identifier files and a content-addressed (SHA256) inventory of every raw, derived, and output file. The resulting artifact set matches what major accounting and finance journals require at submission.
 
 3. **Publication-grade table formatting.** Most graduate programs cover statistical estimation but undertrain the "last mile" of producing journal-quality tables with fixed-effect indicator rows, clustered standard errors, significance markers, and consistent number formatting. The templates produce these tables in all three languages and demonstrate how to integrate the resulting `.tex` files into a LaTeX manuscript via the companion `overleaf-template`.
 
-The materials are designed both as a teaching resource for PhD students and early-career researchers building their first reproducible empirical project, and as a tested skeleton for experienced researchers who want to jumpstart new projects with reproducibility conventions and journal-policy artifacts in place.
 
 # Target Audience and Learning Objectives
 
@@ -55,10 +55,10 @@ The primary audience is PhD students and early-career researchers building their
 
 * Structure an empirical research project across a Git repository, a local working clone, a cloud-synchronized data directory, and a LaTeX manuscript collaboration platform, with code, data, and manuscript artifacts separated cleanly.
 * Use Git and GitHub for everyday research workflows, including committing meaningful changes, branching for alternative specifications, tagging paper versions for journal submissions, and collaborating with coauthors via pull requests.
-* Configure a development environment with project-level configuration via a `.env` file, Python virtual environments via `uv` [@uv], OS-keyring storage of database credentials, and IDE conventions that travel across collaborators.
+* Configure a development environment with project-level configuration via a `.env` file, Python virtual environments via `uv` [@uv], and OS-keyring storage of database credentials.
 * Implement a five-step empirical pipeline — WRDS data download, transformation, figures, analysis tables, and data-provenance reporting — in R, Python, Stata, or a working combination of the three.
 * Produce publication-grade tables in LaTeX, Word, and RTF formats from the same analysis code, integrated into a LaTeX manuscript suitable for journal submission.
-* Produce the artifact set required by major accounting and finance journals' data and code sharing policies, including per-script execution logs, sample-identifier files, and SHA256 file inventories.
+* Produce the artifact set required by academic journals' data and code sharing policies, including per-script execution logs, sample-identifier files, and SHA256 file inventories.
 * Apply analogous conventions in **SAS** [@SAS] where required, using the reference macro library provided in the hub.
 
 # Content
@@ -71,9 +71,9 @@ Table: In-depth topic chapters in `example-project`.
 |---:|---|
 | Project structure | Storage locations (GitHub, local clone, cloud sync, Overleaf); separation of code, data, and manuscript; folder layout and file-naming conventions. |
 | Git and GitHub | Version control workflow for research; commit, branch, and tag conventions; `.gitignore` essentials; collaboration via pull requests. |
-| Setting up your IDE | Editor selection across RStudio, VS Code, Cursor, and Positron; per-IDE configuration; AI-assistant integration; programming-font selection. |
+| Setting up your IDE | Editor selection across RStudio, VS Code, Cursor, and Positron; per-IDE configuration; AI-assistant integration |
 | Python virtual environments | Distinction between Python and other research languages; system-conflict and permissions concerns; the `uv` tool for environment and dependency management. |
-| Environment variables and `.env` | Project-level configuration shared across R, Python, Stata, and SAS; credentials stored in the operating-system keyring rather than in plain text. |
+| Environment variables and `.env` | Project-level configuration shared across R, Python, Stata, and SAS |
 | About `AGENTS.md` | Conventions for providing project context to AI coding assistants such as Claude Code, GitHub Copilot, and Cursor. |
 | SAS macros | A reference SAS macro library (`MACROS.sas`) and a working example pipeline script demonstrating `%load_env` and integration with the templates' `batch_run_sas()` workflow. |
 
@@ -87,7 +87,7 @@ Table: Pipeline steps in `project-template`.
 | 004 Analyze data | Produces a sample-selection table, descriptive statistics, a correlation matrix, and a main regression table with fixed effects, exported as LaTeX, Word, and RTF. | R, Python, Stata |
 | 005 Data provenance | Exports the sample-identifier file in Parquet and CSV; computes SHA256 hashes for every raw, derived, and output file. | R, Python |
 
-A `run-all.{R,py}` orchestrator chains the steps via a `batch_run()` helper that spawns each script in a fresh child process and writes a uniform plain-text log. When the user has selected a Stata-inclusive language combination, the orchestrator additionally invokes the Stata analysis-and-tables script via a `batch_run_stata()` helper that produces a log of the same shape. The resulting per-script logs, together with the outputs of step 005, constitute the artifact set required by major accounting and finance journals' data and code sharing policies.
+A `run-all.{R,py}` orchestrator chains the steps via a `batch_run()` helper that spawns each script in a fresh child process and writes a uniform plain-text log. When the user has selected a Stata-inclusive language combination, the orchestrator additionally invokes the Stata analysis-and-tables script via a `batch_run_stata()` helper that produces a log of the same shape. The resulting per-script logs, together with the outputs of step 005, constitute the artifact set required by journals' data and code sharing policies.
 
 # Use in the Classroom
 
@@ -95,10 +95,10 @@ The materials are designed for use in graduate-level empirical methods courses a
 
 # Conclusion
 
-The hub and template suite presented here provide a starting point for reproducible empirical research in accounting and finance, with conventions and artifact production aligned with the data and code sharing policies adopted by major journals in the field. The polyglot design accommodates the multi-language reality of contemporary accounting and finance research, and the materials are designed to be useful both as classroom resources and as a tested skeleton for new research projects.
+The hub and template suite presented here provide a starting point for reproducible empirical research in many social science fields, with conventions and artifact production aligned with the data and code sharing policies adopted by major journals in accounting and finance. The polyglot design accommodates the multi-language reality of social science research, and the materials are designed to be useful both as classroom resources and as a tested skeleton for publication-ready research projects.
 
 # Acknowledgements
 
-The author thanks doctoral students and colleagues who have used and provided feedback on earlier versions of these materials. The example analysis was developed alongside @bochkay2022roles, elements of the project structure draw on conventions developed in @weisbrod2019stockholders, and the conventions documented here have been exercised in production research in @larocqueconsensus, whose public companion repository at <https://github.com/eweisbrod/consensus> is referenced throughout the hub as a real-world example.
+The author thanks doctoral students and colleagues who have used and provided feedback on earlier versions of these materials. Many of the underlying examples were developed as part of the research methods used in @weisbrod2019stockholders, @bochkay2022roles, and @larocqueconsensus. Many of the reproducibility conventions documented in these materials are used in the public companion repository for @larocqueconsensus at <https://github.com/eweisbrod/consensus>, which is referenced throughout the hub as a real-world example.
 
 # References
