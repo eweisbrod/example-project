@@ -20,6 +20,10 @@ This template is designed to satisfy the *Journal of Accounting Research*'s [Dat
 
 ## A real-world example
 
-For a published research project organized around these conventions in practice, see the public companion repository for Larocque, Watkins, and Weisbrod ([forthcoming](https://doi.org/10.1111/1475-679x.70072)), "Consensus? An Examination of Differences in Earnings Information Across Forecast Data Providers," *Journal of Accounting Research* (in production): <https://github.com/eweisbrod/consensus>.
+A published research project organized around these conventions in practice:
+
+- **Paper:** Larocque, S. A., Watkins, J., and Weisbrod, E. H. (forthcoming). "Consensus? An Examination of Differences in Earnings Information Across Forecast Data Providers." *Journal of Accounting Research* (in production).
+- **DOI:** [10.1111/1475-679x.70072](https://doi.org/10.1111/1475-679x.70072) *(activates once Wiley completes production)*
+- **Companion GitHub repository:** <https://github.com/eweisbrod/consensus>
 
 The `consensus` repository applies the same patterns described above — per-script logs, sample-identifier export, separation of raw and derived data — across a multi-language (R, Stata, SAS) production project. It is also the source of the SAS-side worked example presented in the [SAS macros](../sas-example/) chapter.

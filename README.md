@@ -11,7 +11,13 @@ This repository is the **hub** for a set of teaching materials on developing a r
 
 The example pipeline runs an earnings-announcement event study: it computes unexpected earnings (UE) and tests whether the three-day buy-and-hold abnormal return is amplified when the seasonal sales change agrees with the seasonal earnings change (a `UE × SameSign` interaction).
 
-For a published example of these conventions applied in actual production research, see [Larocque, Watkins, and Weisbrod (forthcoming)](https://doi.org/10.1111/1475-679x.70072), "Consensus? An Examination of Differences in Earnings Information Across Forecast Data Providers" (*Journal of Accounting Research*, in production), and its public [companion repository](https://github.com/eweisbrod/consensus). The consensus project applies the same patterns the hub teaches here across a multi-language (R, Stata, SAS) workflow.
+A published example of these conventions applied in actual production research:
+
+- **Paper:** Larocque, S. A., Watkins, J., and Weisbrod, E. H. (forthcoming). "Consensus? An Examination of Differences in Earnings Information Across Forecast Data Providers." *Journal of Accounting Research* (in production).
+- **DOI:** [10.1111/1475-679x.70072](https://doi.org/10.1111/1475-679x.70072) *(activates once Wiley completes production)*
+- **Companion GitHub repository:** <https://github.com/eweisbrod/consensus>
+
+The consensus project applies the same patterns the hub teaches here across a multi-language (R, Stata, SAS) workflow.
 
 The goal of this hub is to help researchers go from zero to a reproducible publication-ready research document as quickly as possible. Clean, version-controlled project workflows are emphasized throughout in order to generate reproducible tables and figures using code designed to satisfy academic journal code submission policies. The reusable GitHub templates can also help experienced researchers (myself included) quickly jumpstart new project repositories. Lastly, these materials provide good table-formatting examples for PhD students and junior colleagues to encourage them to produce polished work products that facilitate readers' understanding of their work.
 
