@@ -1,5 +1,5 @@
 ---
-title: 'Reproducible Empirical Research in Accounting and Finance: An open-source teaching hub and template suite'
+title: 'Example-project: A Reproducible Empirical Research Template'
 tags:
   - accounting
   - finance
@@ -24,7 +24,7 @@ bibliography: paper.bib
 
 # Summary
 
-We present an open-source teaching hub and template suite for reproducible empirical research in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
+Example-project is an open-source teaching hub and template suite for reproducible empirical research, primarily targetting business school researchers in accounting and finance. The materials are organized as three Git repositories that together cover the workflow from raw database access through publication-grade manuscript production:
 
 - [**`example-project`**](https://github.com/eweisbrod/example-project) — the teaching hub. Contains in-depth chapters on project structure, version control with Git and GitHub, integrated development environment (IDE) setup, Python virtual environments, environment variables and configuration files, AI-assistant integration via `AGENTS.md`, and a SAS macro reference for projects that retain SAS code.
 - [**`project-template`**](https://github.com/eweisbrod/project-template) — a GitHub template repository implementing a five-step empirical pipeline (data download, transformation, figures, analysis tables, and provenance reporting) with parallel implementations in **R** and **Python**, plus a **Stata** implementation of the analysis-and-tables step. At first run, the template prompts the user to select a language combination and prunes the unused files.
@@ -34,7 +34,7 @@ The running example throughout the materials is a quarterly earnings-announcemen
 
 # Statement of Need
 
-Empirical accounting and finance research depends on an interconnected stack of database access (typically WRDS), data manipulation, statistical modeling, and publication-grade table and figure formatting. Formal training in this end-to-end workflow is uncommon in business school doctoral programs, and most researchers in the field do not arrive with formal training in software engineering. Practitioners therefore typically inherit their advisor's scripts or assemble tutorials from disparate sources, with the common outcome that working analyses become difficult for collaborators, reviewers, or future replicators to reproduce.
+Empirical business research depends on an interconnected stack of database access (typically WRDS), data manipulation, statistical modeling, and publication-grade table and figure formatting. Formal training in this end-to-end workflow is uncommon in business school doctoral programs, and most researchers in the field do not arrive with formal training in software engineering. Practitioners therefore typically inherit their advisor's scripts or assemble tutorials from disparate sources, with the common outcome that working analyses become difficult for collaborators, reviewers, or future replicators to reproduce.
 
 This gap matters increasingly because accounting and finance journals are formalizing data and code sharing policies modeled on long-established norms in economics. The Journal of Accounting Research's Data and Code Sharing Policy [@JARpolicy] requires submitting authors to provide three artifacts: (1) the code that produces the analytical dataset and the reported tables and figures from raw inputs, (2) a comprehensive log file documenting end-to-end execution, and (3) identifiers of the observations comprising the final sample. Comparable requirements have been adopted at several other major journals in the field. A first-time submitter must therefore acquire not only the substantive skills of empirical research but the workflow skills required to package the research as a reproducible artifact suitable for journal-level scrutiny.
 
