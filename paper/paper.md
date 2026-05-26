@@ -24,7 +24,7 @@ affiliations:
 # ignored by the JOSE/Inara renderer (which uses the structured
 # "authors:" block above).
 author: |
-  Eric H. Weisbrod\thanks{School of Business, University of Kansas. Email: \href{mailto:eweisbrod@ku.edu}{eweisbrod@ku.edu}.}
+  Eric H. Weisbrod\thanks{School of Business, University of Kansas. Email: \href{mailto:eric.weisbrod@ku.edu}{eric.weisbrod@ku.edu}.}
 date: 26 May 2026
 bibliography: paper.bib
 ---
