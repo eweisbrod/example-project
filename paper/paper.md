@@ -20,7 +20,7 @@ authors:
 affiliations:
   - name: School of Business, University of Kansas, USA
     index: 1
-date: 24 May 2026
+date: 26 May 2026
 bibliography: paper.bib
 ---
 
