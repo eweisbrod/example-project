@@ -20,6 +20,11 @@ authors:
 affiliations:
   - name: School of Business, University of Kansas, USA
     index: 1
+# The fields below are read by vanilla pandoc (for the SSRN PDF) and
+# ignored by the JOSE/Inara renderer (which uses the structured
+# "authors:" block above).
+author: |
+  Eric H. Weisbrod\thanks{School of Business, University of Kansas. Email: \href{mailto:eweisbrod@ku.edu}{eweisbrod@ku.edu}.}
 date: 26 May 2026
 bibliography: paper.bib
 ---
