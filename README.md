@@ -57,7 +57,7 @@ If you use these materials, please cite the archived release on Zenodo:
 ```
 </details>
 
-The DOI above is the **concept DOI** — it always resolves to the latest version. To pin-cite this exact release, use the v1.0.0 version DOI [10.5281/zenodo.20499217](https://doi.org/10.5281/zenodo.20499217). A companion paper preprint is forthcoming; its citation will be added here once it is public.
+The DOI above is the **concept DOI** — it always resolves to the latest version. To pin-cite this exact release, use the v1.0.0 version DOI [10.5281/zenodo.20499217](https://doi.org/10.5281/zenodo.20499217). A companion paper describing these materials is in preparation.
 
 ## License
 
