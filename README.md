@@ -1,6 +1,6 @@
 > 📖 **Best viewed as rendered docs here:** <https://eweisbrod.github.io/example-project/>
 >
-> 📝 **If you use these materials, please cite as follows.** A formal citation will appear here once the companion paper is published. Until then, please link or attribute to <https://github.com/eweisbrod/example-project>.
+> 📝 **Citing these materials:** [![DOI](https://zenodo.org/badge/521394110.svg)](https://doi.org/10.5281/zenodo.20499216) — full citation and BibTeX under [How to cite](#how-to-cite).
 
 ![example-project](https://socialify.git.ci/eweisbrod/example-project/image?description=1&font=Inter&forks=1&issues=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Light)
 
@@ -34,6 +34,30 @@ An example of an accepted paper using the tools from these examples to prepare a
 | [Additional resources](pages/additional-resources.md) | Pointers to related books, course materials, and data sources. |
 | [Contributing](CONTRIBUTING.md) | How to file issues, suggest changes, or seek support across the three repos. |
 
+
+## How to cite
+
+If you use these materials, please cite the archived release on Zenodo:
+
+> Weisbrod, E. H. (2026). *example-project: A Reproducible Empirical Research Template* (Version v1.0.0) [Software]. Zenodo. <https://doi.org/10.5281/zenodo.20499216>
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@software{weisbrod_example_project_2026,
+  author    = {Weisbrod, Eric H.},
+  title     = {{example-project: A Reproducible Empirical Research Template}},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {v1.0.0},
+  doi       = {10.5281/zenodo.20499216},
+  url       = {https://doi.org/10.5281/zenodo.20499216}
+}
+```
+</details>
+
+The DOI above is the **concept DOI** — it always resolves to the latest version. To pin-cite this exact release, use the v1.0.0 version DOI [10.5281/zenodo.20499217](https://doi.org/10.5281/zenodo.20499217). A companion paper preprint is forthcoming; its citation will be added here once it is public.
 
 ## License
 

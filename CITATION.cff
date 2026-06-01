@@ -9,8 +9,18 @@ authors:
     affiliation: "School of Business, University of Kansas"
 type: software
 license: CC-BY-4.0
-url: "https://github.com/eweisbrod/example-project"
+version: v1.0.0
+date-released: 2026-06-01
+doi: 10.5281/zenodo.20499216
+url: "https://eweisbrod.github.io/example-project/"
 repository-code: "https://github.com/eweisbrod/example-project"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20499216
+    description: Concept DOI (resolves to the latest version)
+  - type: doi
+    value: 10.5281/zenodo.20499217
+    description: Version DOI (v1.0.0)
 keywords:
   - reproducible research
   - empirical research
