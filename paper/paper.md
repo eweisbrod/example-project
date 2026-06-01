@@ -20,7 +20,7 @@ authors:
 affiliations:
   - name: School of Business, University of Kansas, USA
     index: 1
-# The fields below are read by vanilla pandoc (for the SSRN PDF) and
+# The fields below are read by vanilla pandoc (for the plain preprint PDF) and
 # ignored by the JOSE/Inara renderer (which uses the structured
 # "authors:" block above).
 author: |

@@ -1,25 +1,26 @@
-name: SSRN PDF
+name: Preprint PDF
 
 # Builds paper/paper.md as a plain academic PDF (no JOSE / JOSS branding,
-# no journal logo, no Inara template) for posting as a preprint on SSRN,
-# arXiv, or a personal site while the JOSE submission is in queue.
+# no journal logo, no Inara template) for posting as a preprint on a
+# preprint server (e.g. OSF/SocArXiv, Zenodo) or a personal site while
+# the JOSE submission is in queue.
 #
 # Pandoc + TeX Live are installed on the runner, then a one-shot pandoc
 # command renders paper.md via pdflatex with a vanilla article class.
-# The resulting paper-ssrn.pdf is uploaded as a workflow artifact;
+# The resulting paper-preprint.pdf is uploaded as a workflow artifact;
 # download it from the Actions run page.
 
 on:
   push:
     paths:
       - 'paper/**'
-      - '.github/workflows/ssrn-pdf.yml'
+      - '.github/workflows/preprint-pdf.yml'
   workflow_dispatch:
 
 jobs:
   paper:
     runs-on: ubuntu-latest
-    name: Build SSRN PDF
+    name: Build Preprint PDF
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,7 +30,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra texlive-xetex
 
-      - name: Render SSRN PDF
+      - name: Render Preprint PDF
         run: |
           pandoc paper/paper.md \
             --from=markdown \
@@ -42,10 +43,10 @@ jobs:
             -V linkcolor=blue \
             -V citecolor=blue \
             -V urlcolor=blue \
-            -o paper/paper-ssrn.pdf
+            -o paper/paper-preprint.pdf
 
       - name: Upload built PDF
         uses: actions/upload-artifact@v4
         with:
-          name: paper-ssrn
-          path: paper/paper-ssrn.pdf
+          name: paper-preprint
+          path: paper/paper-preprint.pdf
