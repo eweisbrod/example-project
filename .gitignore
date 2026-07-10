@@ -54,6 +54,8 @@ vignettes/*.pdf
 
 #types of output
 *.html
+# Jekyll theme override includes are source, not knitted R/RMarkdown output
+!_includes/*.html
 *.pdf
 *.aux
 **.rda
