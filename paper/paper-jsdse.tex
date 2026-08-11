@@ -275,11 +275,15 @@ in it. Students need learn only one standard.
 Third, and cutting the other way, the accounting journals are the only
 group in the table with no verification of any kind. Every economics
 journal except the \textit{Quarterly Journal of Economics} re-executes
-replication packages before publication, and finance is moving the same
-way, most thoroughly at the \textit{Review of Financial Studies}, whose
-data editors run author code in a controlled environment and issue a
-verification report. No accounting journal in Panel A employs a data
-editor or re-runs any code; compliance is self-certified throughout. The
+replication packages before publication, and four of the five finance
+journals now subject the package to some form of editorial review,
+though its depth varies widely: the \textit{Review of Financial
+Studies} runs
+author code in a dedicated computing environment and issues a
+verification report, while the \textit{Journal of Financial Economics}
+data editor audits packages for completeness without re-running them.
+No accounting journal in Panel A employs a data editor or re-runs any
+code; compliance is self-certified throughout. The
 practical implication for instruction is direct: in accounting, nothing
 external will catch a broken pipeline, so the discipline has to be the
 author's own. This is the argument for teaching verification habits---the
@@ -309,9 +313,9 @@ Accounting, Organizations and Society & ---     &           &           &       
 \addlinespace
 \multicolumn{10}{@{}l}{\textit{Panel B: Finance}} \\
 The Journal of Finance              & 2016/2024 & $\bullet$ & $\bullet$ & ?         & $\bullet$ &           &           & $\bullet$ & $\bullet$ \\
-Journal of Financial Economics      & 2021      & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & ? \\
+Journal of Financial Economics      & 2021      & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\circ$ \\
 Review of Financial Studies         & 2020/2025 & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\bullet$ \\
-Journal of Financial and Quant.\ Analysis & 2024 & $\bullet$ & $\bullet$ & ?        &           &           &           &           & ? \\
+Journal of Financial and Quant.\ Analysis & 2024 & $\bullet$ & $\bullet$ & ?        &           &           &           &           & $\circ$ \\
 Review of Finance                   & 2022      & ?         & $\bullet$ & ?         & ?         &           &           &           &  \\
 \addlinespace
 \multicolumn{10}{@{}l}{\textit{Panel C: Economics and general management}} \\
@@ -326,18 +330,28 @@ Management Science                  & 2019/2026 &           & $\bullet$ &       
 
 \vspace{0.5em}
 \begin{minipage}{\textwidth}
-\footnotesize
-\textit{Notes.} $\bullet$ = required; blank = not required; ? = policy
-text is ambiguous on this point. Columns: (1) code that constructs the
-analysis sample from raw data; (2) statistical analysis code; (3)
-table- and figure-generating code; (4) comprehensive execution log
-file; (5) explicit prohibition on manual data manipulation outside the
-code; (6) observation identifiers for the final sample; (7) a
-disclosure document required at submission rather than at acceptance;
-(8) journal verification, i.e.\ a data editor who re-executes or
-audits the package before publication. Columns (1)--(7) are author
-deliverables; column (8) is an action by the journal. The eight-item
-scheme follows \citet{barrios2026mandated}. Where two effective dates
+\footnotesize\singlespacing
+\textit{Notes.} In columns (1)--(7), $\bullet$ = required, blank = not
+required, and ? = the policy text is ambiguous on this point. Columns:
+(1) code that constructs the analysis sample from raw data; (2)
+statistical analysis code; (3) table- and figure-generating code; (4)
+comprehensive execution log file; (5) explicit prohibition on manual
+data manipulation outside the code; (6) observation identifiers for the
+final sample; (7) a disclosure document required at submission rather
+than at acceptance; (8) journal verification. Columns (1)--(7) are
+author deliverables; column (8) is an action by the journal. The
+eight-item scheme follows \citet{barrios2026mandated}.
+
+Column (8) distinguishes two regimes, because ``data editor'' does not
+mean the same thing across these journals: $\bullet$ = the journal
+re-executes the package before publication, whereas $\circ$ = a data
+editor reviews every package without re-executing it, or verification
+reaches only a randomly selected subset, as at the \textit{Journal of
+Financial and Quantitative Analysis}. \textit{Management Science} is
+coded $\bullet$ but sits between the two: its data editorial team
+originally ran submitted code without verifying outputs
+\citep{fisar2024}, and verification became publication-gating only as
+the operation scaled after 2025. Where two effective dates
 are shown, the first is the original policy and the second the current
 revision; ``---'' indicates a journal with no mandatory policy, or one
 that publishes no effective date. Policies were read from each
