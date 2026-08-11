@@ -44,6 +44,12 @@ live; unlinked entries are placeholders for content I plan to add.
 - **[About AGENTS.md](agents-md.md)** — what the `AGENTS.md` file in each
   repo is, the cross-tool standard behind it, how it interacts with
   `CLAUDE.md`, and why you might want one in your own projects.
+- **[Replication packages and what data editors expect](replication-packages.md)** —
+  what the major data and code sharing policies actually require, the
+  split between disclosure and verification (and why accounting sits on
+  the wrong side of it), the Social Science Data Editors' README
+  template, how licensed WRDS data is handled, and which artifacts the
+  templates generate for you.
 - **[SAS macros and `batch_run_sas`](../sas-example/)** — `MACROS.sas`,
   a working SAS script (`002-merge-fdp-data.sas` from the consensus repo),
   and a walkthrough of using `%load_env` + `batch_run_sas()` for

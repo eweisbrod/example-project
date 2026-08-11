@@ -583,6 +583,63 @@ idea: two research states are identical exactly when their hashes match,
 so ``did anything change?'' becomes a checkable question rather than a
 feeling.
 
+\subsection{Community standards and the limits of automation}
+
+The artifacts in Table~\ref{tab:policies} are what journals demand.
+Alongside them sits something journals have instead built for
+themselves: a shared community standard for how a replication package
+should be documented. The Social Science Data Editors' template README
+\citep{vilhuber2022readme} is maintained by the data editors of the
+American Economic Association, the \textit{Review of Economic Studies},
+the \textit{Economic Journal}, and the \textit{Canadian Journal of
+Economics}, and has been adopted well beyond that list---the
+\textit{Review of Financial Studies} requires it. It asks a package to
+document its data provenance and redistribution rights, its
+computational requirements down to package versions and random seeds,
+its programs, the steps a replicator should follow, and a table mapping
+every exhibit in the manuscript to the program that produces it.
+
+No accounting journal uses the template. That absence is the same
+asymmetry Table~\ref{tab:policies} shows from the other direction:
+accounting asks more of individual authors than economics does while
+building less shared infrastructure for them to use. Students in the
+field are nonetheless likely to meet the standard---through a coauthor
+in finance, or the first time they submit outside accounting---so the
+materials teach it rather than treating it as someone else's convention.
+
+The templates therefore ship a skeleton README in that format, with the
+sections the pipeline can answer already filled in: the WRDS sources and
+their redistribution status, the five steps, the pinned Python
+environment, and the declaration that the analysis uses no random number
+generation. What remains marked for the author is what the pipeline
+genuinely cannot know---wall-clock runtime, software versions on the
+author's machine, and the download dates of the licensed extracts, which
+matter because WRDS data are restated over time and a rerun years later
+will not return the same raw extract.
+
+One element of that standard turns out to be a useful teaching
+instrument precisely because it cannot be fully automated. The template
+asks for a list mapping each table and figure to the program that
+generates it. The provenance step can discover most of it: it enumerates
+the output directory and searches the source for each filename. It
+cannot supply the exhibit numbers, because numbering happens in the
+manuscript rather than in the pipeline. The step therefore emits a
+partially completed table and leaves a column blank for the author,
+preserving those entries across subsequent runs.
+
+Students find this boundary clarifying. It marks the exact seam between
+what a reproducible pipeline can guarantee and what remains an authorial
+act, and it makes concrete a point that is otherwise abstract: automation
+establishes that results follow from code, but a human still has to say
+which result is which. Two by-products reinforce the lesson. An output
+file that no script mentions is almost always a stale artifact from
+deleted code, and the mapping surfaces it before it ships. A file
+mentioned by several scripts prompts the author to check whether one
+writes it and another merely consumes it---in the shipped pipeline, two
+figures are written by the figures step and then embedded into a Word
+document by the tables step. Neither observation is available to someone
+who has never had to write the mapping down.
+
 \section{Learning objectives and instructional design}
 \label{sec:design}
 
@@ -611,6 +668,10 @@ language, learners should be able to:
   \item Produce the artifact set required by journals' data and code
   sharing policies: per-script execution logs, sample-identifier files,
   and file-hash inventories.
+  \item Assemble a replication package documented to the community
+  standard used by data editors in economics and finance, including the
+  table mapping each exhibit in the manuscript to the program that
+  produces it.
   \item Apply analogous conventions in SAS where a project requires it,
   using the reference macro library in the hub.
 \end{itemize}
