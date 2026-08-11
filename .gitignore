@@ -69,5 +69,16 @@ vignettes/*.pdf
 
 # the output folder
 /out/*
+# LaTeX build artifacts (scoped to paper/ so example logs elsewhere survive)
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+
 # macOS
 .DS_Store

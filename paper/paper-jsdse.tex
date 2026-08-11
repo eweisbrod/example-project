@@ -1,0 +1,672 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Manuscript targeted at the Journal of Statistics and Data Science Education
+% (JSDSE; American Statistical Association / Taylor & Francis).
+%
+% SUBMISSION NOTES
+% ----------------
+% * JSDSE uses DOUBLE-ANONYMOUS peer review (confirmed via the journal's
+%   DOAJ record). The \anon switch below controls whether the manuscript
+%   renders in anonymized (review) or identified (final) form. Compile with
+%   \anontrue for anything you upload to ScholarOne for review.
+% * Submission is through ScholarOne: https://mc.manuscriptcentral.com/ujse
+% * Taylor & Francis operates format-free submission for most titles, so a
+%   clean, consistently-cited, double-spaced manuscript in the standard
+%   article class (as here) is acceptable at initial submission. The
+%   official T&F class is only needed if the editors request formatting at
+%   revision or acceptance.
+% * TO SWITCH TO THE OFFICIAL T&F CLASS LATER: replace the \documentclass
+%   line below with \documentclass[largeformat]{interact} and switch the
+%   bibliography style to the T&F author-year style shipped with the
+%   template. NOTE: interact.cls is NOT on CTAN and is not part of TeX
+%   Live -- it must be downloaded from Taylor & Francis Author Services, or
+%   obtained by opening the "Taylor & Francis (Interact layout + APA
+%   reference style)" template on Overleaf.
+% * This is NOT based on overleaf-template/main.tex: that template is built
+%   for accounting and finance journals (12pt double-spaced article,
+%   biblatex-chicago, hypothesis environments) and its house style does not
+%   match ASA/T&F conventions.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ANONYMIZATION SWITCH
+% \anontrue  -> double-anonymous review version (author, institution,
+%               repository URLs, DOI, and acknowledgements masked)
+% \anonfalse -> identified version (for the accepted/published manuscript,
+%               for a preprint, or for your own records)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifanon
+\anontrue
+
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}      % Type 1 outline fonts (avoids bitmap-font PDFs)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[round,authoryear]{natbib}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\bibliographystyle{apalike}
+
+\doublespacing
+\setlength{\parindent}{0.5in}
+
+% Masked stand-ins used only in the anonymized build.
+\ifanon
+  \newcommand{\hubsite}{[hub site URL omitted for anonymous review]}
+  \newcommand{\pipelinerepo}{[pipeline template URL omitted for anonymous review]}
+  \newcommand{\manuscriptrepo}{[manuscript template URL omitted for anonymous review]}
+  \newcommand{\institution}{a large public research university in the United States}
+\else
+  \newcommand{\hubsite}{\url{https://eweisbrod.github.io/example-project/}}
+  \newcommand{\pipelinerepo}{\url{https://github.com/eweisbrod/project-template}}
+  \newcommand{\manuscriptrepo}{\url{https://github.com/eweisbrod/overleaf-template}}
+  \newcommand{\institution}{the University of Kansas}
+\fi
+
+\title{\bfseries Teaching Reproducible Empirical Research Workflows in
+Accounting and Finance: An Open-Source Template Suite}
+
+\ifanon
+  \author{}
+  \date{}
+\else
+  \author{Eric H. Weisbrod\thanks{School of Business, University of Kansas.
+  Email: \href{mailto:eric.weisbrod@ku.edu}{eric.weisbrod@ku.edu}.
+  ORCID: 0000-0002-8814-250X.}}
+  \date{August 2026}
+\fi
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+Doctoral students in accounting and finance are increasingly expected to
+produce research that satisfies formal data and code sharing policies at
+the field's major journals, yet few doctoral programs offer formal
+training in the end-to-end research workflow those policies presuppose.
+This article describes an open-source suite of teaching materials and
+repository templates for reproducible empirical research, developed for
+and refined through doctoral teaching. The materials implement a complete
+five-step research pipeline---licensed-database download, data
+transformation, figures, analysis tables, and provenance
+reporting---in parallel R, Python, and Stata implementations, and produce
+the artifact set required by modern journal policies (execution logs,
+sample-identifier files, and content-addressed file inventories) as a
+by-product of running the pipeline. We describe the instructional design
+of the materials, their use in a doctoral seminar, and the distinctive
+pedagogical constraints of teaching reproducibility in a field whose raw
+data are licensed and cannot be redistributed. The materials are freely
+available under a Creative Commons Attribution license and are designed
+for adoption by instructors in business schools and adjacent
+observational-data disciplines.
+
+\vspace{1em}
+\noindent\textbf{Keywords:} reproducibility; research workflow; version
+control; doctoral education; licensed data; multi-language instruction
+\end{abstract}
+
+\newpage
+
+\section{Introduction}
+
+The statistics and data science education community has argued for more
+than a decade that computing workflow deserves explicit instructional
+attention rather than being left for students to absorb implicitly
+\citep{nolan2010computing, cetinkayarundel2018infrastructure}. More
+recently, reproducibility and ``responsible workflow'' have been advanced
+as core curricular outcomes in their own right
+\citep{horton2022growing}, with concrete proposals for teaching version
+control \citep{bryan2018version, beckman2021git} and for making teaching
+materials themselves reproducible \citep{dogucu2022reproducible}. This
+journal has also formalized its own expectations for authors to share
+deidentified data and code \citep{horton2024editorial}.
+
+This article extends that agenda to an audience the education literature
+rarely reaches: doctoral students and early-career researchers in
+accounting and finance. Empirical research in these fields sits on a
+workflow stack that will look familiar to statistics educators---database
+access, data wrangling, statistical modeling, and publication-grade table
+and figure production---but with three distinctive features that shape
+how reproducible workflow must be taught.
+
+First, the raw data are almost universally licensed. The standard
+academic data provider, Wharton Research Data Services (WRDS), licenses
+commercial databases (Compustat, CRSP, IBES) whose contents cannot
+legally be redistributed, so the canonical reproducibility
+advice---publish the data alongside the code
+\citep{peng2011reproducible}---does not directly apply. Second, the field
+is genuinely multi-language: research teams routinely mix SAS, Stata, R,
+and Python within a single project, often splitting data preparation and
+analysis across languages. Third, and most consequentially for students,
+the field's journals have begun to formalize data and code sharing
+policies modeled on norms in economics
+\citep{christensen2018transparency}. The \textit{Journal of Accounting
+Research}, for example, now requires submitting authors to provide the
+code that produces the analytical dataset and all reported tables and
+figures from raw inputs, a comprehensive log file documenting end-to-end
+execution, and identifiers of the observations comprising the final
+sample \citep{JARpolicy}. Comparable requirements have been adopted at
+several other major journals in the field.
+
+These policies create an authentic, high-stakes motivation for workflow
+instruction: a doctoral student who cannot package a research pipeline to
+policy standard cannot publish in the field's top journals. Yet surveys
+of the accounting research community suggest that reproducibility
+practices and training lag the field's stated aspirations
+\citep{hail2020reproducibility}, and formal workflow training remains
+uncommon in business doctoral programs. Most students arrive with no
+software development background and assemble their workflow habits by
+imitation---inheriting scripts, conventions, and bad habits from advisors
+and coauthors.
+
+The materials described here address this gap with a suite of
+open-source teaching resources and repository templates that let a
+student stand up a complete, policy-compliant empirical project and learn
+the workflow conventions by working inside it. The suite takes the
+position that workflow is best taught through a full-scale worked example
+rather than through isolated exercises: students clone a working
+five-step pipeline built on a real research design---a quarterly
+earnings-announcement event study in the tradition of
+\citet{ballbrown1968}---run it end to end against WRDS, and then extend
+it. The materials were developed for, and have been refined through,
+doctoral teaching at \institution.
+
+The remainder of the article proceeds as follows. Section~\ref{sec:bg}
+situates the materials in the reproducibility-education literature and
+the disciplinary context. Section~\ref{sec:materials} describes the
+architecture and content of the materials. Section~\ref{sec:design}
+presents the learning objectives and the instructional design decisions
+behind them. Section~\ref{sec:classroom} describes classroom use.
+Section~\ref{sec:discussion} discusses adoptability, the pedagogy of
+reproducibility under licensed data, and limitations.
+
+\section{Background}
+\label{sec:bg}
+
+\subsection{Reproducibility and workflow in the education literature}
+
+The case for teaching computing workflow explicitly, rather than assuming
+students will acquire it osmotically, was made forcefully by
+\citet{nolan2010computing}, who argued that computing is a core
+statistical science competency rather than a service skill.
+\citet{cetinkayarundel2018infrastructure} describe infrastructure for
+integrating computing throughout a statistics curriculum, and
+\citet{bryan2018version} and \citet{beckman2021git} make the specific
+case for version control with Git and GitHub as a learning objective,
+including concrete course designs at multiple levels.
+\citet{dogucu2022reproducible} extend the argument from research to
+teaching itself, recommending tools and practices for reproducible course
+materials. The editorial position of this journal has described
+reproducibility and responsible workflow as of ``growing importance''
+across the data science and statistics curriculum
+\citep{horton2022growing}. In parallel, the scientific computing
+community has converged on pragmatic workflow guidance for researchers
+who are not software engineers, most notably the ``good enough
+practices'' of \citet{wilson2017good}: organize projects predictably,
+script everything, separate raw from derived data, and put manual steps
+under version control.
+
+The materials described here operationalize that guidance for a specific
+disciplinary audience. What they add to the existing literature is not
+new workflow principles but a complete, domain-authentic implementation:
+the gap between ``use version control and script your pipeline'' and a
+working, policy-compliant empirical accounting project is large, and the
+materials are designed to close it.
+
+\subsection{The disciplinary context}
+
+Two features of the accounting and finance research environment deserve
+elaboration for readers outside these fields.
+
+\paragraph{Journal artifact requirements.}
+The field's flagship journals increasingly require a specific artifact
+set at submission or acceptance. The \textit{Journal of Accounting
+Research} policy \citep{JARpolicy} is representative and concrete: (1)
+code that produces the analytical dataset, tables, and figures from raw
+inputs; (2) a comprehensive log file documenting end-to-end execution;
+and (3) identifiers of the observations in the final sample. The logic of
+the policy reflects the licensed-data reality: because authors cannot
+deposit Compustat or CRSP extracts, verifiability rests on the code, the
+logs, and the sample identifiers, which allow any researcher with a WRDS
+license to reconstruct the sample and reproduce the results. This
+artifact set effectively defines a set of terminal workflow competencies
+for doctoral students, and the materials described here are
+backward-designed from it.
+
+\paragraph{Multi-language practice.}
+Legacy code in the field is predominantly SAS; Stata remains standard for
+econometric estimation in many groups; R and Python adoption is growing
+rapidly. A student entering a coauthored project has little control over
+the language mix and benefits from structural
+conventions---project layout, configuration, logging---that transcend any
+one language. Recent field-specific pedagogical resources, notably
+\citet{gow2024empirical}, teach empirical accounting research in R; the
+materials here are complementary, focusing on the surrounding workflow
+and deliberately spanning languages.
+
+\section{The materials}
+\label{sec:materials}
+
+\subsection{Architecture: a hub and two templates}
+
+The materials are organized as three public repositories that together
+cover the workflow from raw database access to publication-grade
+manuscript production:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{The teaching hub} (\hubsite) contains the introductory
+  landing content and seven chapter-length topic notes covering project
+  structure, Git and GitHub for research, integrated development
+  environment (IDE) setup, Python virtual environments, environment
+  variables and configuration, AI-assistant integration, and a SAS macro
+  reference for projects that retain SAS code.
+
+  \item \textbf{The pipeline template} (\pipelinerepo) is a repository
+  template implementing the five-step empirical pipeline with parallel
+  implementations in R \citep{RCoreTeam} and Python, plus a Stata
+  \citep{Stata} implementation of the analysis-and-tables step. At first
+  run, a setup script prompts the user to select a language combination
+  (full R, full Python, or mixed combinations including Stata) and prunes
+  the unused files, so each student works in a clean single- or
+  dual-language project rather than a cluttered polyglot one.
+
+  \item \textbf{The manuscript template} (\manuscriptrepo) is a
+  \LaTeX{} template designed to consume the table and figure outputs of
+  the pipeline template, configured for real-time multi-author editing
+  through a cloud \LaTeX{} platform, and demonstrating author-year
+  citation handling, hypothesis-numbering conventions, and a section
+  structure suitable for the field's journals.
+\end{itemize}
+
+The templates use the host platform's ``use this template'' workflow
+rather than forking, so each student's project starts with a clean
+history and no upstream link---mirroring how the template is meant to be
+used for real research projects. All materials are released under the
+Creative Commons Attribution 4.0 International (CC-BY-4.0) license, and
+the hub is archived with a citable DOI.
+
+\subsection{The running example and the five-step pipeline}
+
+The running example throughout the materials is a quarterly
+earnings-announcement event study: three-day buy-and-hold abnormal
+returns around earnings announcements are regressed on unexpected
+earnings interacted with a same-sign indicator on the seasonal change in
+sales. The design descends from the foundational information-content
+literature \citep{ballbrown1968}, so doctoral students in accounting and
+finance recognize it immediately as ``real'' research rather than a toy;
+at the same time it is compact enough to run end to end in minutes. The
+example requires merging the two most important databases in the field
+(Compustat fundamentals and CRSP security prices) through the
+CRSP/Compustat linking table---a join that nearly every empirical project
+in the field performs and nearly every student initially gets wrong.
+
+The pipeline is organized as five numbered steps
+(Table~\ref{tab:pipeline}), a structure that encodes several of the ``good
+enough practices'' of \citet{wilson2017good} directly into the project
+skeleton: raw and derived data are separated, every transformation is
+scripted, and step numbers communicate execution order. The hub's topic
+chapters (Table~\ref{tab:chapters}) cover the surrounding infrastructure
+that the pipeline assumes.
+
+\begin{table}[htbp]
+\centering
+\caption{Topic chapters in the teaching hub.}
+\label{tab:chapters}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Chapter} & \textbf{Content} \\
+\midrule
+Project structure & Storage locations (repository host, local clone,
+cloud sync, manuscript platform); separation of code, data, and
+manuscript; folder layout and file-naming conventions. \\
+Git and GitHub & Version-control workflow for research; commit, branch,
+and tag conventions; ignore-file essentials; collaboration via pull
+requests. \\
+Setting up your IDE & Editor selection across RStudio, VS Code, Cursor,
+and Positron; per-IDE configuration; AI-assistant integration. \\
+Python virtual environments & Why Python requires environment isolation
+while R, Stata, and SAS typically do not; the \texttt{uv} tool for
+environment and dependency management. \\
+Environment variables & Project-level configuration through a
+\texttt{.env} file shared across R, Python, Stata, and SAS. \\
+AI assistant context files & Conventions for providing project context to
+AI coding assistants. \\
+SAS macros & A reference macro library and a working example script
+demonstrating integration with the templates' logging conventions. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Pipeline steps in the template, with language coverage.}
+\label{tab:pipeline}
+\small
+\begin{tabularx}{\textwidth}{@{}lXl@{}}
+\toprule
+\textbf{Step} & \textbf{Content} & \textbf{Languages} \\
+\midrule
+001 Download data & Pulls Compustat fundamentals, CRSP returns, and
+linking tables from WRDS; streams large tables via server-side cursors to
+bounded-memory parquet files. & R, Python \\
+002 Transform data & Constructs analytical variables, applies sample
+filters, and computes event-window buy-and-hold abnormal returns. & R,
+Python \\
+003 Figures & Produces five publication-grade figures via
+\texttt{ggplot2} \citep{ggplot2} in R and \texttt{plotnine}
+\citep{plotnine} in Python. & R, Python \\
+004 Analyze data & Produces a sample-selection table, descriptive
+statistics, a correlation matrix, and a main regression table with fixed
+effects, exported as \LaTeX{}, Word, and RTF. & R, Python, Stata \\
+005 Data provenance & Exports the sample-identifier file in Parquet and
+CSV; computes SHA256 hashes for every raw, derived, and output file. & R,
+Python \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+An orchestrator script chains the steps via a \texttt{batch\_run()}
+helper that spawns each script in a fresh child process and writes a
+uniform plain-text log per script. Running each step in a fresh process
+is itself a teaching point: it guarantees that no step depends on state
+left in memory by an earlier one, a failure mode that interactive
+notebook- and console-centered work habits make chronically likely. When
+the user has selected a Stata-inclusive language combination, the
+orchestrator additionally invokes the Stata analysis script through a
+helper that produces a log of the same shape, so the artifact set is
+uniform regardless of language mix.
+
+\subsection{Polyglot design and cross-language consistency}
+
+The template's most unusual design decision is shipping parallel
+implementations of every step in multiple languages. Each numbered step
+exists as a matched pair of R and Python scripts (with Stata additionally
+covering the analysis step), written to be structurally parallel: the
+same step boundaries, the same intermediate files, the same variable
+names, and the same outputs.
+
+This design serves three pedagogical purposes. First, it removes the
+language-choice barrier to adoption: a student or instructor can work
+entirely in their incumbent language while gaining the workflow
+conventions, rather than facing a bundled language conversion on top of a
+workflow conversion. Second, the matched scripts function as a Rosetta
+stone. A student who knows Stata can read the R implementation of a
+regression they already understand---\texttt{reghdfe} with
+\texttt{estout} \citep{reghdfe, estout} beside \texttt{fixest} with
+\texttt{modelsummary} \citep{fixest, modelsummary} beside
+\texttt{pyfixest} \citep{pyfixest}---and transfer their conceptual model
+across syntax. In our experience this is among the fastest ways for a
+student to acquire a second research language.
+
+Third, and most subtly, the parallel implementations teach a verification
+habit. The templates demonstrate that the same regression produces the
+same coefficients, standard errors, and sample counts in all three
+languages, and the materials treat any cross-language discrepancy in
+observation counts as a bug to be traced rather than noise to be
+tolerated. Students internalize sample-count reconciliation as a routine
+check---a professionally important habit in a field where subtle join and
+filter differences across implementations are a common source of
+irreproducibility.
+
+The data layer supports the polyglot design: intermediate datasets are
+stored as parquet files, which R, Python, and (via export) Stata read
+identically, avoiding the lossy CSV round-trips that otherwise accumulate
+at language boundaries.
+
+\subsection{Journal-policy artifacts as a by-product}
+
+A central design principle is that policy compliance should fall out of
+running the pipeline rather than being a separate documentation chore
+performed at submission time---the point at which, in practice, it is
+hardest to reconstruct. Each element of the \textit{Journal of Accounting
+Research} artifact triad \citep{JARpolicy} maps to a mechanism in the
+template:
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Code from raw inputs.} The numbered pipeline \emph{is}
+  the required code; because step 001 downloads directly from WRDS, the
+  pipeline's raw inputs are the licensed databases themselves and the
+  reproduction chain has no undocumented head.
+  \item \textbf{Execution logs.} The orchestration layer writes one
+  uniform plain-text log per script, in the same format across R, Python,
+  and Stata, capturing the end-to-end execution record the policy
+  requires.
+  \item \textbf{Sample identifiers.} Step 005 exports the identifying
+  keys (firm and period identifiers) of every observation in the final
+  regression sample, in both Parquet and CSV.
+\end{enumerate}
+
+Step 005 additionally computes a SHA256 hash inventory of every raw,
+derived, and output file. The hash inventory goes beyond current policy
+requirements and gives students a concrete grip on an otherwise abstract
+idea: two research states are identical exactly when their hashes match,
+so ``did anything change?'' becomes a checkable question rather than a
+feeling.
+
+\section{Learning objectives and instructional design}
+\label{sec:design}
+
+After working through the hub and completing the pipeline in at least one
+language, learners should be able to:
+
+\begin{itemize}[leftmargin=*]
+  \item Structure an empirical research project across a version-control
+  repository, a local working clone, a cloud-synchronized data directory,
+  and a \LaTeX{} collaboration platform, with code, data, and manuscript
+  artifacts cleanly separated.
+  \item Use Git and GitHub for everyday research workflows: committing
+  meaningful changes, branching for alternative specifications, tagging
+  paper versions for journal submissions, and collaborating with
+  coauthors via pull requests.
+  \item Configure a reproducible development environment, including
+  project-level configuration via a \texttt{.env} file, Python
+  environments via \texttt{uv} \citep{uv}, and operating-system keyring
+  storage of database credentials.
+  \item Implement a five-step empirical pipeline---licensed-database
+  download, transformation, figures, analysis tables, and provenance
+  reporting---in R, Python, Stata, or a working combination.
+  \item Produce publication-grade tables in \LaTeX{}, Word, and RTF
+  formats from the same analysis code, and integrate the \LaTeX{} outputs
+  into a journal-ready manuscript.
+  \item Produce the artifact set required by journals' data and code
+  sharing policies: per-script execution logs, sample-identifier files,
+  and file-hash inventories.
+  \item Apply analogous conventions in SAS where a project requires it,
+  using the reference macro library in the hub.
+\end{itemize}
+
+Several instructional design decisions deserve comment because they
+depart from common practice in workflow teaching.
+
+\paragraph{Backward design from the journal artifact set.}
+Rather than teaching reproducibility as a general virtue and hoping
+students map it onto their field's requirements, the materials treat the
+journal policy artifacts as the terminal assessment and derive the
+curriculum from them. This choice exploits an unusually clean alignment
+available in this field: the professional gatekeeping mechanism (journal
+policy) already specifies concrete, checkable outputs, which gives
+workflow instruction the kind of authentic assessment target that the
+education literature generally has to construct artificially.
+
+\paragraph{Scripts and IDEs rather than notebooks.}
+The materials deliberately center scripted pipelines run from an IDE
+rather than notebooks, because the terminal artifact---a
+policy-compliant, batch-executable research pipeline---is what students
+must ultimately produce, and because fresh-process batch execution
+surfaces the hidden-state errors that interactive work styles conceal.
+The IDE chapter treats editor choice as a configuration decision rather
+than an identity, reflecting the multi-language design.
+
+\paragraph{Explicit treatment of configuration and secrets.}
+Hardcoded absolute paths and database passwords in scripts are the two
+most common workflow defects in student (and faculty) research code. The
+materials confront both directly: every script resolves data locations
+through a project-level \texttt{.env} file read identically by all four
+languages, and WRDS credentials live in the operating-system keyring,
+never in code. These conventions also make the difference between ``runs
+on my machine'' and ``runs on my coauthor's machine'' concrete on day
+one.
+
+\paragraph{AI assistants as a first-class workflow topic.}
+Each repository carries a context file documenting project conventions
+for AI coding assistants, and the hub includes a chapter on the emerging
+cross-tool standard for such files. Doctoral students are already using
+AI assistants for research code; the materials take the position that
+assistant-readable project documentation is now part of a reproducible
+project's infrastructure, and that the discipline of writing down project
+conventions benefits human collaborators regardless.
+
+\section{Classroom use}
+\label{sec:classroom}
+
+The materials were developed for, and have been iteratively refined
+through, doctoral teaching in the accounting program at \institution,
+where earlier versions were used in a PhD seminar on empirical research
+methods.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AUTHOR TO COMPLETE: number of semesters and course numbers, approximate
+% student counts, and any student feedback you are comfortable
+% characterizing. Reviewers at an education journal will look for this.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{[AUTHOR: semesters taught, course numbers, approximate
+enrollment, and characterization of student feedback.]}
+Many of the underlying examples and conventions were first developed in
+published empirical work in the field
+\citep{weisbrod2019stockholders, bochkay2022roles, larocqueconsensus},
+and the public companion repository for \citet{larocqueconsensus} is
+referenced throughout the hub as a real-world, full-scale instance of the
+conventions the templates teach in miniature.
+
+The recommended course sequence assigns the hub's topic chapters as
+preparatory reading, then has each student create a personal repository
+from the pipeline template, select a language combination at setup, and
+run the pipeline end to end against WRDS. Because step 001 downloads
+directly from WRDS, students must have institutional WRDS
+credentials---standard at research universities in business
+fields---and the first class session doubles as a credential and
+environment setup clinic. A capstone exercise extends the pipeline with
+an alternative specification developed on a Git branch and produces a
+journal-style manuscript draft from the students' own table and figure
+outputs using the manuscript template.
+
+The materials also support two lighter-weight adoption modes observed in
+practice: independent doctoral study, in which a student works through
+the hub and template alone as preparation for a first research project;
+and lab-onboarding use, in which an advisor points incoming coauthors at
+specific topic chapters (most commonly the Git and project-structure
+chapters) as shared vocabulary for collaboration conventions.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Adoptability beyond accounting and finance}
+
+Although the running example and the journal-policy framing are specific
+to accounting and finance, most of the materials transfer directly to
+adjacent observational-data fields---economics, political science,
+empirical legal studies---where the same stack (licensed or restricted
+administrative data, multi-language teams, code-and-log based
+verification) increasingly prevails. An instructor outside business
+fields would need to replace the WRDS download step with their field's
+data source and would likely retarget the journal-policy discussion at
+their own field's replication norms
+\citep{christensen2018transparency}. The topic chapters (project
+structure, Git, IDEs, environments, configuration) are field-agnostic as
+written. The CC-BY-4.0 license permits adaptation and redistribution with
+attribution, and the template mechanism means adopting instructors can
+maintain institution-specific variants without forking histories.
+
+\subsection{Teaching reproducibility when the data cannot be shared}
+
+The materials offer the statistics and data science education community a
+worked example of a problem it has largely set aside: what reproducibility
+instruction looks like when the data are licensed and cannot be
+published. The literature's canonical practices---publish the data with
+the analysis, make the repository self-contained, let anyone press
+``run'' \citep{peng2011reproducible, dogucu2022reproducible}---assume
+shareable data, and even guidance aimed at sensitive data addresses
+material that can be deidentified and then released
+\citep{horton2024editorial}. Commercially licensed data admit neither
+remedy: the vendor's contents cannot be deidentified into shareability.
+
+Under licensed data, verifiability must instead rest on a deterministic
+pipeline anchored at the licensed source, execution logs, sample
+identifiers, and content addressing; that is, on \emph{evidence about the
+computation} rather than the ability of arbitrary readers to re-execute
+it. This artifact-based model of reproducibility is not a second-best
+workaround but the institutionalized standard in a major research field,
+and teaching it requires its own materials. Instructors whose students
+will work with restricted data---health records, administrative
+microdata, commercial licenses---may find the pattern, and the concrete
+artifact set, directly reusable.
+
+\subsection{Limitations and future development}
+
+The materials have known limitations. First, systematic evidence of
+learning outcomes is limited to instructor observation and student
+feedback; the classroom claims here are an experience report rather than
+an efficacy study. Second, the pipeline demonstrates a single research
+design; students whose first project departs far from an archival event
+study must adapt more of the skeleton themselves, although the workflow
+layer is design-agnostic. Third, the SAS support is deliberately a
+reference macro library rather than a fourth parallel pipeline,
+reflecting the language's declining share of new projects but continuing
+presence in legacy code. Planned development includes additional worked
+designs and expanded topic chapters; because the hub is versioned and
+archived with a concept DOI, adopters can pin or track versions as they
+prefer.
+
+\section{Conclusion}
+
+The suite described here packages the workflow layer of empirical
+accounting and finance research---project structure, version control,
+environments and configuration, a scripted multi-language pipeline, and
+journal-policy artifact production---into an open, adoptable teaching
+resource built around an authentic research design. It extends the
+statistics and data science education community's reproducibility agenda
+into business doctoral education, and contributes back a worked model of
+reproducibility instruction under licensed data.
+
+\ifanon
+\else
+\section*{Acknowledgements}
+
+The author thanks doctoral students and colleagues who have used and
+provided feedback on earlier versions of these materials.
+\fi
+
+\section*{Data availability statement}
+
+No original data were collected for this article. The teaching materials
+are openly available under a CC-BY-4.0 license
+\ifanon
+at repositories whose URLs are withheld for anonymous review and will be
+supplied to the editors on request; the hub is archived with a citable
+concept DOI.
+\else
+at \hubsite, with companion templates at \pipelinerepo{} and
+\manuscriptrepo. The hub is archived at Zenodo under concept DOI
+\href{https://doi.org/10.5281/zenodo.20499216}{10.5281/zenodo.20499216}.
+\fi
+The running example uses licensed data from Wharton Research Data
+Services (WRDS), available to researchers at subscribing institutions.
+
+\section*{Disclosure statement}
+
+The author reports no conflict of interest.
+
+\newpage
+\bibliography{paper}
+
+\end{document}
