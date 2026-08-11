@@ -243,6 +243,121 @@ artifact set effectively defines a set of terminal workflow competencies
 for doctoral students, and the materials described here are
 backward-designed from it.
 
+These requirements are neither isolated nor static.
+Table~\ref{tab:policies} codes the current policies of seventeen leading
+accounting, finance, and economics journals against the eight
+requirements that distinguish them, following the coding scheme of
+\citet{barrios2026mandated}. Three features of the landscape motivate the
+instructional design that follows.
+
+First, mandatory sharing is now the majority position at the top of the
+field. All five of the leading finance journals and all six of the
+economics and general-management journals in Panel C require data or code
+as a condition of publication, as do three of the six accounting
+journals. Across the fifty journals of the Financial Times research list,
+we count twenty-four with mandatory data or code sharing requirements,
+twenty that encourage sharing without requiring it, and four with no
+identifiable policy; the remaining two are practitioner outlets to which
+the question does not apply. A doctoral student today is training for a
+market in which policy compliance is the norm rather than the exception.
+
+Second, the accounting requirements are the most demanding in the table
+on the author's side. The April 2024 revision of the \textit{Journal of
+Accounting Research} policy is the only one of the seventeen that
+requires all seven author-side artifacts---sample-construction code,
+analysis code, table-generating code, an execution log, a prohibition on
+manual data steps, sample identifiers, and a submission-stage disclosure
+document. This has a convenient pedagogical consequence, and it is the
+reason the templates target this particular artifact set: a project built
+to satisfy the strictest policy in the table satisfies every other policy
+in it. Students need learn only one standard.
+
+Third, and cutting the other way, the accounting journals are the only
+group in the table with no verification of any kind. Every economics
+journal except the \textit{Quarterly Journal of Economics} re-executes
+replication packages before publication, and finance is moving the same
+way, most thoroughly at the \textit{Review of Financial Studies}, whose
+data editors run author code in a controlled environment and issue a
+verification report. No accounting journal in Panel A employs a data
+editor or re-runs any code; compliance is self-certified throughout. The
+practical implication for instruction is direct: in accounting, nothing
+external will catch a broken pipeline, so the discipline has to be the
+author's own. This is the argument for teaching verification habits---the
+cross-language reconciliation described in
+Section~\ref{sec:materials}---as workflow rather than as etiquette.
+
+\begin{table}[htbp]
+\centering
+\caption{Data and code sharing requirements at leading accounting,
+finance, and economics journals.}
+\label{tab:policies}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llcccccccc@{}}
+\toprule
+ & Effective & \multicolumn{7}{c}{Author-side artifacts required} & Jrnl. \\
+\cmidrule(lr){3-9}
+Journal & date & (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
+\midrule
+\multicolumn{10}{@{}l}{\textit{Panel A: Accounting}} \\
+Journal of Accounting Research      & 2015/2024 & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ & $\bullet$ &  \\
+The Accounting Review               & 2026      & $\bullet$ & $\bullet$ & ?         &           &           &           &           &  \\
+Contemporary Accounting Research    & 2020      & $\bullet$ &           &           &           &           &           & $\bullet$ &  \\
+Journal of Accounting and Economics & ---       &           &           &           &           &           &           &           &  \\
+Review of Accounting Studies        & ---       &           &           &           &           &           &           &           &  \\
+Accounting, Organizations and Society & ---     &           &           &           &           &           &           &           &  \\
+\addlinespace
+\multicolumn{10}{@{}l}{\textit{Panel B: Finance}} \\
+The Journal of Finance              & 2016/2024 & $\bullet$ & $\bullet$ & ?         & $\bullet$ &           &           & $\bullet$ & $\bullet$ \\
+Journal of Financial Economics      & 2021      & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & ? \\
+Review of Financial Studies         & 2020/2025 & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\bullet$ \\
+Journal of Financial and Quant.\ Analysis & 2024 & $\bullet$ & $\bullet$ & ?        &           &           &           &           & ? \\
+Review of Finance                   & 2022      & ?         & $\bullet$ & ?         & ?         &           &           &           &  \\
+\addlinespace
+\multicolumn{10}{@{}l}{\textit{Panel C: Economics and general management}} \\
+American Economic Review            & 2019/2026 & $\bullet$ & $\bullet$ & $\bullet$ &           & $\bullet$ &           &           & $\bullet$ \\
+Econometrica                        & 2023      & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\bullet$ \\
+Journal of Political Economy        & 2025      & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\bullet$ \\
+Review of Economic Studies          & ---       & $\bullet$ & $\bullet$ & $\bullet$ &           &           &           &           & $\bullet$ \\
+Quarterly Journal of Economics      & ---       &           & $\bullet$ & ?         &           &           &           &           &  \\
+Management Science                  & 2019/2026 &           & $\bullet$ &           &           &           &           & $\bullet$ & $\bullet$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\begin{minipage}{\textwidth}
+\footnotesize
+\textit{Notes.} $\bullet$ = required; blank = not required; ? = policy
+text is ambiguous on this point. Columns: (1) code that constructs the
+analysis sample from raw data; (2) statistical analysis code; (3)
+table- and figure-generating code; (4) comprehensive execution log
+file; (5) explicit prohibition on manual data manipulation outside the
+code; (6) observation identifiers for the final sample; (7) a
+disclosure document required at submission rather than at acceptance;
+(8) journal verification, i.e.\ a data editor who re-executes or
+audits the package before publication. Columns (1)--(7) are author
+deliverables; column (8) is an action by the journal. The eight-item
+scheme follows \citet{barrios2026mandated}. Where two effective dates
+are shown, the first is the original policy and the second the current
+revision; ``---'' indicates a journal with no mandatory policy, or one
+that publishes no effective date. Policies were read from each
+journal's own policy document or author guidelines in August 2026.
+Three entries warrant caution. \textit{The Accounting Review}'s
+requirement took effect for manuscripts conditionally accepted on or
+after 1 July 2026 \citep{AAApolicy}, so no evidence yet exists on how
+it is administered; column (3) is ambiguous because the policy requires
+``all computer code used to produce the results'' without naming table
+generation. \textit{Management Science} revised its policy in April
+2026, and the current text makes sample-construction code optional for
+licensed data such as Compustat, CRSP, and WRDS---a carry-over of
+pre-2019 American Economic Association language; \citet{barrios2026mandated}
+describe the 2019 version as more demanding, and the two accounts cannot
+be reconciled without the superseded text. The \textit{Review of
+Finance} row is coded from the publisher's reproduction of the policy,
+the journal's own site being unreachable.
+\end{minipage}
+\end{table}
+
 \paragraph{Multi-language practice.}
 Legacy code in the field is predominantly SAS; Stata remains standard for
 econometric estimation in many groups; R and Python adoption is growing
